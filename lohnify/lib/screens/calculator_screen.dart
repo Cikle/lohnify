@@ -5,6 +5,7 @@ import '../models/salary_calculation.dart';
 import '../services/language_service.dart'; // Import the LanguageService
 import 'results_screen.dart'; // Import the ResultsScreen
 import 'package:shared_preferences/shared_preferences.dart'; // Import SharedPreferences
+import 'dart:convert'; // Import dart:convert for json encoding
 
 class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({super.key});
@@ -29,6 +30,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   bool _hasChurchTax = false;
   String _selectedCanton = 'ZH';
   bool _has13thSalary = true;
+  bool _isEmployerView = false; // Define _isEmployerView
 
   void _calculateSalary() {
     if (_formKey.currentState?.validate() ?? false) {
@@ -319,13 +321,15 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    LanguageService.tr(context, 'calculationSaved'),
+                                    LanguageService.tr(
+                                        context, 'calculationSaved'),
                                   ),
                                 ),
                               );
                             },
                       icon: const Icon(Icons.save),
-                      label: Text(LanguageService.tr(context, 'saveCalculation')),
+                      label:
+                          Text(LanguageService.tr(context, 'saveCalculation')),
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -345,7 +349,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         );
                       },
                       icon: const Icon(Icons.delete),
-                      label: Text(LanguageService.tr(context, 'resetCalculator')),
+                      label:
+                          Text(LanguageService.tr(context, 'resetCalculator')),
                     ),
                   ),
                 ],
@@ -359,7 +364,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
 
   Future<void> _saveCalculation() async {
     if (_calculation == null) return;
-    
+
     final calculations = _prefs.getStringList('saved_calculations') ?? [];
     final calculationData = {
       'date': DateTime.now().toIso8601String(),
@@ -368,7 +373,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
       'isEmployerView': _isEmployerView,
       'canton': _selectedCanton,
     };
-    
+
     calculations.add(json.encode(calculationData));
     await _prefs.setStringList('saved_calculations', calculations);
   }

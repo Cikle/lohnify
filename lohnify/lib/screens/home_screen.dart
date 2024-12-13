@@ -6,8 +6,15 @@ import 'settings_screen.dart';
 import 'info_screen.dart';
 import 'help_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  bool _isEmployerView = false;
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +43,13 @@ class HomeScreen extends StatelessWidget {
                     segments: [
                       ButtonSegment<bool>(
                         value: false,
-                        label: Text(LanguageService.tr(context, 'employeeView')),
+                        label:
+                            Text(LanguageService.tr(context, 'employeeView')),
                       ),
                       ButtonSegment<bool>(
                         value: true,
-                        label: Text(LanguageService.tr(context, 'employerView')),
+                        label:
+                            Text(LanguageService.tr(context, 'employerView')),
                       ),
                     ],
                     selected: {_isEmployerView},

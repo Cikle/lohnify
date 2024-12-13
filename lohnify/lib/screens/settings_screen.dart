@@ -18,7 +18,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   late SharedPreferences _prefs;
   bool _useCustomTaxRate = false;
   String _selectedCanton = 'ZH';
-  bool _isEmployerView = false;
   DateTime? _lastRatesUpdate;
   bool _isUpdating = false;
 
