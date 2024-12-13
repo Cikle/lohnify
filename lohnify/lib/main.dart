@@ -35,9 +35,6 @@ class LohnifyAppState extends State<LohnifyApp> {
       value: languageService,
       child: MaterialApp(
         locale: languageService.currentLocale,
-        builder: (context, child) {
-          return child!;
-        },
         title: 'Lohnify',
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,

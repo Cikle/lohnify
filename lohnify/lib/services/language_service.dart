@@ -4,7 +4,8 @@ import '../l10n/app_translations.dart';
 
 class LanguageService extends ChangeNotifier {
   static String tr(BuildContext context, String key) {
-    final languageCode = 'de'; // Default to German for now
+    final languageService = context.findAncestorStateOfType<LohnifyAppState>();
+    final languageCode = languageService?.languageService.currentLocale.languageCode ?? 'de';
     return AppTranslations.translate(key, languageCode);
   }
 
