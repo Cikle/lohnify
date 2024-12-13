@@ -47,7 +47,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Swiss Salary Calculator'),
+        title: Text(LanguageService.tr(context, 'calculator')),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -63,7 +63,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Grundangaben',
+                        LanguageService.tr(context, 'basicInfo'),
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -73,8 +73,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       TextFormField(
                         controller: _salaryController,
                         decoration: const InputDecoration(
-                          labelText: 'Bruttolohn (CHF)',
-                          hintText: 'Geben Sie Ihren Bruttolohn ein',
+                          labelText: LanguageService.tr(context, 'grossSalary'),
+                          hintText: LanguageService.tr(context, 'enterGrossSalary'),
                         ),
                         keyboardType: const TextInputType.numberWithOptions(decimal: true),
                         inputFormatters: [
@@ -82,10 +82,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         ],
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Bitte geben Sie einen Lohn ein';
+                            return LanguageService.tr(context, 'pleaseEnterSalary');
                           }
                           if (double.tryParse(value) == null) {
-                            return 'Bitte geben Sie eine gültige Zahl ein';
+                            return LanguageService.tr(context, 'pleaseEnterValidNumber');
                           }
                           return null;
                         },
@@ -94,7 +94,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       DropdownButtonFormField<String>(
                         value: _selectedCanton,
                         decoration: const InputDecoration(
-                          labelText: 'Kanton',
+                          labelText: LanguageService.tr(context, 'canton'),
                         ),
                         items: ContributionRates.defaultCantons.entries
                             .map((entry) => DropdownMenuItem(

@@ -7,7 +7,7 @@ class InfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Informationen'),
+        title: Text(LanguageService.tr(context, 'information')),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
@@ -19,7 +19,7 @@ class InfoScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Sozialversicherungen',
+                    LanguageService.tr(context, 'socialInsurance'),
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -27,10 +27,7 @@ class InfoScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'AHV: Alters- und Hinterlassenenversicherung\n'
-                    'IV: Invalidenversicherung\n'
-                    'EO: Erwerbsersatzordnung\n'
-                    'ALV: Arbeitslosenversicherung',
+                    LanguageService.tr(context, 'socialInsuranceInfo'),
                   ),
                 ],
               ),
