@@ -4,7 +4,7 @@ import '../services/language_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-class ResultsScreen extends StatefulWidget {
+class ResultsScreen extends StatelessWidget {
   final SalaryCalculation calculation;
   final bool has13thSalary;
 
@@ -13,12 +13,6 @@ class ResultsScreen extends StatefulWidget {
     required this.calculation,
     required this.has13thSalary,
   });
-
-  @override
-  State<ResultsScreen> createState() => _ResultsScreenState();
-}
-
-class _ResultsScreenState extends State<ResultsScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -30,32 +24,37 @@ class _ResultsScreenState extends State<ResultsScreen> {
             icon: const Icon(Icons.save),
             onPressed: () async {
               final prefs = await SharedPreferences.getInstance();
-              final calculations = prefs.getStringList('saved_calculations') ?? [];
-              
+              final calculations =
+                  prefs.getStringList('saved_calculations') ?? [];
+
               final calculationData = {
                 'date': DateTime.now().toIso8601String(),
-                'grossSalary': widget.calculation.grossSalary,
-                'netSalary': widget.calculation.netSalary,
+                'grossSalary': calculation.grossSalary,
+                'netSalary': calculation.netSalary,
                 'isEmployerView': false,
-                'canton': 'ZH', // You may want to pass this from calculator screen
+                'canton':
+                    'ZH', // You may want to pass this from calculator screen
                 'isMarried': false, // Pass these from calculator screen
                 'hasChurchTax': false,
-                'numberOfChildren': widget.calculation.numberOfChildren,
-                'has13thSalary': widget.has13thSalary,
-                'deductions': widget.calculation.deductionItems.map((item) => {
-                  'label': item.label,
-                  'amount': item.amount,
-                  'isDeduction': item.isDeduction,
-                }).toList(),
+                'numberOfChildren': calculation.numberOfChildren,
+                'has13thSalary': has13thSalary,
+                'deductions': calculation.deductionItems
+                    .map((item) => {
+                          'label': item.label,
+                          'amount': item.amount,
+                          'isDeduction': item.isDeduction,
+                        })
+                    .toList(),
               };
 
               calculations.add(json.encode(calculationData));
               await prefs.setStringList('saved_calculations', calculations);
-              
+
               if (!mounted) return;
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(LanguageService.tr(context, 'calculationSaved')),
+                  content:
+                      Text(LanguageService.tr(context, 'calculationSaved')),
                 ),
               );
             },
@@ -69,7 +68,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
           children: [
             _buildResultCard(
               LanguageService.tr(context, 'monthlyGross'),
-              widget.calculation.grossSalary,
+              calculation.grossSalary,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
@@ -77,7 +76,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
               ),
             ),
             const Divider(thickness: 1.5),
-            ...widget.calculation.deductionItems.map(
+            ...calculation.deductionItems.map(
               (item) => _buildResultCard(
                 item.label,
                 item.amount,
@@ -87,7 +86,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
             const Divider(thickness: 2),
             _buildResultCard(
               LanguageService.tr(context, 'totalDeductions'),
-              widget.calculation.deductionItems
+              calculation.deductionItems
                   .where((item) => item.isDeduction)
                   .fold(0.0, (sum, item) => sum + item.amount),
               isDeduction: true,
@@ -100,7 +99,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
             const SizedBox(height: 16),
             _buildResultCard(
               LanguageService.tr(context, 'monthlyNet'),
-              widget.calculation.netSalary,
+              calculation.netSalary,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
@@ -108,28 +107,28 @@ class _ResultsScreenState extends State<ResultsScreen> {
               ),
             ),
             const SizedBox(height: 8),
-            if (widget.has13thSalary) ...[
+            if (has13thSalary) ...[
               const Divider(),
               _buildResultCard(
                 '${LanguageService.tr(context, 'yearlyGross')} (inkl. 13.)',
-                widget.calculation.yearlyGross,
+                calculation.yearlyGross,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               _buildResultCard(
                 '${LanguageService.tr(context, 'yearlyNet')} (inkl. 13.)',
-                widget.calculation.yearlyNet,
+                calculation.yearlyNet,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ] else ...[
               const Divider(),
               _buildResultCard(
                 LanguageService.tr(context, 'yearlyGross'),
-                widget.calculation.yearlyGross,
+                calculation.yearlyGross,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               _buildResultCard(
                 LanguageService.tr(context, 'yearlyNet'),
-                widget.calculation.yearlyNet,
+                calculation.yearlyNet,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ],
