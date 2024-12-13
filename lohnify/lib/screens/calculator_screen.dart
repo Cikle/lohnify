@@ -17,6 +17,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   final _childrenController = TextEditingController();
   final _pensionController = TextEditingController();
   final _additionalInsuranceController = TextEditingController();
+  final _customTaxRateController = TextEditingController();
   SalaryCalculation? _calculation;
   final _rates = ContributionRates();
 
@@ -29,6 +30,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     if (_formKey.currentState?.validate() ?? false) {
       final grossSalary = double.parse(_salaryController.text);
       final childrenCount = int.tryParse(_childrenController.text) ?? 0;
+      final customTaxRate = double.tryParse(_customTaxRateController.text);
       setState(() {
         _calculation = SalaryCalculation.calculate(
           grossSalary,
@@ -41,6 +43,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           hasChurchTax: _hasChurchTax,
           isMarried: _isMarried,
           numberOfChildren: childrenCount,
+          customTaxRate: customTaxRate,
         );
       });
     }
@@ -99,21 +102,42 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         },
                       ),
                       const SizedBox(height: 16),
-                      DropdownButtonFormField<String>(
-                        value: _selectedCanton,
-                        decoration: InputDecoration(
-                          labelText: LanguageService.tr(context, 'canton'),
-                        ),
-                        items: ContributionRates.defaultCantons.entries
-                            .map((entry) => DropdownMenuItem(
-                                  value: entry.key,
-                                  child: Text(
-                                      '${entry.value.name} (${entry.value.taxRate}%)'),
-                                ))
-                            .toList(),
-                        onChanged: (value) {
-                          setState(() => _selectedCanton = value!);
+                      ListTile(
+                        title: Text(LanguageService.tr(context, 'canton')),
+                        subtitle: Text('${ContributionRates.defaultCantons[_selectedCanton]?.name ?? ''} ($_selectedCanton)'),
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => SimpleDialog(
+                              title: Text(LanguageService.tr(context, 'chooseCanton')),
+                              children: ContributionRates.defaultCantons.entries
+                                  .map(
+                                    (canton) => SimpleDialogOption(
+                                      onPressed: () {
+                                        setState(() => _selectedCanton = canton.key);
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text('${canton.value.name} (${canton.key})'),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                          );
                         },
+                      ),
+                      const SizedBox(height: 8),
+                      TextFormField(
+                        controller: _customTaxRateController,
+                        decoration: InputDecoration(
+                          labelText: LanguageService.tr(context, 'customTaxRate'),
+                          hintText: ContributionRates.defaultCantons[_selectedCanton]?.taxRate.toString(),
+                          suffixText: '%',
+                        ),
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                        ],
                       ),
                     ],
                   ),

@@ -38,6 +38,7 @@ class SalaryCalculation {
     required bool hasChurchTax,
     required bool isMarried,
     int numberOfChildren = 0,
+    double? customTaxRate,
   }) {
     final baseAmount = grossSalary.clamp(0, rates.maxContributionBase);
 

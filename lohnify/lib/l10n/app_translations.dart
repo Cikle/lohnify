@@ -40,7 +40,8 @@ class AppTranslations {
       'socialInsurance': 'Sozialversicherungen',
       'socialInsuranceInfo': 'AHV: Alters- und Hinterlassenenversicherung\nIV: Invalidenversicherung\nEO: Erwerbsersatzordnung\nALV: Arbeitslosenversicherung',
       'child': 'Kind',
-      'children': 'Kinder'
+      'children': 'Kinder',
+      'customTaxRate': 'Benutzerdefinierter Steuersatz',
     },
     'en': {
       'appTitle': 'Lohnify',
@@ -82,7 +83,8 @@ class AppTranslations {
       'socialInsurance': 'Social Insurance',
       'socialInsuranceInfo': 'AHV: Old Age and Survivors Insurance\nIV: Disability Insurance\nEO: Loss of Earnings Insurance\nALV: Unemployment Insurance',
       'child': 'child',
-      'children': 'children'
+      'children': 'children',
+      'customTaxRate': 'Custom Tax Rate',
     },
   };
 
