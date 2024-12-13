@@ -97,6 +97,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.save),
+                title: Text(LanguageService.tr(context, 'savedCalculations')),
+                subtitle: Text(LanguageService.tr(context, 'viewDifference')),
+                onTap: () => NavigationService.navigateToPage(
+                  context,
+                  const SavedCalculationsScreen(),
+                ),
+              ),
+            ),
           ],
         ),
       ),
