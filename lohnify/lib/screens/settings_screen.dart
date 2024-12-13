@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../services/canton_rates_service.dart';
 import '../services/language_service.dart';
+import '../models/contribution_rates.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});

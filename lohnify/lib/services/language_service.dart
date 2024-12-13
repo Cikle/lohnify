@@ -20,7 +20,7 @@ class LanguageService extends ChangeNotifier {
     notifyListeners();
     
     // Force rebuild of MaterialApp
-    WidgetsBinding.instance.handleLocaleChanged();
+    WidgetsBinding.instance.performReassemble();
   }
   
   String get currentLanguage => 
