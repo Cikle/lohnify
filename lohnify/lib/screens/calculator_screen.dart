@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../models/contribution_rates.dart';
 import '../models/salary_calculation.dart';
+import '../services/language_service.dart'; // Import the LanguageService
 
 class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({super.key});
@@ -18,7 +19,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   final _additionalInsuranceController = TextEditingController();
   SalaryCalculation? _calculation;
   final _rates = ContributionRates();
-  
+
   bool _isMarried = false;
   bool _hasChurchTax = false;
   String _selectedCanton = 'ZH';
@@ -33,8 +34,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           grossSalary,
           _rates,
           has13thSalary: _has13thSalary,
-          pensionRate: double.tryParse(_pensionController.text) ?? _rates.defaultPensionRate,
-          additionalInsurance: double.tryParse(_additionalInsuranceController.text) ?? 0.0,
+          pensionRate: double.tryParse(_pensionController.text) ??
+              _rates.defaultPensionRate,
+          additionalInsurance:
+              double.tryParse(_additionalInsuranceController.text) ?? 0.0,
           hasChurchTax: _hasChurchTax,
           isMarried: _isMarried,
           numberOfChildren: childrenCount,
@@ -62,9 +65,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         LanguageService.tr(context, 'basicInfo'),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -72,20 +75,25 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       const SizedBox(height: 16),
                       TextFormField(
                         controller: _salaryController,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           labelText: LanguageService.tr(context, 'grossSalary'),
-                          hintText: LanguageService.tr(context, 'enterGrossSalary'),
+                          hintText:
+                              LanguageService.tr(context, 'enterGrossSalary'),
                         ),
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true),
                         inputFormatters: [
-                          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r'^\d+\.?\d{0,2}')),
                         ],
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return LanguageService.tr(context, 'pleaseEnterSalary');
+                            return LanguageService.tr(
+                                context, 'pleaseEnterSalary');
                           }
                           if (double.tryParse(value) == null) {
-                            return LanguageService.tr(context, 'pleaseEnterValidNumber');
+                            return LanguageService.tr(
+                                context, 'pleaseEnterValidNumber');
                           }
                           return null;
                         },
@@ -93,13 +101,14 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       const SizedBox(height: 16),
                       DropdownButtonFormField<String>(
                         value: _selectedCanton,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           labelText: LanguageService.tr(context, 'canton'),
                         ),
                         items: ContributionRates.defaultCantons.entries
                             .map((entry) => DropdownMenuItem(
                                   value: entry.key,
-                                  child: Text('${entry.value.name} (${entry.value.taxRate}%)'),
+                                  child: Text(
+                                      '${entry.value.name} (${entry.value.taxRate}%)'),
                                 ))
                             .toList(),
                         onChanged: (value) {
@@ -180,7 +189,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           labelText: 'Pensionskasse (%)',
                           hintText: 'Optional',
                         ),
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true),
                       ),
                       const SizedBox(height: 16),
                       TextFormField(
@@ -189,7 +199,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           labelText: 'Zusatzversicherungen (CHF)',
                           hintText: 'Optional',
                         ),
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true),
                       ),
                     ],
                   ),
@@ -214,15 +225,17 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 const SizedBox(height: 20),
                 _buildResultCard('Bruttolohn', _calculation!.grossSalary),
                 const Divider(),
-                ..._calculation!.deductionItems.map((item) => 
-                  _buildResultCard(
-                    item.label, 
+                ..._calculation!.deductionItems.map(
+                  (item) => _buildResultCard(
+                    item.label,
                     item.amount,
                     isDeduction: item.isDeduction,
                   ),
                 ),
                 const Divider(thickness: 2),
-                _buildResultCard('Nettolohn', _calculation!.netSalary, 
+                _buildResultCard(
+                  'Nettolohn',
+                  _calculation!.netSalary,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -231,8 +244,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 const SizedBox(height: 8),
                 if (_has13thSalary) ...[
                   const Divider(),
-                  _buildResultCard('Jahresbrutto (inkl. 13.)', _calculation!.yearlyGross),
-                  _buildResultCard('Jahresnetto (inkl. 13.)', _calculation!.yearlyNet),
+                  _buildResultCard(
+                      'Jahresbrutto (inkl. 13.)', _calculation!.yearlyGross),
+                  _buildResultCard(
+                      'Jahresnetto (inkl. 13.)', _calculation!.yearlyNet),
                 ] else ...[
                   const Divider(),
                   _buildResultCard('Jahresbrutto', _calculation!.yearlyGross),
@@ -246,7 +261,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     );
   }
 
-  Widget _buildResultCard(String label, double amount, {
+  Widget _buildResultCard(
+    String label,
+    double amount, {
     bool isDeduction = false,
     TextStyle? style,
   }) {
@@ -260,10 +277,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             Text(label),
             Text(
               '${isDeduction ? "-" : ""}${amount.toStringAsFixed(2)} CHF',
-              style: style ?? TextStyle(
-                fontWeight: FontWeight.bold,
-                color: isDeduction ? Colors.red : null,
-              ),
+              style: style ??
+                  TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: isDeduction ? Colors.red : null,
+                  ),
             ),
           ],
         ),

@@ -55,7 +55,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          const Card(
+          Card(
             child: Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
@@ -92,7 +92,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     final selectedLanguage = await showDialog<String>(
                       context: context,
                       builder: (context) => AlertDialog(
-                        title: Text(LanguageService.tr(context, 'chooseLanguage')),
+                        title:
+                            Text(LanguageService.tr(context, 'chooseLanguage')),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -134,9 +135,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ListTile(
                   leading: const Icon(Icons.brightness_6),
                   title: Text(LanguageService.tr(context, 'appearance')),
-                  subtitle: Text(_isDarkMode 
-                    ? LanguageService.tr(context, 'dark') 
-                    : LanguageService.tr(context, 'light')),
+                  subtitle: Text(_isDarkMode
+                      ? LanguageService.tr(context, 'dark')
+                      : LanguageService.tr(context, 'light')),
                   trailing: Switch(
                     value: _isDarkMode,
                     onChanged: (value) {
@@ -148,7 +149,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const SizedBox(height: 16),
-          const Card(
+          Card(
             child: Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
@@ -171,7 +172,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     showDialog(
                       context: context,
                       builder: (context) => SimpleDialog(
-                        title: Text(LanguageService.tr(context, 'chooseCanton')),
+                        title:
+                            Text(LanguageService.tr(context, 'chooseCanton')),
                         children: [
                           ...ContributionRates.defaultCantons.entries
                               .map(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../services/navigation_service.dart';
 import '../services/language_service.dart';
 import 'calculator_screen.dart';
@@ -34,7 +33,8 @@ class HomeScreen extends StatelessWidget {
               child: ListTile(
                 leading: const Icon(Icons.calculate),
                 title: Text(LanguageService.tr(context, 'calculator')),
-                subtitle: Text(LanguageService.tr(context, 'calculatorSubtitle')),
+                subtitle:
+                    Text(LanguageService.tr(context, 'calculatorSubtitle')),
                 onTap: () => NavigationService.navigateToPage(
                   context,
                   const CalculatorScreen(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lohnify/services/language_service.dart'; // Adjust the import path as necessary
 
 class InfoScreen extends StatelessWidget {
   const InfoScreen({super.key});
@@ -11,7 +12,7 @@ class InfoScreen extends StatelessWidget {
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
-        children: const [
+        children: [
           Card(
             child: Padding(
               padding: EdgeInsets.all(16.0),

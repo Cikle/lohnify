@@ -6,7 +6,8 @@ import '../main.dart';
 class LanguageService extends ChangeNotifier {
   static String tr(BuildContext context, String key) {
     final languageService = context.findAncestorStateOfType<LohnifyAppState>();
-    final languageCode = languageService?.languageService.currentLocale.languageCode ?? 'de';
+    final languageCode =
+        languageService?.languageService.currentLocale.languageCode ?? 'de';
     return AppTranslations.translate(key, languageCode);
   }
 
