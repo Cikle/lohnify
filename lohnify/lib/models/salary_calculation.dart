@@ -72,4 +72,24 @@ class SalaryCalculation {
       yearlyNet: yearlyNet,
     );
   }
+
+  List<DeductionItem> get deductionItems => [
+    DeductionItem('AHV', ahvDeduction, isDeduction: true),
+    DeductionItem('IV', ivDeduction, isDeduction: true),
+    DeductionItem('EO', eoDeduction, isDeduction: true),
+    DeductionItem('ALV', alvDeduction, isDeduction: true),
+    DeductionItem('Pensionskasse', pensionDeduction, isDeduction: true),
+    if (additionalInsurance > 0)
+      DeductionItem('Zusatzversicherungen', additionalInsurance, isDeduction: true),
+    if (churchTax > 0)
+      DeductionItem('Kirchensteuer', churchTax, isDeduction: true),
+  ];
+}
+
+class DeductionItem {
+  final String label;
+  final double amount;
+  final bool isDeduction;
+
+  DeductionItem(this.label, this.amount, {this.isDeduction = true});
 }
