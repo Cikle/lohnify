@@ -151,6 +151,7 @@ class AppTranslations {
       'no': 'No',
       'arbeitnehmer': 'Employee',
       'arbeitgeber': 'Employer',
+      'deductions': 'Deductions',
       'date': 'Date',
       'deductions': 'Deductions',
     },
