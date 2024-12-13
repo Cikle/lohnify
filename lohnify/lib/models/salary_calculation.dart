@@ -1,3 +1,5 @@
+import 'contribution_rates.dart';
+
 class SalaryCalculation {
   final double grossSalary;
   final double ahvDeduction;
