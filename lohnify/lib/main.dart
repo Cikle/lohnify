@@ -23,7 +23,7 @@ class LohnifyApp extends StatelessWidget {
       child: Consumer<LanguageService>(
         builder: (context, languageService, _) => MaterialApp(
           locale: languageService.currentLocale,
-      title: 'Lohnify',
+          title: 'Lohnify',
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
