@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/contribution_rates.dart';
 
 class RatesService {
-  static const String _baseUrl = 'https://www.bsv.admin.ch/api/rates';
+  static const String _baseUrl = 'https://www.bsv.admin.ch/api/v2/rates';
   static const String _cacheKey = 'contribution_rates_cache';
   static const Duration _cacheExpiration = Duration(hours: 24);
   

@@ -12,6 +12,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _isDarkMode = true;
   String _selectedLanguage = 'Deutsch';
   String _selectedCanton = 'ZH';
+  DateTime? _lastRatesUpdate;
+  bool _isUpdating = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkLastUpdate();
+  }
+
+  Future<void> _checkLastUpdate() async {
+    final prefs = await SharedPreferences.getInstance();
+    final cantonService = CantonRatesService(prefs);
+    setState(() {
+      _lastRatesUpdate = cantonService.getLastUpdate();
+    });
+  }
+
+  Future<void> _updateRates() async {
+    setState(() => _isUpdating = true);
+    
+    final prefs = await SharedPreferences.getInstance();
+    final cantonService = CantonRatesService(prefs);
+    
+    await cantonService.fetchCantonRates();
+    await _checkLastUpdate();
+    
+    setState(() => _isUpdating = false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +65,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
           Card(
             child: Column(
               children: [
+                if (_lastRatesUpdate != null)
+                  ListTile(
+                    leading: const Icon(Icons.update),
+                    title: const Text('Letzte Aktualisierung'),
+                    subtitle: Text(
+                      DateFormat('dd.MM.yyyy HH:mm').format(_lastRatesUpdate!)
+                    ),
+                    trailing: _isUpdating
+                      ? const CircularProgressIndicator()
+                      : IconButton(
+                          icon: const Icon(Icons.refresh),
+                          onPressed: _updateRates,
+                        ),
+                  ),
                 ListTile(
                   leading: const Icon(Icons.language),
                   title: const Text('Sprache'),
