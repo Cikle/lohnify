@@ -122,7 +122,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         ListTile(
                           title: Text(LanguageService.tr(context, 'canton')),
                           subtitle: Text(
-                              '${ContributionRates.defaultCantons[_selectedCanton]?.name ?? ''} ($_selectedCanton)'),
+                              '${ContributionRates.defaultCantons[_selectedCanton]?.name ?? ''} ($_selectedCanton) - ${ContributionRates.defaultCantons[_selectedCanton]?.taxRate.toStringAsFixed(1)}%'),
                           trailing: const Icon(Icons.arrow_forward_ios),
                           onTap: () {
                             showDialog(
