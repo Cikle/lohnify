@@ -4,7 +4,7 @@ import '../services/language_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-class ResultsScreen extends StatelessWidget {
+class ResultsScreen extends StatefulWidget {
   final SalaryCalculation calculation;
   final bool has13thSalary;
 
@@ -14,6 +14,11 @@ class ResultsScreen extends StatelessWidget {
     required this.has13thSalary,
   });
 
+  @override
+  State<ResultsScreen> createState() => _ResultsScreenState();
+}
+
+class _ResultsScreenState extends State<ResultsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,16 +34,16 @@ class ResultsScreen extends StatelessWidget {
 
               final calculationData = {
                 'date': DateTime.now().toIso8601String(),
-                'grossSalary': calculation.grossSalary,
-                'netSalary': calculation.netSalary,
+                'grossSalary': widget.calculation.grossSalary,
+                'netSalary': widget.calculation.netSalary,
                 'isEmployerView': false,
                 'canton':
                     'ZH', // You may want to pass this from calculator screen
                 'isMarried': false, // Pass these from calculator screen
                 'hasChurchTax': false,
-                'numberOfChildren': calculation.numberOfChildren,
-                'has13thSalary': has13thSalary,
-                'deductions': calculation.deductionItems
+                'numberOfChildren': widget.calculation.numberOfChildren,
+                'has13thSalary': widget.has13thSalary,
+                'deductions': widget.calculation.deductionItems
                     .map((item) => {
                           'label': item.label,
                           'amount': item.amount,
@@ -68,7 +73,7 @@ class ResultsScreen extends StatelessWidget {
           children: [
             _buildResultCard(
               LanguageService.tr(context, 'monthlyGross'),
-              calculation.grossSalary,
+              widget.calculation.grossSalary,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
@@ -76,7 +81,7 @@ class ResultsScreen extends StatelessWidget {
               ),
             ),
             const Divider(thickness: 1.5),
-            ...calculation.deductionItems.map(
+            ...widget.calculation.deductionItems.map(
               (item) => _buildResultCard(
                 item.label,
                 item.amount,
@@ -86,7 +91,7 @@ class ResultsScreen extends StatelessWidget {
             const Divider(thickness: 2),
             _buildResultCard(
               LanguageService.tr(context, 'totalDeductions'),
-              calculation.deductionItems
+              widget.calculation.deductionItems
                   .where((item) => item.isDeduction)
                   .fold(0.0, (sum, item) => sum + item.amount),
               isDeduction: true,
@@ -99,7 +104,7 @@ class ResultsScreen extends StatelessWidget {
             const SizedBox(height: 16),
             _buildResultCard(
               LanguageService.tr(context, 'monthlyNet'),
-              calculation.netSalary,
+              widget.calculation.netSalary,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
@@ -107,28 +112,28 @@ class ResultsScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            if (has13thSalary) ...[
+            if (widget.has13thSalary) ...[
               const Divider(),
               _buildResultCard(
                 '${LanguageService.tr(context, 'yearlyGross')} (inkl. 13.)',
-                calculation.yearlyGross,
+                widget.calculation.yearlyGross,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               _buildResultCard(
                 '${LanguageService.tr(context, 'yearlyNet')} (inkl. 13.)',
-                calculation.yearlyNet,
+                widget.calculation.yearlyNet,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ] else ...[
               const Divider(),
               _buildResultCard(
                 LanguageService.tr(context, 'yearlyGross'),
-                calculation.yearlyGross,
+                widget.calculation.yearlyGross,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               _buildResultCard(
                 LanguageService.tr(context, 'yearlyNet'),
-                calculation.yearlyNet,
+                widget.calculation.yearlyNet,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ],
