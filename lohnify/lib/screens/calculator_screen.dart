@@ -36,6 +36,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           pensionRate: double.tryParse(_pensionController.text) ?? _rates.defaultPensionRate,
           additionalInsurance: double.tryParse(_additionalInsuranceController.text) ?? 0.0,
           hasChurchTax: _hasChurchTax,
+          isMarried: _isMarried,
           numberOfChildren: childrenCount,
         );
       });
@@ -129,6 +130,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         value: _isMarried,
                         onChanged: (value) {
                           setState(() => _isMarried = value);
+                          _calculateSalary();
                         },
                       ),
                       SwitchListTile(
@@ -147,6 +149,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
                         ],
+                        onChanged: (value) {
+                          if (value.isNotEmpty) {
+                            _calculateSalary();
+                          }
+                        },
                       ),
                     ],
                   ),

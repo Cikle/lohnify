@@ -36,6 +36,7 @@ class SalaryCalculation {
     required double pensionRate,
     required double additionalInsurance,
     required bool hasChurchTax,
+    required bool isMarried,
     int numberOfChildren = 0,
   }) {
     final baseAmount = grossSalary.clamp(0, rates.maxContributionBase);
@@ -46,8 +47,9 @@ class SalaryCalculation {
     final alvDeduction = baseAmount * (rates.alvEmployee / 100);
 
     final pensionDeduction = baseAmount * (pensionRate / 100);
-    final churchTaxAmount =
-        hasChurchTax ? (baseAmount * 0.08) : 0.0; // Example church tax rate
+    // Adjust tax rates based on marriage status
+    final churchTaxRate = hasChurchTax ? (isMarried ? 0.10 : 0.08) : 0.0;
+    final churchTaxAmount = baseAmount * churchTaxRate;
 
     final totalDeductions = ahvDeduction +
         ivDeduction +
