@@ -15,7 +15,6 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   bool _useDefaultRates = true;
   bool _isDarkMode = true;
-  String _selectedLanguage = 'Deutsch';
   String _selectedCanton = 'ZH';
   DateTime? _lastRatesUpdate;
   bool _isUpdating = false;
