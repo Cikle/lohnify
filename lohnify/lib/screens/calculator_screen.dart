@@ -13,8 +13,16 @@ class CalculatorScreen extends StatefulWidget {
 class _CalculatorScreenState extends State<CalculatorScreen> {
   final _formKey = GlobalKey<FormState>();
   final _salaryController = TextEditingController();
+  final _childrenController = TextEditingController();
+  final _pensionController = TextEditingController();
+  final _additionalInsuranceController = TextEditingController();
   SalaryCalculation? _calculation;
   final _rates = ContributionRates();
+  
+  bool _isMarried = false;
+  bool _hasChurchTax = false;
+  String _selectedCanton = 'ZH';
+  bool _has13thSalary = true;
 
   void _calculateSalary() {
     if (_formKey.currentState?.validate() ?? false) {
@@ -38,24 +46,145 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TextFormField(
-                controller: _salaryController,
-                decoration: const InputDecoration(
-                  labelText: 'Gross Salary (CHF)',
-                  hintText: 'Enter your gross salary',
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Grundangaben',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: _salaryController,
+                        decoration: const InputDecoration(
+                          labelText: 'Bruttolohn (CHF)',
+                          hintText: 'Geben Sie Ihren Bruttolohn ein',
+                        ),
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                        ],
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Bitte geben Sie einen Lohn ein';
+                          }
+                          if (double.tryParse(value) == null) {
+                            return 'Bitte geben Sie eine gültige Zahl ein';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      DropdownButtonFormField<String>(
+                        value: _selectedCanton,
+                        decoration: const InputDecoration(
+                          labelText: 'Kanton',
+                        ),
+                        items: const [
+                          DropdownMenuItem(value: 'ZH', child: Text('Zürich')),
+                          DropdownMenuItem(value: 'BE', child: Text('Bern')),
+                          DropdownMenuItem(value: 'LU', child: Text('Luzern')),
+                        ],
+                        onChanged: (value) {
+                          setState(() => _selectedCanton = value!);
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-                keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
-                ],
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a salary';
-                  }
-                  if (double.tryParse(value) == null) {
-                    return 'Please enter a valid number';
-                  }
-                  return null;
+              ),
+              const SizedBox(height: 16),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Persönliche Angaben',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      SwitchListTile(
+                        title: const Text('Verheiratet'),
+                        value: _isMarried,
+                        onChanged: (value) {
+                          setState(() => _isMarried = value);
+                        },
+                      ),
+                      SwitchListTile(
+                        title: const Text('Kirchensteuer'),
+                        value: _hasChurchTax,
+                        onChanged: (value) {
+                          setState(() => _hasChurchTax = value);
+                        },
+                      ),
+                      TextFormField(
+                        controller: _childrenController,
+                        decoration: const InputDecoration(
+                          labelText: 'Anzahl Kinder',
+                        ),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Zusätzliche Versicherungen',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: _pensionController,
+                        decoration: const InputDecoration(
+                          labelText: 'Pensionskasse (%)',
+                          hintText: 'Optional',
+                        ),
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: _additionalInsuranceController,
+                        decoration: const InputDecoration(
+                          labelText: 'Zusatzversicherungen (CHF)',
+                          hintText: 'Optional',
+                        ),
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              SwitchListTile(
+                title: const Text('13. Monatslohn'),
+                subtitle: const Text('Auf Jahresbasis berechnen'),
+                value: _has13thSalary,
+                onChanged: (value) {
+                  setState(() => _has13thSalary = value);
                 },
               ),
               const SizedBox(height: 20),
