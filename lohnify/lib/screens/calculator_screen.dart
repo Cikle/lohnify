@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import '../models/contribution_rates.dart';
 import '../models/salary_calculation.dart';
 import '../services/language_service.dart'; // Import the LanguageService
+import 'package:shared_preferences/shared_preferences.dart'; // Import SharedPreferences
 
 class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({super.key});
@@ -117,50 +118,63 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         },
                       ),
                       const SizedBox(height: 16),
-                      if (!_useCustomTaxRate) ListTile(
-                        title: Text(LanguageService.tr(context, 'canton')),
-                        subtitle: Text('${ContributionRates.defaultCantons[_selectedCanton]?.name ?? ''} ($_selectedCanton)'),
-                        trailing: const Icon(Icons.arrow_forward_ios),
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => SimpleDialog(
-                              title: Text(LanguageService.tr(context, 'chooseCanton')),
-                              children: ContributionRates.defaultCantons.entries
-                                  .map(
-                                    (canton) => SimpleDialogOption(
-                                      onPressed: () {
-                                        setState(() => _selectedCanton = canton.key);
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text('${canton.value.name} (${canton.key})'),
-                                    ),
-                                  )
-                                  .toList(),
-                            ),
-                          );
-                        },
-                      ),
+                      if (!_useCustomTaxRate)
+                        ListTile(
+                          title: Text(LanguageService.tr(context, 'canton')),
+                          subtitle: Text(
+                              '${ContributionRates.defaultCantons[_selectedCanton]?.name ?? ''} ($_selectedCanton)'),
+                          trailing: const Icon(Icons.arrow_forward_ios),
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => SimpleDialog(
+                                title: Text(LanguageService.tr(
+                                    context, 'chooseCanton')),
+                                children:
+                                    ContributionRates.defaultCantons.entries
+                                        .map(
+                                          (canton) => SimpleDialogOption(
+                                            onPressed: () {
+                                              setState(() =>
+                                                  _selectedCanton = canton.key);
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text(
+                                                '${canton.value.name} (${canton.key})'),
+                                          ),
+                                        )
+                                        .toList(),
+                              ),
+                            );
+                          },
+                        ),
                       if (_useCustomTaxRate) ...[
                         const SizedBox(height: 8),
                         TextFormField(
                           controller: _customTaxRateController,
                           decoration: InputDecoration(
-                            labelText: LanguageService.tr(context, 'customTaxRate'),
-                            hintText: ContributionRates.defaultCantons[_selectedCanton]?.taxRate.toString(),
+                            labelText:
+                                LanguageService.tr(context, 'customTaxRate'),
+                            hintText: ContributionRates
+                                .defaultCantons[_selectedCanton]?.taxRate
+                                .toString(),
                             suffixText: '%',
                           ),
-                          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                          keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true),
                           inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'^\d+\.?\d{0,2}')),
                           ],
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return LanguageService.tr(context, 'pleaseEnterTaxRate');
+                              return LanguageService.tr(
+                                  context, 'pleaseEnterTaxRate');
                             }
                             final rate = double.tryParse(value);
                             if (rate == null || rate < 0 || rate > 100) {
-                              return LanguageService.tr(context, 'invalidTaxRate');
+                              return LanguageService.tr(
+                                  context, 'invalidTaxRate');
                             }
                             return null;
                           },
