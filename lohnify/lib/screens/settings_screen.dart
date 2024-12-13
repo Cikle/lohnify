@@ -15,7 +15,6 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool _useDefaultRates = true;
-  bool _isDarkMode = true;
   String _selectedCanton = 'ZH';
   DateTime? _lastRatesUpdate;
   bool _isUpdating = false;
@@ -139,9 +138,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ? LanguageService.tr(context, 'dark')
                       : LanguageService.tr(context, 'light')),
                   trailing: Switch(
-                    value: _isDarkMode,
+                    value: context.watch<ThemeService>().isDarkMode,
                     onChanged: (value) {
-                      setState(() => _isDarkMode = value);
+                      context.read<ThemeService>().toggleTheme();
                     },
                   ),
                 ),
