@@ -96,7 +96,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         items: ContributionRates.defaultCantons.entries
                             .map((entry) => DropdownMenuItem(
                                   value: entry.key,
-                                  child: Text(entry.value.name),
+                                  child: Text('${entry.value.name} (${entry.value.taxRate}%)'),
                                 ))
                             .toList(),
                         onChanged: (value) {
