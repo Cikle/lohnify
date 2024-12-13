@@ -80,6 +80,22 @@ class _SavedCalculationsScreenState extends State<SavedCalculationsScreen> {
                         Text(
                           '${LanguageService.tr(context, 'netSalary')}: ${calculation['netSalary'].toStringAsFixed(2)} CHF',
                         ),
+                        if (calculation['has13thSalary'])
+                          Text(
+                            '${LanguageService.tr(context, 'yearlyGross')} (inkl. 13.): ${calculation['yearlyGross'].toStringAsFixed(2)} CHF',
+                          )
+                        else
+                          Text(
+                            '${LanguageService.tr(context, 'yearlyGross')}: ${calculation['yearlyGross'].toStringAsFixed(2)} CHF',
+                          ),
+                        if (calculation['has13thSalary'])
+                          Text(
+                            '${LanguageService.tr(context, 'yearlyNet')} (inkl. 13.): ${calculation['yearlyNet'].toStringAsFixed(2)} CHF',
+                          )
+                        else
+                          Text(
+                            '${LanguageService.tr(context, 'yearlyNet')}: ${calculation['yearlyNet'].toStringAsFixed(2)} CHF',
+                          ),
                       ],
                     ),
                     trailing: Row(

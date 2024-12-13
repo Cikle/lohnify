@@ -36,6 +36,8 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 'date': DateTime.now().toIso8601String(),
                 'grossSalary': widget.calculation.grossSalary,
                 'netSalary': widget.calculation.netSalary,
+                'yearlyGross': widget.calculation.yearlyGross,
+                'yearlyNet': widget.calculation.yearlyNet,
                 'isEmployerView': false,
                 'canton':
                     'ZH', // You may want to pass this from calculator screen
