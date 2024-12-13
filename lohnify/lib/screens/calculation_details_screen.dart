@@ -27,6 +27,19 @@ class CalculationDetailsScreen extends StatelessWidget {
                 _buildDetailRow('grossSalary', '${calculation['grossSalary'].toStringAsFixed(2)} CHF'),
                 _buildDetailRow('canton', calculation['canton'] ?? 'N/A'),
                 _buildDetailRow('netSalary', '${calculation['netSalary'].toStringAsFixed(2)} CHF'),
+                if (calculation['yearlyGross'] != null) ...[
+                  if (calculation['has13thSalary'])
+                    _buildDetailRow('yearlyGross', '${calculation['yearlyGross'].toStringAsFixed(2)} CHF (inkl. 13.)'),
+                  if (!calculation['has13thSalary'])
+                    _buildDetailRow('yearlyGross', '${calculation['yearlyGross'].toStringAsFixed(2)} CHF'),
+                ],
+                if (calculation['yearlyNet'] != null) ...[
+                  if (calculation['has13thSalary'])
+                    _buildDetailRow('yearlyNet', '${calculation['yearlyNet'].toStringAsFixed(2)} CHF (inkl. 13.)'),
+                  if (!calculation['has13thSalary'])
+                    _buildDetailRow('yearlyNet', '${calculation['yearlyNet'].toStringAsFixed(2)} CHF'),
+                ],
+                _buildDetailRow('date', DateTime.parse(calculation['date']).toLocal().toString().split('.')[0]),
               ],
             ),
             _buildSection(
