@@ -46,6 +46,7 @@ class AppTranslations {
       'customRatesActive': 'Benutzerdefinierte Sätze aktiv',
       'pleaseEnterTaxRate': 'Bitte geben Sie einen Steuersatz ein',
       'invalidTaxRate': 'Bitte geben Sie einen gültigen Steuersatz zwischen 0 und 100 ein',
+      'results': 'Berechnungsergebnis',
     },
     'en': {
       'appTitle': 'Lohnify',
@@ -93,6 +94,7 @@ class AppTranslations {
       'customRatesActive': 'Custom rates active',
       'pleaseEnterTaxRate': 'Please enter a tax rate',
       'invalidTaxRate': 'Please enter a valid tax rate between 0 and 100',
+      'results': 'Calculation Results',
     },
   };
 

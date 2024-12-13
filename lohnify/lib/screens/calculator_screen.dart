@@ -283,42 +283,22 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: _calculateSalary,
-                child: const Text('Calculate'),
+                onPressed: () {
+                  _calculateSalary();
+                  if (_calculation != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ResultsScreen(
+                          calculation: _calculation!,
+                          has13thSalary: _has13thSalary,
+                        ),
+                      ),
+                    );
+                  }
+                },
+                child: Text(LanguageService.tr(context, 'calculate')),
               ),
-              if (_calculation != null) ...[
-                const SizedBox(height: 20),
-                _buildResultCard('Bruttolohn', _calculation!.grossSalary),
-                const Divider(),
-                ..._calculation!.deductionItems.map(
-                  (item) => _buildResultCard(
-                    item.label,
-                    item.amount,
-                    isDeduction: item.isDeduction,
-                  ),
-                ),
-                const Divider(thickness: 2),
-                _buildResultCard(
-                  'Nettolohn',
-                  _calculation!.netSalary,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                if (_has13thSalary) ...[
-                  const Divider(),
-                  _buildResultCard(
-                      'Jahresbrutto (inkl. 13.)', _calculation!.yearlyGross),
-                  _buildResultCard(
-                      'Jahresnetto (inkl. 13.)', _calculation!.yearlyNet),
-                ] else ...[
-                  const Divider(),
-                  _buildResultCard('Jahresbrutto', _calculation!.yearlyGross),
-                  _buildResultCard('Jahresnetto', _calculation!.yearlyNet),
-                ],
-              ],
             ],
           ),
         ),
@@ -326,33 +306,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     );
   }
 
-  Widget _buildResultCard(
-    String label,
-    double amount, {
-    bool isDeduction = false,
-    TextStyle? style,
-  }) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 4),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(label),
-            Text(
-              '${isDeduction ? "-" : ""}${amount.toStringAsFixed(2)} CHF',
-              style: style ??
-                  TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: isDeduction ? Colors.red : null,
-                  ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
   @override
   void dispose() {
