@@ -50,7 +50,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Einstellungen'),
+        title: Text(LanguageService.tr(context, 'settings')),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),

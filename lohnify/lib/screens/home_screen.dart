@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lohnify'),
+        title: Text(LanguageService.tr(context, 'appTitle')),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -31,8 +31,8 @@ class HomeScreen extends StatelessWidget {
             Card(
               child: ListTile(
                 leading: const Icon(Icons.calculate),
-                title: const Text('Lohnrechner'),
-                subtitle: const Text('Berechnen Sie Ihren Nettolohn'),
+                title: Text(LanguageService.tr(context, 'calculator')),
+                subtitle: Text(LanguageService.tr(context, 'calculatorSubtitle')),
                 onTap: () => NavigationService.navigateToPage(
                   context,
                   const CalculatorScreen(),
@@ -42,8 +42,8 @@ class HomeScreen extends StatelessWidget {
             Card(
               child: ListTile(
                 leading: const Icon(Icons.info),
-                title: const Text('Informationen'),
-                subtitle: const Text('Sozialversicherungen & Steuern'),
+                title: Text(LanguageService.tr(context, 'information')),
+                subtitle: Text(LanguageService.tr(context, 'infoSubtitle')),
                 onTap: () => NavigationService.navigateToPage(
                   context,
                   const InfoScreen(),

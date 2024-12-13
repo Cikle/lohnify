@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../l10n/app_translations.dart';
 
 class LanguageService extends ChangeNotifier {
+  static String tr(BuildContext context, String key) {
+    final languageCode = Provider.of<LanguageService>(context, listen: false)
+        .currentLocale
+        .languageCode;
+    return AppTranslations.translate(key, languageCode);
+  }
   static const String _languageKey = 'selected_language';
   final SharedPreferences _prefs;
   
