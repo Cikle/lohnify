@@ -28,7 +28,14 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     if (_formKey.currentState?.validate() ?? false) {
       final grossSalary = double.parse(_salaryController.text);
       setState(() {
-        _calculation = SalaryCalculation.calculate(grossSalary, _rates);
+        _calculation = SalaryCalculation.calculate(
+          grossSalary,
+          _rates,
+          has13thSalary: _has13thSalary,
+          pensionRate: double.tryParse(_pensionController.text) ?? _rates.defaultPensionRate,
+          additionalInsurance: double.tryParse(_additionalInsuranceController.text) ?? 0.0,
+          hasChurchTax: _hasChurchTax,
+        );
       });
     }
   }
