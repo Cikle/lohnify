@@ -5,6 +5,7 @@ import 'calculator_screen.dart';
 import 'settings_screen.dart';
 import 'info_screen.dart';
 import 'help_screen.dart';
+import 'saved_calculations_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
