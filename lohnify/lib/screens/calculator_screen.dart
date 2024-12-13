@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import '../models/contribution_rates.dart';
 import '../models/salary_calculation.dart';
 import '../services/language_service.dart'; // Import the LanguageService
+import 'results_screen.dart'; // Import the ResultsScreen
 import 'package:shared_preferences/shared_preferences.dart'; // Import SharedPreferences
 
 class CalculatorScreen extends StatefulWidget {
@@ -305,7 +306,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
       ),
     );
   }
-
 
   @override
   void dispose() {
