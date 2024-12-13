@@ -90,4 +90,3 @@ class CantonData {
   
   Map<String, dynamic> toJson() => _$CantonDataToJson(this);
 }
-}
