@@ -30,11 +30,11 @@ class LohnifyAppState extends State<LohnifyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => LanguageService(prefs),
-      child: Consumer<LanguageService>(
-        builder: (context, languageService, _) => MaterialApp(
+    return MaterialApp(
           locale: languageService.currentLocale,
+          builder: (context, child) {
+            return child!;
+          },
           title: 'Lohnify',
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
