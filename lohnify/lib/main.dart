@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/home_screen.dart';
 import 'services/language_service.dart';
@@ -11,10 +10,23 @@ void main() async {
   runApp(LohnifyApp(prefs: prefs));
 }
 
-class LohnifyApp extends StatelessWidget {
+class LohnifyApp extends StatefulWidget {
   final SharedPreferences prefs;
 
   const LohnifyApp({super.key, required this.prefs});
+
+  @override
+  State<LohnifyApp> createState() => LohnifyAppState();
+}
+
+class LohnifyAppState extends State<LohnifyApp> {
+  late final LanguageService languageService;
+
+  @override
+  void initState() {
+    super.initState();
+    languageService = LanguageService(widget.prefs);
+  }
 
   @override
   Widget build(BuildContext context) {
