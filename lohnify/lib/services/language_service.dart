@@ -4,9 +4,8 @@ import '../l10n/app_translations.dart';
 
 class LanguageService extends ChangeNotifier {
   static String tr(BuildContext context, String key) {
-    final languageCode = Provider.of<LanguageService>(context, listen: false)
-        .currentLocale
-        .languageCode;
+    final service = context.findAncestorStateOfType<_LohnifyAppState>();
+    final languageCode = service?.languageService.currentLocale.languageCode ?? 'en';
     return AppTranslations.translate(key, languageCode);
   }
   static const String _languageKey = 'selected_language';
