@@ -36,13 +36,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> _updateRates() async {
     setState(() => _isUpdating = true);
-    
+
     final prefs = await SharedPreferences.getInstance();
     final cantonService = CantonRatesService(prefs);
-    
+
     await cantonService.fetchCantonRates();
     await _checkLastUpdate();
-    
+
     setState(() => _isUpdating = false);
   }
 
@@ -74,20 +74,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ListTile(
                     leading: const Icon(Icons.update),
                     title: const Text('Letzte Aktualisierung'),
-                    subtitle: Text(
-                      DateFormat('dd.MM.yyyy HH:mm').format(_lastRatesUpdate!)
-                    ),
+                    subtitle: Text(DateFormat('dd.MM.yyyy HH:mm')
+                        .format(_lastRatesUpdate!)),
                     trailing: _isUpdating
-                      ? const CircularProgressIndicator()
-                      : IconButton(
-                          icon: const Icon(Icons.refresh),
-                          onPressed: _updateRates,
-                        ),
+                        ? const CircularProgressIndicator()
+                        : IconButton(
+                            icon: const Icon(Icons.refresh),
+                            onPressed: _updateRates,
+                          ),
                   ),
                 ListTile(
                   leading: const Icon(Icons.language),
                   title: const Text('Sprache'),
-                  subtitle: Text(context.watch<LanguageService>().currentLanguage),
+                  subtitle:
+                      Text(context.watch<LanguageService>().currentLanguage),
                   onTap: () async {
                     final selectedLanguage = await showDialog<String>(
                       context: context,
@@ -99,7 +99,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             RadioListTile<String>(
                               title: const Text('Deutsch'),
                               value: 'de',
-                              groupValue: context.read<LanguageService>().currentLocale.languageCode,
+                              groupValue: context
+                                  .read<LanguageService>()
+                                  .currentLocale
+                                  .languageCode,
                               onChanged: (value) {
                                 Navigator.pop(context, value);
                               },
@@ -107,7 +110,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             RadioListTile<String>(
                               title: const Text('English'),
                               value: 'en',
-                              groupValue: context.read<LanguageService>().currentLocale.languageCode,
+                              groupValue: context
+                                  .read<LanguageService>()
+                                  .currentLocale
+                                  .languageCode,
                               onChanged: (value) {
                                 Navigator.pop(context, value);
                               },
@@ -116,10 +122,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                       ),
                     );
-                    
+
                     if (selectedLanguage != null) {
                       if (!context.mounted) return;
-                      await context.read<LanguageService>().setLocale(selectedLanguage);
+                      await context
+                          .read<LanguageService>()
+                          .setLocale(selectedLanguage);
                     }
                   },
                 ),
@@ -163,15 +171,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       builder: (context) => SimpleDialog(
                         title: const Text('Kanton wählen'),
                         children: [
-                          ...ContributionRates.defaultCantons.entries.map((canton) =>
-                            SimpleDialogOption(
-                              onPressed: () {
-                                setState(() => _selectedCanton = canton.key);
-                                Navigator.pop(context);
-                              },
-                              child: Text('${canton.value.name} (${canton.key})'),
-                            ),
-                          ).toList(),
+                          ...ContributionRates.defaultCantons.entries
+                              .map(
+                                (canton) => SimpleDialogOption(
+                                  onPressed: () {
+                                    setState(
+                                        () => _selectedCanton = canton.key);
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                      '${canton.value.name} (${canton.key})'),
+                                ),
+                              )
+                              .toList(),
                         ],
                       ),
                     );
@@ -180,9 +192,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ListTile(
                   leading: const Icon(Icons.percent),
                   title: const Text('Standardsätze verwenden'),
-                  subtitle: Text(_useDefaultRates 
-                    ? 'Standardsätze aktiv' 
-                    : 'Benutzerdefinierte Sätze'),
+                  subtitle: Text(_useDefaultRates
+                      ? 'Standardsätze aktiv'
+                      : 'Benutzerdefinierte Sätze'),
                   trailing: Switch(
                     value: _useDefaultRates,
                     onChanged: (value) {
