@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../services/language_service.dart';
+import 'calculation_details_screen.dart'; // Add this import
 
 class SavedCalculationsScreen extends StatefulWidget {
   const SavedCalculationsScreen({super.key});
@@ -58,7 +59,8 @@ class _SavedCalculationsScreenState extends State<SavedCalculationsScreen> {
                 final isEmployerView = calculation['isEmployerView'] as bool;
 
                 return Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: ListTile(
                     leading: Icon(
                       isEmployerView ? Icons.business : Icons.person,
