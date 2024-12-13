@@ -87,29 +87,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   leading: const Icon(Icons.language),
                   title: const Text('Sprache'),
                   subtitle: Text(context.watch<LanguageService>().currentLanguage),
-                  onTap: () {
-                    showDialog(
+                  onTap: () async {
+                    final selectedLanguage = await showDialog<String>(
                       context: context,
-                      builder: (context) => SimpleDialog(
+                      builder: (context) => AlertDialog(
                         title: const Text('Sprache wählen'),
-                        children: [
-                          SimpleDialogOption(
-                            onPressed: () {
-                              context.read<LanguageService>().setLocale('de');
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Deutsch'),
-                          ),
-                          SimpleDialogOption(
-                            onPressed: () {
-                              context.read<LanguageService>().setLocale('en');
-                              Navigator.pop(context);
-                            },
-                            child: const Text('English'),
-                          ),
-                        ],
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            RadioListTile<String>(
+                              title: const Text('Deutsch'),
+                              value: 'de',
+                              groupValue: context.read<LanguageService>().currentLocale.languageCode,
+                              onChanged: (value) {
+                                Navigator.pop(context, value);
+                              },
+                            ),
+                            RadioListTile<String>(
+                              title: const Text('English'),
+                              value: 'en',
+                              groupValue: context.read<LanguageService>().currentLocale.languageCode,
+                              onChanged: (value) {
+                                Navigator.pop(context, value);
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     );
+                    
+                    if (selectedLanguage != null) {
+                      if (!context.mounted) return;
+                      await context.read<LanguageService>().setLocale(selectedLanguage);
+                    }
                   },
                 ),
                 ListTile(
@@ -152,21 +162,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       builder: (context) => SimpleDialog(
                         title: const Text('Kanton wählen'),
                         children: [
-                          SimpleDialogOption(
-                            onPressed: () {
-                              setState(() => _selectedCanton = 'ZH');
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Zürich (ZH)'),
-                          ),
-                          SimpleDialogOption(
-                            onPressed: () {
-                              setState(() => _selectedCanton = 'BE');
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Bern (BE)'),
-                          ),
-                          // Add more cantons as needed
+                          ...ContributionRates.defaultCantons.entries.map((canton) =>
+                            SimpleDialogOption(
+                              onPressed: () {
+                                setState(() => _selectedCanton = canton.key);
+                                Navigator.pop(context);
+                              },
+                              child: Text('${canton.value.name} (${canton.key})'),
+                            ),
+                          ).toList(),
                         ],
                       ),
                     );

@@ -18,6 +18,9 @@ class LanguageService extends ChangeNotifier {
     _currentLocale = Locale(languageCode, languageCode == 'de' ? 'CH' : '');
     await _prefs.setString(_languageKey, languageCode);
     notifyListeners();
+    
+    // Force rebuild of MaterialApp
+    WidgetsBinding.instance.handleLocaleChanged();
   }
   
   String get currentLanguage => 
