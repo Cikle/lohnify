@@ -93,11 +93,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         decoration: const InputDecoration(
                           labelText: 'Kanton',
                         ),
-                        items: const [
-                          DropdownMenuItem(value: 'ZH', child: Text('Zürich')),
-                          DropdownMenuItem(value: 'BE', child: Text('Bern')),
-                          DropdownMenuItem(value: 'LU', child: Text('Luzern')),
-                        ],
+                        items: ContributionRates.defaultCantons.entries
+                            .map((entry) => DropdownMenuItem(
+                                  value: entry.key,
+                                  child: Text(entry.value.name),
+                                ))
+                            .toList(),
                         onChanged: (value) {
                           setState(() => _selectedCanton = value!);
                         },
