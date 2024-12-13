@@ -5,19 +5,24 @@ class AppTranslations {
       'settings': 'Einstellungen',
       'helpAndSupport': 'Hilfe & Support',
       'calculatorHelp': 'Rechner-Hilfe',
-      'calculatorHelpContent': 'Geben Sie Ihren Bruttolohn und persönliche Details ein, um Ihren Nettolohn zu berechnen. Sie können sowohl aus Arbeitgeber- als auch aus Arbeitnehmersicht berechnen. Der Rechner unterstützt Dezimalzahlen und überprüft alle Eingaben.',
+      'calculatorHelpContent':
+          'Geben Sie Ihren Bruttolohn und persönliche Details ein, um Ihren Nettolohn zu berechnen. Sie können sowohl aus Arbeitgeber- als auch aus Arbeitnehmersicht berechnen. Der Rechner unterstützt Dezimalzahlen und überprüft alle Eingaben.',
       'taxesHelp': 'Steuerinformationen',
-      'taxesHelpContent': 'Die Steuersätze variieren je nach Kanton. Die Kirchensteuer ist optional und hängt von Ihrem Registrierungsstatus ab. Sie können entweder die Standard-Kantonssätze verwenden oder einen benutzerdefinierten Steuersatz angeben.',
+      'taxesHelpContent':
+          'Die Steuersätze variieren je nach Kanton. Die Kirchensteuer ist optional und hängt von Ihrem Registrierungsstatus ab. Sie können entweder die Standard-Kantonssätze verwenden oder einen benutzerdefinierten Steuersatz angeben.',
       'insuranceHelp': 'Versicherungsinformationen',
-      'insuranceHelpContent': 'Sozialversicherungsbeiträge umfassen AHV (5,3%), IV (0,7%), EO (0,25%) und ALV (1,1%). Zusätzliche Versicherungen und Pensionskassenbeiträge können bei Bedarf angegeben werden.',
+      'insuranceHelpContent':
+          'Sozialversicherungsbeiträge umfassen AHV (5,3%), IV (0,7%), EO (0,25%) und ALV (1,1%). Zusätzliche Versicherungen und Pensionskassenbeiträge können bei Bedarf angegeben werden.',
       'savingHelp': 'Berechnungen speichern',
-      'savingHelpContent': 'Sie können Ihre Berechnungen für spätere Referenz speichern oder bei Nichtbedarf löschen. Gespeicherte Berechnungen enthalten alle Eingabeparameter und Ergebnisse.',
+      'savingHelpContent':
+          'Sie können Ihre Berechnungen für spätere Referenz speichern oder bei Nichtbedarf löschen. Gespeicherte Berechnungen enthalten alle Eingabeparameter und Ergebnisse.',
       'employerView': 'Arbeitgeber-Ansicht',
       'employeeView': 'Arbeitnehmer-Ansicht',
       'savedCalculations': 'Gespeicherte Berechnungen',
       'noSavedCalculations': 'Noch keine Berechnungen gespeichert',
       'viewDifference': 'Ansichtsunterschied',
-      'employerViewInfo': 'Arbeitgeber-Ansicht zeigt Gesamtkosten inklusive Arbeitgeberbeiträge',
+      'employerViewInfo':
+          'Arbeitgeber-Ansicht zeigt Gesamtkosten inklusive Arbeitgeberbeiträge',
       'employeeViewInfo': 'Arbeitnehmer-Ansicht zeigt Nettolohn nach Abzügen',
       'calculator': 'Lohnrechner',
       'calculatorSubtitle': 'Berechnen Sie Ihren Nettolohn',
@@ -54,14 +59,16 @@ class AppTranslations {
       'thirteenthSalary': '13. Monatslohn',
       'calculateOnYearlyBasis': 'Auf Jahresbasis berechnen',
       'socialInsurance': 'Sozialversicherungen',
-      'socialInsuranceInfo': 'AHV: Alters- und Hinterlassenenversicherung\nIV: Invalidenversicherung\nEO: Erwerbsersatzordnung\nALV: Arbeitslosenversicherung',
+      'socialInsuranceInfo':
+          'AHV: Alters- und Hinterlassenenversicherung\nIV: Invalidenversicherung\nEO: Erwerbsersatzordnung\nALV: Arbeitslosenversicherung',
       'child': 'Kind',
       'children': 'Kinder',
       'customTaxRate': 'Benutzerdefinierter Steuersatz',
       'useCustomTaxRate': 'Benutzerdefinierten Steuersatz verwenden',
       'customRatesActive': 'Benutzerdefinierte Sätze aktiv',
       'pleaseEnterTaxRate': 'Bitte geben Sie einen Steuersatz ein',
-      'invalidTaxRate': 'Bitte geben Sie einen gültigen Steuersatz zwischen 0 und 100 ein',
+      'invalidTaxRate':
+          'Bitte geben Sie einen gültigen Steuersatz zwischen 0 und 100 ein',
       'results': 'Berechnungs Ergebnis',
       'monthlyGross': 'Monatlicher Bruttolohn',
       'monthlyNet': 'Monatlicher Nettolohn',
@@ -107,7 +114,8 @@ class AppTranslations {
       'thirteenthSalary': '13th Month Salary',
       'calculateOnYearlyBasis': 'Calculate on yearly basis',
       'socialInsurance': 'Social Insurance',
-      'socialInsuranceInfo': 'AHV: Old Age and Survivors Insurance\nIV: Disability Insurance\nEO: Loss of Earnings Insurance\nALV: Unemployment Insurance',
+      'socialInsuranceInfo':
+          'AHV: Old Age and Survivors Insurance\nIV: Disability Insurance\nEO: Loss of Earnings Insurance\nALV: Unemployment Insurance',
       'child': 'child',
       'children': 'children',
       'customTaxRate': 'Custom Tax Rate',
@@ -123,19 +131,24 @@ class AppTranslations {
       'totalDeductions': 'Total Deductions',
       'helpAndSupport': 'Help & Support',
       'calculatorHelp': 'Calculator Help',
-      'calculatorHelpContent': 'Enter your gross salary and personal details to calculate your net salary. You can calculate for both employer and employee perspectives. The calculator supports decimal numbers and validates all inputs.',
+      'calculatorHelpContent':
+          'Enter your gross salary and personal details to calculate your net salary. You can calculate for both employer and employee perspectives. The calculator supports decimal numbers and validates all inputs.',
       'taxesHelp': 'Taxes Information',
-      'taxesHelpContent': 'Tax rates vary by canton. Church tax is optional and depends on your registration status. You can use either the default canton rates or specify a custom tax rate.',
+      'taxesHelpContent':
+          'Tax rates vary by canton. Church tax is optional and depends on your registration status. You can use either the default canton rates or specify a custom tax rate.',
       'insuranceHelp': 'Insurance Information',
-      'insuranceHelpContent': 'Social security contributions include AHV (5.3%), IV (0.7%), EO (0.25%), and ALV (1.1%). Additional insurance and pension fund contributions can be specified if applicable.',
+      'insuranceHelpContent':
+          'Social security contributions include AHV (5.3%), IV (0.7%), EO (0.25%), and ALV (1.1%). Additional insurance and pension fund contributions can be specified if applicable.',
       'savingHelp': 'Saving Calculations',
-      'savingHelpContent': 'You can save your calculations for future reference or delete them when no longer needed. Saved calculations include all input parameters and results.',
+      'savingHelpContent':
+          'You can save your calculations for future reference or delete them when no longer needed. Saved calculations include all input parameters and results.',
       'employerView': 'Employer View',
       'employeeView': 'Employee View',
       'savedCalculations': 'Saved Calculations',
       'noSavedCalculations': 'No saved calculations yet',
       'viewDifference': 'View Difference',
-      'employerViewInfo': 'Employer view shows total cost including employer contributions',
+      'employerViewInfo':
+          'Employer view shows total cost including employer contributions',
       'employeeViewInfo': 'Employee view shows net salary after deductions',
       'saveCalculation': 'Save Calculation',
       'deleteCalculation': 'Delete Calculation',
@@ -151,9 +164,7 @@ class AppTranslations {
       'no': 'No',
       'arbeitnehmer': 'Employee',
       'arbeitgeber': 'Employer',
-      'deductions': 'Deductions',
       'date': 'Date',
-      'deductions': 'Deductions',
     },
   };
 
