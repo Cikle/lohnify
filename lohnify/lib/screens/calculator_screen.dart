@@ -27,6 +27,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   void _calculateSalary() {
     if (_formKey.currentState?.validate() ?? false) {
       final grossSalary = double.parse(_salaryController.text);
+      final childrenCount = int.tryParse(_childrenController.text) ?? 0;
       setState(() {
         _calculation = SalaryCalculation.calculate(
           grossSalary,
@@ -35,6 +36,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           pensionRate: double.tryParse(_pensionController.text) ?? _rates.defaultPensionRate,
           additionalInsurance: double.tryParse(_additionalInsuranceController.text) ?? 0.0,
           hasChurchTax: _hasChurchTax,
+          numberOfChildren: childrenCount,
         );
       });
     }
@@ -193,6 +195,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 value: _has13thSalary,
                 onChanged: (value) {
                   setState(() => _has13thSalary = value);
+                  _calculateSalary(); // Recalculate when 13th month is toggled
                 },
               ),
               const SizedBox(height: 20),

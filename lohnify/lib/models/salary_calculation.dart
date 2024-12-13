@@ -12,6 +12,7 @@ class SalaryCalculation {
   final double netSalary;
   final double yearlyGross;
   final double yearlyNet;
+  final int numberOfChildren;
 
   SalaryCalculation({
     required this.grossSalary,
@@ -25,6 +26,7 @@ class SalaryCalculation {
     required this.netSalary,
     required this.yearlyGross,
     required this.yearlyNet,
+    this.numberOfChildren = 0,
   });
 
   factory SalaryCalculation.calculate(
@@ -34,6 +36,7 @@ class SalaryCalculation {
     required double pensionRate,
     required double additionalInsurance,
     required bool hasChurchTax,
+    int numberOfChildren = 0,
   }) {
     final baseAmount = grossSalary.clamp(0, rates.maxContributionBase);
 
@@ -83,6 +86,12 @@ class SalaryCalculation {
       DeductionItem('Zusatzversicherungen', additionalInsurance, isDeduction: true),
     if (churchTax > 0)
       DeductionItem('Kirchensteuer', churchTax, isDeduction: true),
+    if (numberOfChildren > 0)
+      DeductionItem(
+        'Kinderzulage (${numberOfChildren} ${numberOfChildren == 1 ? 'Kind' : 'Kinder'})',
+        numberOfChildren * 200.0, // Standard children allowance in Switzerland
+        isDeduction: false,
+      ),
   ];
 }
 
