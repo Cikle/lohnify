@@ -23,8 +23,16 @@ class ResultsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _buildResultCard('Bruttolohn', calculation.grossSalary),
-            const Divider(),
+            _buildResultCard(
+              LanguageService.tr(context, 'monthlyGross'),
+              calculation.grossSalary,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                color: Colors.green,
+              ),
+            ),
+            const Divider(thickness: 1.5),
             ...calculation.deductionItems.map(
               (item) => _buildResultCard(
                 item.label,
@@ -34,24 +42,52 @@ class ResultsScreen extends StatelessWidget {
             ),
             const Divider(thickness: 2),
             _buildResultCard(
-              'Nettolohn',
-              calculation.netSalary,
+              LanguageService.tr(context, 'totalDeductions'),
+              calculation.deductionItems
+                  .where((item) => item.isDeduction)
+                  .fold(0.0, (sum, item) => sum + item.amount),
+              isDeduction: true,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
+                color: Colors.red,
+              ),
+            ),
+            const SizedBox(height: 16),
+            _buildResultCard(
+              LanguageService.tr(context, 'monthlyNet'),
+              calculation.netSalary,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                color: Colors.blue,
               ),
             ),
             const SizedBox(height: 8),
             if (has13thSalary) ...[
               const Divider(),
               _buildResultCard(
-                  'Jahresbrutto (inkl. 13.)', calculation.yearlyGross),
+                '${LanguageService.tr(context, 'yearlyGross')} (inkl. 13.)',
+                calculation.yearlyGross,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
               _buildResultCard(
-                  'Jahresnetto (inkl. 13.)', calculation.yearlyNet),
+                '${LanguageService.tr(context, 'yearlyNet')} (inkl. 13.)',
+                calculation.yearlyNet,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
             ] else ...[
               const Divider(),
-              _buildResultCard('Jahresbrutto', calculation.yearlyGross),
-              _buildResultCard('Jahresnetto', calculation.yearlyNet),
+              _buildResultCard(
+                LanguageService.tr(context, 'yearlyGross'),
+                calculation.yearlyGross,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              _buildResultCard(
+                LanguageService.tr(context, 'yearlyNet'),
+                calculation.yearlyNet,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
             ],
           ],
         ),
