@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
-import 'screens/calculator_screen.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'screens/home_screen.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const LohnifyApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class LohnifyApp extends StatelessWidget {
+  const LohnifyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Swiss Salary Calculator',
+      title: 'Lohnify',
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('de', 'CH'),
+        Locale('en', ''),
+      ],
       theme: ThemeData.dark().copyWith(
         primaryColor: Colors.blueGrey,
         scaffoldBackgroundColor: const Color(0xFF121212),
@@ -27,8 +37,14 @@ class MainApp extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
         ),
+        cardTheme: CardTheme(
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
       ),
-      home: const CalculatorScreen(),
+      home: const HomeScreen(),
     );
   }
 }

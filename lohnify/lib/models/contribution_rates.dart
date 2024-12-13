@@ -8,6 +8,10 @@ class ContributionRates {
   final double alvEmployee;
   final double alvEmployer;
   final double maxContributionBase;
+  final double alvAdditionalRate; // Additional ALV rate for high incomes
+  final double maxAdditionalAlvBase; // Threshold for additional ALV
+  final double nbuRate; // Non-occupational accident insurance
+  final double defaultPensionRate; // Default BVG rate
 
   ContributionRates({
     this.ahvEmployee = 5.3,
@@ -18,6 +22,17 @@ class ContributionRates {
     this.eoEmployer = 0.25,
     this.alvEmployee = 1.1,
     this.alvEmployer = 1.1,
-    this.maxContributionBase = 88200,
+    this.maxContributionBase = 148200, // Updated 2024 value
+    this.alvAdditionalRate = 0.5,
+    this.maxAdditionalAlvBase = 148200,
+    this.nbuRate = 1.4,
+    this.defaultPensionRate = 7.75,
   });
+
+  static final Map<String, double> cantonalTaxRates = {
+    'ZH': 0.0,
+    'BE': 0.0,
+    'LU': 0.0,
+    // Add more cantons as needed
+  };
 }
