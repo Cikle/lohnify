@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
+import '../services/canton_rates_service.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
