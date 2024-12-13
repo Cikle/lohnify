@@ -42,6 +42,10 @@ class AppTranslations {
       'child': 'Kind',
       'children': 'Kinder',
       'customTaxRate': 'Benutzerdefinierter Steuersatz',
+      'useCustomTaxRate': 'Benutzerdefinierten Steuersatz verwenden',
+      'customRatesActive': 'Benutzerdefinierte Sätze aktiv',
+      'pleaseEnterTaxRate': 'Bitte geben Sie einen Steuersatz ein',
+      'invalidTaxRate': 'Bitte geben Sie einen gültigen Steuersatz zwischen 0 und 100 ein',
     },
     'en': {
       'appTitle': 'Lohnify',
@@ -85,6 +89,10 @@ class AppTranslations {
       'child': 'child',
       'children': 'children',
       'customTaxRate': 'Custom Tax Rate',
+      'useCustomTaxRate': 'Use Custom Tax Rate',
+      'customRatesActive': 'Custom rates active',
+      'pleaseEnterTaxRate': 'Please enter a tax rate',
+      'invalidTaxRate': 'Please enter a valid tax rate between 0 and 100',
     },
   };
 

@@ -15,7 +15,8 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool _useDefaultRates = true;
+  late SharedPreferences _prefs;
+  bool _useCustomTaxRate = false;
   String _selectedCanton = 'ZH';
   DateTime? _lastRatesUpdate;
   bool _isUpdating = false;
@@ -23,7 +24,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   void initState() {
     super.initState();
+    _loadPreferences();
     _checkLastUpdate();
+  }
+
+  Future<void> _loadPreferences() async {
+    _prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _useCustomTaxRate = _prefs.getBool('use_custom_tax_rate') ?? false;
+    });
   }
 
   Future<void> _checkLastUpdate() async {
@@ -195,14 +204,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.percent),
-                  title: Text(LanguageService.tr(context, 'useDefaultRates')),
-                  subtitle: Text(_useDefaultRates
-                      ? LanguageService.tr(context, 'defaultRatesActive')
-                      : LanguageService.tr(context, 'customRates')),
+                  title: Text(LanguageService.tr(context, 'useCustomTaxRate')),
+                  subtitle: Text(_useCustomTaxRate
+                      ? LanguageService.tr(context, 'customRatesActive')
+                      : LanguageService.tr(context, 'defaultRatesActive')),
                   trailing: Switch(
-                    value: _useDefaultRates,
-                    onChanged: (value) {
-                      setState(() => _useDefaultRates = value);
+                    value: _useCustomTaxRate,
+                    onChanged: (value) async {
+                      setState(() => _useCustomTaxRate = value);
+                      await _prefs.setBool('use_custom_tax_rate', value);
                     },
                   ),
                 ),

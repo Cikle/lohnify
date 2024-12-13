@@ -18,6 +18,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   final _pensionController = TextEditingController();
   final _additionalInsuranceController = TextEditingController();
   final _customTaxRateController = TextEditingController();
+  late SharedPreferences _prefs;
+  bool _useCustomTaxRate = false;
   SalaryCalculation? _calculation;
   final _rates = ContributionRates();
 
@@ -47,6 +49,19 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         );
       });
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPreferences();
+  }
+
+  Future<void> _loadPreferences() async {
+    _prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _useCustomTaxRate = _prefs.getBool('use_custom_tax_rate') ?? false;
+    });
   }
 
   @override
@@ -102,7 +117,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         },
                       ),
                       const SizedBox(height: 16),
-                      ListTile(
+                      if (!_useCustomTaxRate) ListTile(
                         title: Text(LanguageService.tr(context, 'canton')),
                         subtitle: Text('${ContributionRates.defaultCantons[_selectedCanton]?.name ?? ''} ($_selectedCanton)'),
                         trailing: const Icon(Icons.arrow_forward_ios),
@@ -126,19 +141,31 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           );
                         },
                       ),
-                      const SizedBox(height: 8),
-                      TextFormField(
-                        controller: _customTaxRateController,
-                        decoration: InputDecoration(
-                          labelText: LanguageService.tr(context, 'customTaxRate'),
-                          hintText: ContributionRates.defaultCantons[_selectedCanton]?.taxRate.toString(),
-                          suffixText: '%',
+                      if (_useCustomTaxRate) ...[
+                        const SizedBox(height: 8),
+                        TextFormField(
+                          controller: _customTaxRateController,
+                          decoration: InputDecoration(
+                            labelText: LanguageService.tr(context, 'customTaxRate'),
+                            hintText: ContributionRates.defaultCantons[_selectedCanton]?.taxRate.toString(),
+                            suffixText: '%',
+                          ),
+                          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                          ],
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return LanguageService.tr(context, 'pleaseEnterTaxRate');
+                            }
+                            final rate = double.tryParse(value);
+                            if (rate == null || rate < 0 || rate > 100) {
+                              return LanguageService.tr(context, 'invalidTaxRate');
+                            }
+                            return null;
+                          },
                         ),
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
-                        ],
-                      ),
+                      ],
                     ],
                   ),
                 ),
