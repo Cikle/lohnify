@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import '../services/canton_rates_service.dart';
+import '../services/language_service.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -85,7 +87,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ListTile(
                   leading: const Icon(Icons.language),
                   title: const Text('Sprache'),
-                  subtitle: Text(_selectedLanguage),
+                  subtitle: Text(context.watch<LanguageService>().currentLanguage),
                   onTap: () {
                     showDialog(
                       context: context,
@@ -94,14 +96,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         children: [
                           SimpleDialogOption(
                             onPressed: () {
-                              setState(() => _selectedLanguage = 'Deutsch');
+                              context.read<LanguageService>().setLocale('de');
                               Navigator.pop(context);
                             },
                             child: const Text('Deutsch'),
                           ),
                           SimpleDialogOption(
                             onPressed: () {
-                              setState(() => _selectedLanguage = 'English');
+                              context.read<LanguageService>().setLocale('en');
                               Navigator.pop(context);
                             },
                             child: const Text('English'),
