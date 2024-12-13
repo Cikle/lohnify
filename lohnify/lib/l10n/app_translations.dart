@@ -147,9 +147,10 @@ class AppTranslations {
       'enterValidNumber': 'Please enter a valid number',
       'decimalAllowed': 'Decimal numbers are allowed',
       'resetCalculator': 'Reset Calculator',
-      'yes': 'Yes',
+      'yes': 'Yes', 
       'no': 'No',
       'date': 'Date',
+      'deductions': 'Deductions',
     },
   };
 
