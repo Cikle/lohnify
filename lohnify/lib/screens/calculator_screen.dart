@@ -313,28 +313,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 children: [
                   Expanded(
                     child: TextButton.icon(
-                      onPressed: _calculation == null
-                          ? null
-                          : () async {
-                              await _saveCalculation();
-                              if (!mounted) return;
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    LanguageService.tr(
-                                        context, 'calculationSaved'),
-                                  ),
-                                ),
-                              );
-                            },
-                      icon: const Icon(Icons.save),
-                      label:
-                          Text(LanguageService.tr(context, 'saveCalculation')),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: TextButton.icon(
                       onPressed: () {
                         setState(() {
                           _formKey.currentState?.reset();
@@ -362,34 +340,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     );
   }
 
-  Future<void> _saveCalculation() async {
-    if (_calculation == null) return;
-
-    final calculations = _prefs.getStringList('saved_calculations') ?? [];
-    final calculationData = {
-      'date': DateTime.now().toIso8601String(),
-      'grossSalary': _calculation!.grossSalary,
-      'netSalary': _calculation!.netSalary,
-      'isEmployerView': _isEmployerView,
-      'canton': _selectedCanton,
-      'isMarried': _isMarried,
-      'hasChurchTax': _hasChurchTax,
-      'numberOfChildren': int.tryParse(_childrenController.text) ?? 0,
-      'pensionRate': double.tryParse(_pensionController.text),
-      'additionalInsurance': double.tryParse(_additionalInsuranceController.text),
-      'has13thSalary': _has13thSalary,
-      'useCustomTaxRate': _useCustomTaxRate,
-      'customTaxRate': double.tryParse(_customTaxRateController.text),
-      'deductions': _calculation!.deductionItems.map((item) => {
-        'label': item.label,
-        'amount': item.amount,
-        'isDeduction': item.isDeduction,
-      }).toList(),
-    };
-
-    calculations.add(json.encode(calculationData));
-    await _prefs.setStringList('saved_calculations', calculations);
-  }
 
   @override
   void dispose() {

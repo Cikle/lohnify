@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/salary_calculation.dart';
 import '../services/language_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class ResultsScreen extends StatelessWidget {
   final SalaryCalculation calculation;
@@ -17,6 +19,42 @@ class ResultsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(LanguageService.tr(context, 'results')),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.save),
+            onPressed: () async {
+              final prefs = await SharedPreferences.getInstance();
+              final calculations = prefs.getStringList('saved_calculations') ?? [];
+              
+              final calculationData = {
+                'date': DateTime.now().toIso8601String(),
+                'grossSalary': calculation.grossSalary,
+                'netSalary': calculation.netSalary,
+                'isEmployerView': false,
+                'canton': 'ZH', // You may want to pass this from calculator screen
+                'isMarried': false, // Pass these from calculator screen
+                'hasChurchTax': false,
+                'numberOfChildren': calculation.numberOfChildren,
+                'has13thSalary': has13thSalary,
+                'deductions': calculation.deductionItems.map((item) => {
+                  'label': item.label,
+                  'amount': item.amount,
+                  'isDeduction': item.isDeduction,
+                }).toList(),
+              };
+
+              calculations.add(json.encode(calculationData));
+              await prefs.setStringList('saved_calculations', calculations);
+              
+              if (!mounted) return;
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(LanguageService.tr(context, 'calculationSaved')),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
