@@ -45,12 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       ButtonSegment<bool>(
                         value: false,
                         label:
-                            Text(LanguageService.tr(context, 'employeeView')),
+                            Text('Arbeitnehmer'),
                       ),
                       ButtonSegment<bool>(
                         value: true,
                         label:
-                            Text(LanguageService.tr(context, 'employerView')),
+                            Text('Arbeitgeber'),
                       ),
                     ],
                     selected: {_isEmployerView},
