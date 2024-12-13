@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/foundation.dart';
 import '../services/canton_rates_service.dart';
 import '../services/language_service.dart';
 import '../models/contribution_rates.dart';

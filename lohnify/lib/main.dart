@@ -30,7 +30,9 @@ class LohnifyAppState extends State<LohnifyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ChangeNotifierProvider.value(
+      value: languageService,
+      child: MaterialApp(
       locale: languageService.currentLocale,
       builder: (context, child) {
         return child!;
@@ -68,6 +70,7 @@ class LohnifyAppState extends State<LohnifyApp> {
         ),
       ),
       home: const HomeScreen(),
+      ),
     );
   }
 }
