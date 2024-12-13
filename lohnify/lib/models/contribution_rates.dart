@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+part 'contribution_rates.g.dart';
+
 @JsonSerializable()
 class ContributionRates {
   final double ahvEmployee;
