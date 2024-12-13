@@ -36,23 +36,24 @@ class SalaryCalculation {
     required bool hasChurchTax,
   }) {
     final baseAmount = grossSalary.clamp(0, rates.maxContributionBase);
-    
+
     final ahvDeduction = baseAmount * (rates.ahvEmployee / 100);
     final ivDeduction = baseAmount * (rates.ivEmployee / 100);
     final eoDeduction = baseAmount * (rates.eoEmployee / 100);
     final alvDeduction = baseAmount * (rates.alvEmployee / 100);
-    
+
     final pensionDeduction = baseAmount * (pensionRate / 100);
-    final churchTaxAmount = hasChurchTax ? (baseAmount * 0.08) : 0.0; // Example church tax rate
-    
-    final totalDeductions = ahvDeduction + 
-                           ivDeduction + 
-                           eoDeduction + 
-                           alvDeduction +
-                           pensionDeduction +
-                           additionalInsurance +
-                           churchTaxAmount;
-                           
+    final churchTaxAmount =
+        hasChurchTax ? (baseAmount * 0.08) : 0.0; // Example church tax rate
+
+    final totalDeductions = ahvDeduction +
+        ivDeduction +
+        eoDeduction +
+        alvDeduction +
+        pensionDeduction +
+        additionalInsurance +
+        churchTaxAmount;
+
     final netSalary = grossSalary - totalDeductions;
     final yearlyGross = has13thSalary ? grossSalary * 13 : grossSalary * 12;
     final yearlyNet = has13thSalary ? netSalary * 13 : netSalary * 12;

@@ -38,7 +38,7 @@ class ContributionRates {
 
   factory ContributionRates.fromJson(Map<String, dynamic> json) =>
       _$ContributionRatesFromJson(json);
-  
+
   Map<String, dynamic> toJson() => _$ContributionRatesToJson(this);
 
   static final Map<String, CantonData> defaultCantons = {
@@ -87,6 +87,6 @@ class CantonData {
 
   factory CantonData.fromJson(Map<String, dynamic> json) =>
       _$CantonDataFromJson(json);
-  
+
   Map<String, dynamic> toJson() => _$CantonDataToJson(this);
 }
