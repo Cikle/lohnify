@@ -131,6 +131,8 @@ class AppTranslations {
       'deleteCalculation': 'Delete Calculation',
       'calculationSaved': 'Calculation saved successfully',
       'calculationDeleted': 'Calculation deleted',
+      'calculationDetails': 'Calculation Details',
+      'deductions': 'Deductions',
       'invalidInput': 'Invalid input',
       'enterValidNumber': 'Please enter a valid number',
       'decimalAllowed': 'Decimal numbers are allowed',

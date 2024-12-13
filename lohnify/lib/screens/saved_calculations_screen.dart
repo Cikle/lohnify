@@ -58,8 +58,7 @@ class _SavedCalculationsScreenState extends State<SavedCalculationsScreen> {
                 final isEmployerView = calculation['isEmployerView'] as bool;
 
                 return Card(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: ListTile(
                     leading: Icon(
                       isEmployerView ? Icons.business : Icons.person,
@@ -69,13 +68,39 @@ class _SavedCalculationsScreenState extends State<SavedCalculationsScreen> {
                       '${calculation['grossSalary'].toStringAsFixed(2)} CHF',
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    subtitle: Text(
-                      '${LanguageService.tr(context, isEmployerView ? 'employerView' : 'employeeView')}\n'
-                      '${date.day}.${date.month}.${date.year}',
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${LanguageService.tr(context, isEmployerView ? 'employerView' : 'employeeView')}',
+                        ),
+                        Text('${date.day}.${date.month}.${date.year}'),
+                        Text(
+                          '${LanguageService.tr(context, 'netSalary')}: ${calculation['netSalary'].toStringAsFixed(2)} CHF',
+                        ),
+                      ],
                     ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () => _deleteCalculation(index),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.visibility),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CalculationDetailsScreen(
+                                  calculation: calculation,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () => _deleteCalculation(index),
+                        ),
+                      ],
                     ),
                     isThreeLine: true,
                   ),

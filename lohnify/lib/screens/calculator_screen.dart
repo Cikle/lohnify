@@ -372,6 +372,19 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
       'netSalary': _calculation!.netSalary,
       'isEmployerView': _isEmployerView,
       'canton': _selectedCanton,
+      'isMarried': _isMarried,
+      'hasChurchTax': _hasChurchTax,
+      'numberOfChildren': int.tryParse(_childrenController.text) ?? 0,
+      'pensionRate': double.tryParse(_pensionController.text),
+      'additionalInsurance': double.tryParse(_additionalInsuranceController.text),
+      'has13thSalary': _has13thSalary,
+      'useCustomTaxRate': _useCustomTaxRate,
+      'customTaxRate': double.tryParse(_customTaxRateController.text),
+      'deductions': _calculation!.deductionItems.map((item) => {
+        'label': item.label,
+        'amount': item.amount,
+        'isDeduction': item.isDeduction,
+      }).toList(),
     };
 
     calculations.add(json.encode(calculationData));
