@@ -283,28 +283,94 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 },
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  _calculateSalary();
-                  if (_calculation != null) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ResultsScreen(
-                          calculation: _calculation!,
-                          has13thSalary: _has13thSalary,
-                        ),
-                      ),
-                    );
-                  }
-                },
-                child: Text(LanguageService.tr(context, 'calculate')),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _calculateSalary();
+                        if (_calculation != null) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ResultsScreen(
+                                calculation: _calculation!,
+                                has13thSalary: _has13thSalary,
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                      child: Text(LanguageService.tr(context, 'calculate')),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextButton.icon(
+                      onPressed: _calculation == null
+                          ? null
+                          : () async {
+                              await _saveCalculation();
+                              if (!mounted) return;
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    LanguageService.tr(context, 'calculationSaved'),
+                                  ),
+                                ),
+                              );
+                            },
+                      icon: const Icon(Icons.save),
+                      label: Text(LanguageService.tr(context, 'saveCalculation')),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: TextButton.icon(
+                      onPressed: () {
+                        setState(() {
+                          _formKey.currentState?.reset();
+                          _calculation = null;
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              LanguageService.tr(context, 'calculationDeleted'),
+                            ),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.delete),
+                      label: Text(LanguageService.tr(context, 'resetCalculator')),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<void> _saveCalculation() async {
+    if (_calculation == null) return;
+    
+    final calculations = _prefs.getStringList('saved_calculations') ?? [];
+    final calculationData = {
+      'date': DateTime.now().toIso8601String(),
+      'grossSalary': _calculation!.grossSalary,
+      'netSalary': _calculation!.netSalary,
+      'isEmployerView': _isEmployerView,
+      'canton': _selectedCanton,
+    };
+    
+    calculations.add(json.encode(calculationData));
+    await _prefs.setStringList('saved_calculations', calculations);
   }
 
   @override

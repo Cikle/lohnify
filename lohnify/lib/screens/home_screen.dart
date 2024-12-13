@@ -4,6 +4,7 @@ import '../services/language_service.dart';
 import 'calculator_screen.dart';
 import 'settings_screen.dart';
 import 'info_screen.dart';
+import 'help_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -28,6 +29,30 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Row(
+              children: [
+                Expanded(
+                  child: SegmentedButton<bool>(
+                    segments: [
+                      ButtonSegment<bool>(
+                        value: false,
+                        label: Text(LanguageService.tr(context, 'employeeView')),
+                      ),
+                      ButtonSegment<bool>(
+                        value: true,
+                        label: Text(LanguageService.tr(context, 'employerView')),
+                      ),
+                    ],
+                    selected: {_isEmployerView},
+                    onSelectionChanged: (Set<bool> newSelection) {
+                      setState(() {
+                        _isEmployerView = newSelection.first;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 20),
             Card(
               child: ListTile(
@@ -49,6 +74,17 @@ class HomeScreen extends StatelessWidget {
                 onTap: () => NavigationService.navigateToPage(
                   context,
                   const InfoScreen(),
+                ),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.help),
+                title: Text(LanguageService.tr(context, 'helpAndSupport')),
+                subtitle: const Text('Get help with calculations and features'),
+                onTap: () => NavigationService.navigateToPage(
+                  context,
+                  const HelpScreen(),
                 ),
               ),
             ),
