@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../services/canton_rates_service.dart';
 import '../services/language_service.dart';
 import '../models/contribution_rates.dart';
+import '../services/theme_service.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -134,7 +135,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ListTile(
                   leading: const Icon(Icons.brightness_6),
                   title: Text(LanguageService.tr(context, 'appearance')),
-                  subtitle: Text(_isDarkMode
+                  subtitle: Text(context.watch<ThemeService>().isDarkMode
                       ? LanguageService.tr(context, 'dark')
                       : LanguageService.tr(context, 'light')),
                   trailing: Switch(
