@@ -39,20 +39,22 @@ class LohnifyAppState extends State<LohnifyApp> {
         ChangeNotifierProvider.value(value: languageService),
         ChangeNotifierProvider.value(value: themeService),
       ],
-      child: MaterialApp(
-        locale: languageService.currentLocale,
-        title: 'Lohnify',
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('de', 'CH'),
-          Locale('en', ''),
-        ],
-        theme: themeService.currentTheme,
-        home: const HomeScreen(),
+      child: Consumer<ThemeService>(
+        builder: (context, themeService, _) => MaterialApp(
+          locale: languageService.currentLocale,
+          title: 'Lohnify',
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('de', 'CH'),
+            Locale('en', ''),
+          ],
+          theme: themeService.currentTheme,
+          home: const HomeScreen(),
+        ),
       ),
     );
   }

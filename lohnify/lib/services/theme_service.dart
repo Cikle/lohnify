@@ -7,7 +7,7 @@ class ThemeService extends ChangeNotifier {
 
   bool _isDarkMode;
 
-  ThemeService(this._prefs) : _isDarkMode = _prefs.getBool(_themeKey) ?? true;
+  ThemeService(this._prefs) : _isDarkMode = _prefs.getBool(_themeKey) ?? false;
 
   bool get isDarkMode => _isDarkMode;
 
