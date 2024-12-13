@@ -59,7 +59,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
-                'Allgemeine Einstellungen',
+                LanguageService.tr(context, 'generalSettings'),
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -73,7 +73,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 if (_lastRatesUpdate != null)
                   ListTile(
                     leading: const Icon(Icons.update),
-                    title: const Text('Letzte Aktualisierung'),
+                    title: Text(LanguageService.tr(context, 'lastUpdate')),
                     subtitle: Text(DateFormat('dd.MM.yyyy HH:mm')
                         .format(_lastRatesUpdate!)),
                     trailing: _isUpdating
@@ -85,14 +85,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ListTile(
                   leading: const Icon(Icons.language),
-                  title: const Text('Sprache'),
+                  title: Text(LanguageService.tr(context, 'language')),
                   subtitle:
                       Text(context.watch<LanguageService>().currentLanguage),
                   onTap: () async {
                     final selectedLanguage = await showDialog<String>(
                       context: context,
                       builder: (context) => AlertDialog(
-                        title: const Text('Sprache wählen'),
+                        title: Text(LanguageService.tr(context, 'chooseLanguage')),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -133,8 +133,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.brightness_6),
-                  title: const Text('Erscheinungsbild'),
-                  subtitle: Text(_isDarkMode ? 'Dunkel' : 'Hell'),
+                  title: Text(LanguageService.tr(context, 'appearance')),
+                  subtitle: Text(_isDarkMode 
+                    ? LanguageService.tr(context, 'dark') 
+                    : LanguageService.tr(context, 'light')),
                   trailing: Switch(
                     value: _isDarkMode,
                     onChanged: (value) {
@@ -150,7 +152,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
-                'Berechnungseinstellungen',
+                LanguageService.tr(context, 'calculationSettings'),
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -163,13 +165,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 ListTile(
                   leading: const Icon(Icons.location_city),
-                  title: const Text('Standardkanton'),
+                  title: Text(LanguageService.tr(context, 'defaultCanton')),
                   subtitle: Text(_selectedCanton),
                   onTap: () {
                     showDialog(
                       context: context,
                       builder: (context) => SimpleDialog(
-                        title: const Text('Kanton wählen'),
+                        title: Text(LanguageService.tr(context, 'chooseCanton')),
                         children: [
                           ...ContributionRates.defaultCantons.entries
                               .map(
@@ -191,10 +193,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.percent),
-                  title: const Text('Standardsätze verwenden'),
+                  title: Text(LanguageService.tr(context, 'useDefaultRates')),
                   subtitle: Text(_useDefaultRates
-                      ? 'Standardsätze aktiv'
-                      : 'Benutzerdefinierte Sätze'),
+                      ? LanguageService.tr(context, 'defaultRatesActive')
+                      : LanguageService.tr(context, 'customRates')),
                   trailing: Switch(
                     value: _useDefaultRates,
                     onChanged: (value) {
