@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../services/language_service.dart';
 
 class CalculationDetailsScreen extends StatelessWidget {
@@ -24,32 +25,38 @@ class CalculationDetailsScreen extends StatelessWidget {
               context,
               'basicInfo',
               [
-                _buildDetailRow('grossSalary', '${calculation['grossSalary'].toStringAsFixed(2)} CHF'),
-                _buildDetailRow('canton', calculation['canton'] ?? 'N/A'),
-                _buildDetailRow('netSalary', '${calculation['netSalary'].toStringAsFixed(2)} CHF'),
+                _buildDetailRow(LanguageService.tr(context, 'grossSalary'), '${calculation['grossSalary'].toStringAsFixed(2)} CHF'),
+                _buildDetailRow(LanguageService.tr(context, 'canton'), calculation['canton'] ?? 'N/A'),
+                _buildDetailRow(LanguageService.tr(context, 'monthlyNet'), '${calculation['netSalary'].toStringAsFixed(2)} CHF'),
                 if (calculation['yearlyGross'] != null) ...[
                   if (calculation['has13thSalary'])
-                    _buildDetailRow('yearlyGross', '${calculation['yearlyGross'].toStringAsFixed(2)} CHF (inkl. 13.)'),
+                    _buildDetailRow(LanguageService.tr(context, 'yearlyGross'), '${calculation['yearlyGross'].toStringAsFixed(2)} CHF (inkl. 13.)'),
                   if (!calculation['has13thSalary'])
-                    _buildDetailRow('yearlyGross', '${calculation['yearlyGross'].toStringAsFixed(2)} CHF'),
+                    _buildDetailRow(LanguageService.tr(context, 'yearlyGross'), '${calculation['yearlyGross'].toStringAsFixed(2)} CHF'),
                 ],
                 if (calculation['yearlyNet'] != null) ...[
                   if (calculation['has13thSalary'])
-                    _buildDetailRow('yearlyNet', '${calculation['yearlyNet'].toStringAsFixed(2)} CHF (inkl. 13.)'),
+                    _buildDetailRow(LanguageService.tr(context, 'yearlyNet'), '${calculation['yearlyNet'].toStringAsFixed(2)} CHF (inkl. 13.)'),
                   if (!calculation['has13thSalary'])
-                    _buildDetailRow('yearlyNet', '${calculation['yearlyNet'].toStringAsFixed(2)} CHF'),
+                    _buildDetailRow(LanguageService.tr(context, 'yearlyNet'), '${calculation['yearlyNet'].toStringAsFixed(2)} CHF'),
                 ],
-                _buildDetailRow('date', DateTime.parse(calculation['date']).toLocal().toString().split('.')[0]),
+                _buildDetailRow(LanguageService.tr(context, 'date'), DateFormat('dd.MM.yyyy HH:mm').format(DateTime.parse(calculation['date']).toLocal())),
               ],
             ),
             _buildSection(
               context,
               'personalInfo',
               [
-                _buildDetailRow('married', calculation['isMarried'] == true ? 'Ja' : 'Nein'),
-                _buildDetailRow('churchTax', calculation['hasChurchTax'] == true ? 'Ja' : 'Nein'),
+                _buildDetailRow(
+                  LanguageService.tr(context, 'married'),
+                  calculation['isMarried'] == true ? LanguageService.tr(context, 'yes') : LanguageService.tr(context, 'no')
+                ),
+                _buildDetailRow(
+                  LanguageService.tr(context, 'churchTax'),
+                  calculation['hasChurchTax'] == true ? LanguageService.tr(context, 'yes') : LanguageService.tr(context, 'no')
+                ),
                 if (calculation['numberOfChildren'] != null)
-                  _buildDetailRow('numberOfChildren', calculation['numberOfChildren'].toString()),
+                  _buildDetailRow(LanguageService.tr(context, 'numberOfChildren'), calculation['numberOfChildren'].toString()),
               ],
             ),
             _buildSection(
@@ -57,19 +64,25 @@ class CalculationDetailsScreen extends StatelessWidget {
               'additionalInsurance',
               [
                 if (calculation['pensionRate'] != null)
-                  _buildDetailRow('pensionFund', '${calculation['pensionRate'].toString()}%'),
+                  _buildDetailRow(LanguageService.tr(context, 'pensionFund'), '${calculation['pensionRate'].toString()}%'),
                 if (calculation['additionalInsurance'] != null)
-                  _buildDetailRow('additionalInsuranceCHF', '${calculation['additionalInsurance'].toStringAsFixed(2)} CHF'),
+                  _buildDetailRow(LanguageService.tr(context, 'additionalInsuranceCHF'), '${calculation['additionalInsurance'].toStringAsFixed(2)} CHF'),
               ],
             ),
             _buildSection(
               context,
               'calculationSettings',
               [
-                _buildDetailRow('thirteenthSalary', calculation['has13thSalary'] == true ? 'Ja' : 'Nein'),
-                _buildDetailRow('useCustomTaxRate', calculation['useCustomTaxRate'] == true ? 'Ja' : 'Nein'),
+                _buildDetailRow(
+                  LanguageService.tr(context, 'thirteenthSalary'),
+                  calculation['has13thSalary'] == true ? LanguageService.tr(context, 'yes') : LanguageService.tr(context, 'no')
+                ),
+                _buildDetailRow(
+                  LanguageService.tr(context, 'useCustomTaxRate'),
+                  calculation['useCustomTaxRate'] == true ? LanguageService.tr(context, 'yes') : LanguageService.tr(context, 'no')
+                ),
                 if (calculation['customTaxRate'] != null)
-                  _buildDetailRow('customTaxRate', '${calculation['customTaxRate'].toString()}%'),
+                  _buildDetailRow(LanguageService.tr(context, 'customTaxRate'), '${calculation['customTaxRate'].toString()}%'),
               ],
             ),
             if (calculation['deductions'] != null)
