@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../services/language_service.dart';
-import 'results_screen.dart';
-import '../models/salary_calculation.dart';
 
 class SavedCalculationsScreen extends StatefulWidget {
   const SavedCalculationsScreen({super.key});
 
   @override
-  State<SavedCalculationsScreen> createState() => _SavedCalculationsScreenState();
+  State<SavedCalculationsScreen> createState() =>
+      _SavedCalculationsScreenState();
 }
 
 class _SavedCalculationsScreenState extends State<SavedCalculationsScreen> {
@@ -57,9 +56,10 @@ class _SavedCalculationsScreenState extends State<SavedCalculationsScreen> {
                 final calculation = _savedCalculations[index];
                 final date = DateTime.parse(calculation['date']);
                 final isEmployerView = calculation['isEmployerView'] as bool;
-                
+
                 return Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: ListTile(
                     leading: Icon(
                       isEmployerView ? Icons.business : Icons.person,
