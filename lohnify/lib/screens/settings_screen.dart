@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../services/canton_rates_service.dart';
 import '../services/language_service.dart';
-import '../models/contribution_rates.dart';
 import '../services/theme_service.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -17,7 +16,6 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   late SharedPreferences _prefs;
   bool _useCustomTaxRate = false;
-  String _selectedCanton = 'ZH';
   DateTime? _lastRatesUpdate;
   bool _isUpdating = false;
 

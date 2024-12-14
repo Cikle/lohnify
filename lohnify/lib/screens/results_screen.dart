@@ -26,10 +26,6 @@ class ResultsScreen extends StatefulWidget {
 }
 
 class _ResultsScreenState extends State<ResultsScreen> {
-  bool _useCustomTaxRate = false;
-  final TextEditingController _customTaxRateController =
-      TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
