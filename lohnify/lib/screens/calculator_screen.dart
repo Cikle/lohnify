@@ -53,6 +53,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           numberOfChildren: childrenCount,
           customTaxRate: customTaxRate,
           useCustomTaxRate: _useCustomTaxRate,
+          canton: _selectedCanton,
         );
       });
     }

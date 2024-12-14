@@ -56,8 +56,10 @@ class SalaryCalculation {
     final alvDeduction = baseAmount * (rates.alvEmployee / 100);
 
     final pensionDeduction = baseAmount * (pensionRate / 100);
-    // Apply tax rate from user input
-    final effectiveTaxRate = useCustomTaxRate ? (customTaxRate ?? 22.0) : 22.0;
+    // Apply tax rate from user input or canton rate
+    final effectiveTaxRate = useCustomTaxRate 
+        ? (customTaxRate ?? ContributionRates.defaultCantons['ZH']!.taxRate)
+        : ContributionRates.defaultCantons[canton ?? 'ZH']!.taxRate;
     final taxAmount = baseAmount * (effectiveTaxRate / 100);
 
     // Calculate church tax after tax deduction
@@ -124,7 +126,7 @@ class SalaryCalculation {
     ];
 
     // Add tax deduction
-    final effectiveTaxRate = customTaxRate ?? 22.0;
+    final effectiveTaxRate = customTaxRate ?? ContributionRates.defaultCantons['ZH']!.taxRate;
     final taxAmount = grossSalary * (effectiveTaxRate / 100);
     items.add(DeductionItem('Steuern', taxAmount,
         isDeduction: true,
