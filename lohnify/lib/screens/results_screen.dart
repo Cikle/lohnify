@@ -50,7 +50,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 'isEmployerView': false,
                 'canton': _useCustomTaxRate ? null : 'ZH',
                 'useCustomTaxRate': _useCustomTaxRate,
-                'customTaxRate': double.tryParse(_customTaxRateController.text),
+                'customTaxRate': widget.calculation.customTaxRate,
                 'isMarried': widget.isMarried,
                 'hasChurchTax': widget.hasChurchTax,
                 'numberOfChildren': widget.numberOfChildren,
