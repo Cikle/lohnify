@@ -91,6 +91,7 @@ class SalaryCalculation {
       netSalary: netSalary,
       yearlyGross: yearlyGross,
       yearlyNet: yearlyNet,
+      numberOfChildren: numberOfChildren,
       isMarried: isMarried,
     );
   }
