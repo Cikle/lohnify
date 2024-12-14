@@ -205,16 +205,16 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Persönliche Angaben',
-                        style: TextStyle(
+                      Text(
+                        LanguageService.tr(context, 'personalInfo'),
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 16),
                       SwitchListTile(
-                        title: const Text('Verheiratet'),
+                        title: Text(LanguageService.tr(context, 'married')),
                         value: _isMarried,
                         onChanged: (value) {
                           setState(() => _isMarried = value);
@@ -222,7 +222,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         },
                       ),
                       SwitchListTile(
-                        title: const Text('Kirchensteuer'),
+                        title: Text(LanguageService.tr(context, 'churchTax')),
                         value: _hasChurchTax,
                         onChanged: (value) {
                           setState(() => _hasChurchTax = value);
@@ -231,7 +231,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       TextFormField(
                         controller: _childrenController,
                         decoration: const InputDecoration(
-                          labelText: 'Anzahl Kinder',
+                          labelText: LanguageService.tr(context, 'numberOfChildren'),
                         ),
                         keyboardType: TextInputType.number,
                         inputFormatters: [

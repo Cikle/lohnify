@@ -21,6 +21,18 @@ class HelpScreen extends StatelessWidget {
           ),
           _buildHelpSection(
             context,
+            'viewDifference',
+            'employerViewInfo',
+            Icons.business,
+          ),
+          _buildHelpSection(
+            context,
+            'employeeView',
+            'employeeViewInfo',
+            Icons.person,
+          ),
+          _buildHelpSection(
+            context,
             'taxesHelp',
             'taxesHelpContent',
             Icons.account_balance,
