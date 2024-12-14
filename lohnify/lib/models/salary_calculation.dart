@@ -13,7 +13,6 @@ class SalaryCalculation {
   final double yearlyGross;
   final double yearlyNet;
   final int numberOfChildren;
-  final bool isMarried;
 
   SalaryCalculation({
     required this.grossSalary,
@@ -28,7 +27,6 @@ class SalaryCalculation {
     required this.yearlyGross,
     required this.yearlyNet,
     this.numberOfChildren = 0,
-    required this.isMarried,
   });
 
   factory SalaryCalculation.calculate(
@@ -65,7 +63,7 @@ class SalaryCalculation {
 
     // Add children allowance (200 CHF per child is standard in most cantons)
     final childrenAllowance = numberOfChildren * 200.0;
-    
+
     // Marriage and children tax benefits (simplified example)
     double taxBenefit = 0.0;
     if (isMarried) {
@@ -75,7 +73,8 @@ class SalaryCalculation {
       taxBenefit += grossSalary * (0.01 * numberOfChildren); // 1% per child
     }
 
-    final netSalary = grossSalary - totalDeductions + childrenAllowance + taxBenefit;
+    final netSalary =
+        grossSalary - totalDeductions + childrenAllowance + taxBenefit;
     final yearlyGross = has13thSalary ? grossSalary * 13 : grossSalary * 12;
     final yearlyNet = has13thSalary ? netSalary * 13 : netSalary * 12;
 
@@ -91,8 +90,6 @@ class SalaryCalculation {
       netSalary: netSalary,
       yearlyGross: yearlyGross,
       yearlyNet: yearlyNet,
-      numberOfChildren: numberOfChildren,
-      isMarried: isMarried,
     );
   }
 
@@ -106,9 +103,10 @@ class SalaryCalculation {
     ];
 
     if (additionalInsurance > 0) {
-      items.add(DeductionItem('Zusatzversicherungen', additionalInsurance, isDeduction: true));
+      items.add(DeductionItem('Zusatzversicherungen', additionalInsurance,
+          isDeduction: true));
     }
-    
+
     if (churchTax > 0) {
       items.add(DeductionItem('Kirchensteuer', churchTax, isDeduction: true));
     }
@@ -116,28 +114,20 @@ class SalaryCalculation {
     // Add benefits
     if (numberOfChildren > 0) {
       items.add(DeductionItem(
-        'Kinderzulage (${numberOfChildren} ${numberOfChildren == 1 ? 'Kind' : 'Kinder'})',
-        numberOfChildren * 200.0,
-        isDeduction: false,
-        info: 'Standardzulage pro Kind: 200 CHF'
-      ));
-      
+          'Kinderzulage (${numberOfChildren} ${numberOfChildren == 1 ? 'Kind' : 'Kinder'})',
+          numberOfChildren * 200.0,
+          isDeduction: false,
+          info: 'Standardzulage pro Kind: 200 CHF'));
+
       // Tax benefit for children
       items.add(DeductionItem(
-        'Steuerabzug Kinder',
-        grossSalary * (0.01 * numberOfChildren),
-        isDeduction: false,
-        info: 'Steuerermässigung: 1% pro Kind'
-      ));
+          'Steuerabzug Kinder', grossSalary * (0.01 * numberOfChildren),
+          isDeduction: false, info: 'Steuerermässigung: 1% pro Kind'));
     }
 
-    if (this.isMarried) {
-      items.add(DeductionItem(
-        'Steuerabzug Verheiratet',
-        grossSalary * 0.02,
-        isDeduction: false,
-        info: 'Steuerermässigung für Verheiratete: 2%'
-      ));
+    if (isMarried) {
+      items.add(DeductionItem('Steuerabzug Verheiratet', grossSalary * 0.02,
+          isDeduction: false, info: 'Steuerermässigung für Verheiratete: 2%'));
     }
 
     return items;
