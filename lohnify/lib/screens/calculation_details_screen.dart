@@ -45,7 +45,9 @@ class CalculationDetailsScreen extends StatelessWidget {
                 yearlyNet: calculation['yearlyNet'],
                 numberOfChildren: calculation['numberOfChildren'],
                 isMarried: calculation['isMarried'],
-                customTaxRate: calculation['customTaxRate'],
+                customTaxRate: calculation['effectiveTaxRate'],
+                canton: calculation['canton'],
+                useCustomTaxRate: calculation['useCustomTaxRate'],
               );
 
               Navigator.push(
