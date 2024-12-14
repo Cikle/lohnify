@@ -157,22 +157,41 @@ class _ResultsScreenState extends State<ResultsScreen> {
     bool isDeduction = false,
     TextStyle? style,
   }) {
+    final deductionItem = widget.calculation.deductionItems
+        .firstWhere((item) => item.label == label, orElse: () => DeductionItem(label, amount, isDeduction: isDeduction));
+
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label),
-            Text(
-              '${isDeduction ? "-" : ""}${amount.toStringAsFixed(2)} CHF',
-              style: style ??
-                  TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: isDeduction ? Colors.red : null,
-                  ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(label),
+                Text(
+                  '${isDeduction ? "-" : ""}${amount.toStringAsFixed(2)} CHF',
+                  style: style ??
+                      TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: isDeduction ? Colors.red : Colors.green,
+                      ),
+                ),
+              ],
             ),
+            if (deductionItem.info != null) ...[
+              const SizedBox(height: 4),
+              Text(
+                deductionItem.info!,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Theme.of(context).textTheme.bodySmall?.color,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ],
           ],
         ),
       ),

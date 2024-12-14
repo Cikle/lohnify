@@ -52,6 +52,7 @@ class SalaryCalculation {
     final churchTaxRate = hasChurchTax ? (isMarried ? 0.10 : 0.08) : 0.0;
     final churchTaxAmount = baseAmount * churchTaxRate;
 
+    // Calculate base deductions
     final totalDeductions = ahvDeduction +
         ivDeduction +
         eoDeduction +
@@ -62,7 +63,17 @@ class SalaryCalculation {
 
     // Add children allowance (200 CHF per child is standard in most cantons)
     final childrenAllowance = numberOfChildren * 200.0;
-    final netSalary = grossSalary - totalDeductions + childrenAllowance;
+    
+    // Marriage and children tax benefits (simplified example)
+    double taxBenefit = 0.0;
+    if (isMarried) {
+      taxBenefit += grossSalary * 0.02; // 2% tax benefit for married couples
+    }
+    if (numberOfChildren > 0) {
+      taxBenefit += grossSalary * (0.01 * numberOfChildren); // 1% per child
+    }
+
+    final netSalary = grossSalary - totalDeductions + childrenAllowance + taxBenefit;
     final yearlyGross = has13thSalary ? grossSalary * 13 : grossSalary * 12;
     final yearlyNet = has13thSalary ? netSalary * 13 : netSalary * 12;
 
@@ -81,29 +92,64 @@ class SalaryCalculation {
     );
   }
 
-  List<DeductionItem> get deductionItems => [
-    DeductionItem('AHV', ahvDeduction, isDeduction: true),
-    DeductionItem('IV', ivDeduction, isDeduction: true),
-    DeductionItem('EO', eoDeduction, isDeduction: true),
-    DeductionItem('ALV', alvDeduction, isDeduction: true),
-    DeductionItem('Pensionskasse', pensionDeduction, isDeduction: true),
-    if (additionalInsurance > 0)
-      DeductionItem('Zusatzversicherungen', additionalInsurance, isDeduction: true),
-    if (churchTax > 0)
-      DeductionItem('Kirchensteuer', churchTax, isDeduction: true),
-    if (numberOfChildren > 0)
-      DeductionItem(
+  List<DeductionItem> get deductionItems {
+    final items = [
+      DeductionItem('AHV', ahvDeduction, isDeduction: true),
+      DeductionItem('IV', ivDeduction, isDeduction: true),
+      DeductionItem('EO', eoDeduction, isDeduction: true),
+      DeductionItem('ALV', alvDeduction, isDeduction: true),
+      DeductionItem('Pensionskasse', pensionDeduction, isDeduction: true),
+    ];
+
+    if (additionalInsurance > 0) {
+      items.add(DeductionItem('Zusatzversicherungen', additionalInsurance, isDeduction: true));
+    }
+    
+    if (churchTax > 0) {
+      items.add(DeductionItem('Kirchensteuer', churchTax, isDeduction: true));
+    }
+
+    // Add benefits
+    if (numberOfChildren > 0) {
+      items.add(DeductionItem(
         'Kinderzulage (${numberOfChildren} ${numberOfChildren == 1 ? 'Kind' : 'Kinder'})',
-        numberOfChildren * 200.0, // Standard children allowance in Switzerland
+        numberOfChildren * 200.0,
         isDeduction: false,
-      ),
-  ];
+        info: 'Standardzulage pro Kind: 200 CHF'
+      ));
+      
+      // Tax benefit for children
+      items.add(DeductionItem(
+        'Steuerabzug Kinder',
+        grossSalary * (0.01 * numberOfChildren),
+        isDeduction: false,
+        info: 'Steuerermässigung: 1% pro Kind'
+      ));
+    }
+
+    if (isMarried) {
+      items.add(DeductionItem(
+        'Steuerabzug Verheiratet',
+        grossSalary * 0.02,
+        isDeduction: false,
+        info: 'Steuerermässigung für Verheiratete: 2%'
+      ));
+    }
+
+    return items;
+  }
 }
 
 class DeductionItem {
   final String label;
   final double amount;
   final bool isDeduction;
+  final String? info;
 
-  DeductionItem(this.label, this.amount, {this.isDeduction = true});
+  DeductionItem(
+    this.label,
+    this.amount, {
+    this.isDeduction = true,
+    this.info,
+  });
 }
