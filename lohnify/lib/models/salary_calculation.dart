@@ -66,20 +66,24 @@ class SalaryCalculation {
         additionalInsurance +
         churchTaxAmount;
 
-    // Add children allowance (200 CHF per child is standard in most cantons)
-    final childrenAllowance = numberOfChildren * 200.0;
-
-    // Marriage and children tax benefits (simplified example)
-    double taxBenefit = 0.0;
-    if (isMarried) {
-      taxBenefit += baseAmount * 0.02; // 2% tax benefit for married couples
-    }
+    // Children benefits calculation
+    final childrenAllowance = numberOfChildren * 200.0; // Base allowance
+    double childTaxBenefit = 0.0;
+    
     if (numberOfChildren > 0) {
-      taxBenefit += baseAmount * (0.01 * numberOfChildren); // 1% per child
+      // Progressive tax benefit per child
+      for (int i = 0; i < numberOfChildren; i++) {
+        childTaxBenefit += baseAmount * (0.02 + (i * 0.005)); // Increasing benefit per child
+      }
     }
 
-    final netSalary =
-        monthlyGross - totalDeductions + childrenAllowance + taxBenefit;
+    // Marriage tax benefit
+    double marriageBenefit = isMarried ? baseAmount * 0.02 : 0.0;
+
+    final netSalary = monthlyGross - totalDeductions + 
+                      childrenAllowance + // Direct child allowance
+                      childTaxBenefit +   // Tax benefits for children
+                      marriageBenefit;    // Marriage benefits
     final yearlyGross = has13thSalary ? monthlyGross * 13 : monthlyGross * 12;
     final yearlyNet = has13thSalary ? netSalary * 13 : netSalary * 12;
 
@@ -119,20 +123,27 @@ class SalaryCalculation {
 
     // Add benefits
     if (numberOfChildren > 0) {
-      // Children's allowance
+      // Base children's allowance
+      final baseAllowance = numberOfChildren * 200.0;
       items.add(DeductionItem(
           'Kinderzulage (${numberOfChildren} ${numberOfChildren == 1 ? 'Kind' : 'Kinder'})',
-          numberOfChildren * 200.0,
+          baseAllowance,
           isDeduction: false,
-          info:
-              'Monatliche Zulage: ${numberOfChildren} × 200 CHF = ${(numberOfChildren * 200.0).toStringAsFixed(2)} CHF'));
+          info: 'Grundzulage: ${numberOfChildren} × 200 CHF = ${baseAllowance.toStringAsFixed(2)} CHF'));
 
-      // Tax benefit for children
-      final childTaxBenefit = grossSalary * (0.01 * numberOfChildren);
-      items.add(DeductionItem('Steuerabzug Kinder', childTaxBenefit,
+      // Progressive tax benefits for children
+      double totalChildTaxBenefit = 0.0;
+      for (int i = 0; i < numberOfChildren; i++) {
+        final percentage = 2.0 + (i * 0.5);
+        final benefit = grossSalary * (percentage / 100);
+        totalChildTaxBenefit += benefit;
+        items.add(DeductionItem(
+          'Steuerabzug Kind ${i + 1}',
+          benefit,
           isDeduction: false,
-          info:
-              'Steuerermässigung: ${numberOfChildren}% vom Bruttolohn (${(0.01 * numberOfChildren * 100).toStringAsFixed(0)}% × ${grossSalary.toStringAsFixed(2)} = ${childTaxBenefit.toStringAsFixed(2)} CHF)'));
+          info: 'Steuerermässigung: ${percentage.toStringAsFixed(1)}% vom Bruttolohn (${grossSalary.toStringAsFixed(2)} CHF × ${percentage.toStringAsFixed(1)}% = ${benefit.toStringAsFixed(2)} CHF)',
+        ));
+      }
     }
 
     if (isMarried) {

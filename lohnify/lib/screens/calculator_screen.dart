@@ -286,24 +286,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: SwitchListTile(
-                      title: Text(
-                          LanguageService.tr(context, 'yearlyCalculation')),
-                      subtitle: Text(_isYearlyCalculation
-                          ? LanguageService.tr(context, 'enterYearlySalary')
-                          : LanguageService.tr(context, 'enterMonthlySalary')),
-                      value: _isYearlyCalculation,
-                      onChanged: (value) {
-                        setState(() => _isYearlyCalculation = value);
-                        _calculateSalary();
-                      },
-                    ),
-                  ),
-                ],
-              ),
               SwitchListTile(
                 title: const Text('13. Monatslohn'),
                 subtitle: const Text('Auf Jahresbasis berechnen'),
