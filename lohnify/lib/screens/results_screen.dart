@@ -51,6 +51,9 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 'canton': widget.calculation.canton,
                 'useCustomTaxRate': widget.calculation.useCustomTaxRate,
                 'customTaxRate': widget.calculation.customTaxRate,
+                'effectiveTaxRate': widget.calculation.useCustomTaxRate 
+                    ? widget.calculation.customTaxRate 
+                    : ContributionRates.defaultCantons[widget.calculation.canton ?? 'ZH']?.taxRate,
                 'isMarried': widget.isMarried,
                 'hasChurchTax': widget.hasChurchTax,
                 'numberOfChildren': widget.numberOfChildren,
