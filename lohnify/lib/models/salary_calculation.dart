@@ -45,6 +45,7 @@ class SalaryCalculation {
     int numberOfChildren = 0,
     double? customTaxRate,
     bool useCustomTaxRate = false,
+    String? canton,
   }) {
     // Convert yearly to monthly if needed
     final monthlyGross = isYearlyCalculation ? inputSalary / 12 : inputSalary;
