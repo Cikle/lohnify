@@ -21,7 +21,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   final _additionalInsuranceController = TextEditingController();
   final _customTaxRateController = TextEditingController();
   late SharedPreferences _prefs;
-  bool _useCustomTaxRate = false;
+  bool _useCustomTaxRate = true;  // Always use custom tax rate by default
   SalaryCalculation? _calculation;
   final _rates = ContributionRates();
 
