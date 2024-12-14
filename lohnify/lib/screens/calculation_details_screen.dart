@@ -74,10 +74,10 @@ class CalculationDetailsScreen extends StatelessWidget {
               [
                 _buildDetailRow(LanguageService.tr(context, 'grossSalary'),
                     '${calculation['grossSalary'].toStringAsFixed(2)} CHF'),
-                if (!calculation['useCustomTaxRate'])
+                if (calculation['useCustomTaxRate'] == false)
                   _buildDetailRow(LanguageService.tr(context, 'canton'),
                       '${calculation['canton'] ?? 'N/A'} - ${ContributionRates.defaultCantons[calculation['canton']]?.taxRate.toStringAsFixed(1)}%'),
-                if (calculation['useCustomTaxRate'] &&
+                if (calculation['useCustomTaxRate'] == true &&
                     calculation['customTaxRate'] != null)
                   _buildDetailRow(LanguageService.tr(context, 'customTaxRate'),
                       '${calculation['customTaxRate'].toStringAsFixed(1)}%'),
@@ -149,7 +149,7 @@ class CalculationDetailsScreen extends StatelessWidget {
                         : LanguageService.tr(context, 'no')),
                 _buildDetailRow(
                     LanguageService.tr(context, 'useCustomTaxRate'),
-                    calculation['useCustomTaxRate'] == true
+                    calculation['useCustomTaxRate'] == true ? true : false
                         ? LanguageService.tr(context, 'yes')
                         : LanguageService.tr(context, 'no')),
                 if (calculation['customTaxRate'] != null)
