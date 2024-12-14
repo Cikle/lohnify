@@ -32,9 +32,10 @@ class SalaryCalculation {
   });
 
   factory SalaryCalculation.calculate(
-    double grossSalary,
+    double inputSalary,
     ContributionRates rates, {
     required bool has13thSalary,
+    required bool isYearlyCalculation,
     required double pensionRate,
     required double additionalInsurance,
     required bool hasChurchTax,
@@ -42,7 +43,9 @@ class SalaryCalculation {
     int numberOfChildren = 0,
     double? customTaxRate,
   }) {
-    final baseAmount = grossSalary.clamp(0, rates.maxContributionBase);
+    // Convert yearly to monthly if needed
+    final monthlyGross = isYearlyCalculation ? inputSalary / 12 : inputSalary;
+    final baseAmount = monthlyGross.clamp(0, rates.maxContributionBase);
 
     final ahvDeduction = baseAmount * (rates.ahvEmployee / 100);
     final ivDeduction = baseAmount * (rates.ivEmployee / 100);
@@ -69,10 +72,10 @@ class SalaryCalculation {
     // Marriage and children tax benefits (simplified example)
     double taxBenefit = 0.0;
     if (isMarried) {
-      taxBenefit += grossSalary * 0.02; // 2% tax benefit for married couples
+      taxBenefit += baseAmount * 0.02; // 2% tax benefit for married couples
     }
     if (numberOfChildren > 0) {
-      taxBenefit += grossSalary * (0.01 * numberOfChildren); // 1% per child
+      taxBenefit += baseAmount * (0.01 * numberOfChildren); // 1% per child
     }
 
     final netSalary =
@@ -116,16 +119,20 @@ class SalaryCalculation {
 
     // Add benefits
     if (numberOfChildren > 0) {
+      // Children's allowance
       items.add(DeductionItem(
           'Kinderzulage (${numberOfChildren} ${numberOfChildren == 1 ? 'Kind' : 'Kinder'})',
           numberOfChildren * 200.0,
           isDeduction: false,
-          info: 'Standardzulage pro Kind: 200 CHF'));
+          info: 'Monatliche Zulage: ${numberOfChildren} × 200 CHF = ${(numberOfChildren * 200.0).toStringAsFixed(2)} CHF'));
 
       // Tax benefit for children
+      final childTaxBenefit = grossSalary * (0.01 * numberOfChildren);
       items.add(DeductionItem(
-          'Steuerabzug Kinder', grossSalary * (0.01 * numberOfChildren),
-          isDeduction: false, info: 'Steuerermässigung: 1% pro Kind'));
+          'Steuerabzug Kinder', 
+          childTaxBenefit,
+          isDeduction: false, 
+          info: 'Steuerermässigung: ${numberOfChildren}% vom Bruttolohn (${(0.01 * numberOfChildren * 100).toStringAsFixed(0)}% × ${grossSalary.toStringAsFixed(2)} = ${childTaxBenefit.toStringAsFixed(2)} CHF)'));
     }
 
     if (isMarried) {

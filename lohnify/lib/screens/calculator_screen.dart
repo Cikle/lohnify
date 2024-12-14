@@ -29,6 +29,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   bool _hasChurchTax = false;
   String _selectedCanton = 'ZH';
   bool _has13thSalary = true;
+  bool _isYearlyCalculation = false;
 
   void _calculateSalary() {
     if (_formKey.currentState?.validate() ?? false) {
@@ -286,13 +287,30 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 ),
               ),
               const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: SwitchListTile(
+                      title: Text(LanguageService.tr(context, 'yearlyCalculation')),
+                      subtitle: Text(_isYearlyCalculation 
+                          ? LanguageService.tr(context, 'enterYearlySalary')
+                          : LanguageService.tr(context, 'enterMonthlySalary')),
+                      value: _isYearlyCalculation,
+                      onChanged: (value) {
+                        setState(() => _isYearlyCalculation = value);
+                        _calculateSalary();
+                      },
+                    ),
+                  ),
+                ],
+              ),
               SwitchListTile(
                 title: const Text('13. Monatslohn'),
                 subtitle: const Text('Auf Jahresbasis berechnen'),
                 value: _has13thSalary,
                 onChanged: (value) {
                   setState(() => _has13thSalary = value);
-                  _calculateSalary(); // Recalculate when 13th month is toggled
+                  _calculateSalary();
                 },
               ),
               const SizedBox(height: 20),
