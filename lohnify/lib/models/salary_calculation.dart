@@ -79,12 +79,12 @@ class SalaryCalculation {
     }
 
     final netSalary =
-        grossSalary - totalDeductions + childrenAllowance + taxBenefit;
-    final yearlyGross = has13thSalary ? grossSalary * 13 : grossSalary * 12;
+        monthlyGross - totalDeductions + childrenAllowance + taxBenefit;
+    final yearlyGross = has13thSalary ? monthlyGross * 13 : monthlyGross * 12;
     final yearlyNet = has13thSalary ? netSalary * 13 : netSalary * 12;
 
     return SalaryCalculation(
-      grossSalary: grossSalary,
+      grossSalary: monthlyGross,
       ahvDeduction: ahvDeduction,
       ivDeduction: ivDeduction,
       eoDeduction: eoDeduction,
@@ -124,15 +124,15 @@ class SalaryCalculation {
           'Kinderzulage (${numberOfChildren} ${numberOfChildren == 1 ? 'Kind' : 'Kinder'})',
           numberOfChildren * 200.0,
           isDeduction: false,
-          info: 'Monatliche Zulage: ${numberOfChildren} × 200 CHF = ${(numberOfChildren * 200.0).toStringAsFixed(2)} CHF'));
+          info:
+              'Monatliche Zulage: ${numberOfChildren} × 200 CHF = ${(numberOfChildren * 200.0).toStringAsFixed(2)} CHF'));
 
       // Tax benefit for children
       final childTaxBenefit = grossSalary * (0.01 * numberOfChildren);
-      items.add(DeductionItem(
-          'Steuerabzug Kinder', 
-          childTaxBenefit,
-          isDeduction: false, 
-          info: 'Steuerermässigung: ${numberOfChildren}% vom Bruttolohn (${(0.01 * numberOfChildren * 100).toStringAsFixed(0)}% × ${grossSalary.toStringAsFixed(2)} = ${childTaxBenefit.toStringAsFixed(2)} CHF)'));
+      items.add(DeductionItem('Steuerabzug Kinder', childTaxBenefit,
+          isDeduction: false,
+          info:
+              'Steuerermässigung: ${numberOfChildren}% vom Bruttolohn (${(0.01 * numberOfChildren * 100).toStringAsFixed(0)}% × ${grossSalary.toStringAsFixed(2)} = ${childTaxBenefit.toStringAsFixed(2)} CHF)'));
     }
 
     if (isMarried) {
