@@ -63,7 +63,7 @@ class SalaryCalculation {
     final pensionDeduction = baseAmount * (pensionRate / 100);
     // Apply tax rate from user input or canton rate
     final effectiveTaxRate = useCustomTaxRate 
-        ? (customTaxRate ?? ContributionRates.defaultCantons['ZH']!.taxRate)
+        ? (customTaxRate ?? 0.0)
         : ContributionRates.defaultCantons[canton ?? 'ZH']!.taxRate;
     final taxAmount = baseAmount * (effectiveTaxRate / 100);
 
