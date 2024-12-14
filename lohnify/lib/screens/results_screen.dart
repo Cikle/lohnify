@@ -141,7 +141,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                       }),
                       const SizedBox(height: 8),
                       Text(
-                        'Gesamte Kinderleistungen: ${widget.calculation.deductionItems.where((item) => item.label.contains('Kind')).fold(0.0, (sum, item) => sum + item.amount).toStringAsFixed(2)} CHF',
+                        'Gesamte Kinderleistungen: ${widget.calculation.deductionItems.where((item) => item.label.contains('Kind') && !item.isDeduction).fold(0.0, (sum, item) => sum + item.amount).toStringAsFixed(2)} CHF',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.green,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../services/language_service.dart';
+import '../models/salary_calculation.dart';
+import 'results_screen.dart';
 
 class CalculationDetailsScreen extends StatelessWidget {
   final Map<String, dynamic> calculation;
@@ -15,6 +17,50 @@ class CalculationDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(LanguageService.tr(context, 'calculationDetails')),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.assessment),
+            onPressed: () {
+              final calc = SalaryCalculation(
+                grossSalary: calculation['grossSalary'],
+                ahvDeduction: calculation['deductions']
+                    .firstWhere((d) => d['label'] == 'AHV')['amount'],
+                ivDeduction: calculation['deductions']
+                    .firstWhere((d) => d['label'] == 'IV')['amount'],
+                eoDeduction: calculation['deductions']
+                    .firstWhere((d) => d['label'] == 'EO')['amount'],
+                alvDeduction: calculation['deductions']
+                    .firstWhere((d) => d['label'] == 'ALV')['amount'],
+                pensionDeduction: calculation['deductions']
+                    .firstWhere((d) => d['label'] == 'Pensionskasse')['amount'],
+                additionalInsurance: calculation['deductions']
+                    .firstWhere((d) => d['label'] == 'Zusatzversicherungen',
+                        orElse: () => {'amount': 0.0})['amount'],
+                churchTax: calculation['deductions']
+                    .firstWhere((d) => d['label'] == 'Kirchensteuer',
+                        orElse: () => {'amount': 0.0})['amount'],
+                netSalary: calculation['netSalary'],
+                yearlyGross: calculation['yearlyGross'],
+                yearlyNet: calculation['yearlyNet'],
+                numberOfChildren: calculation['numberOfChildren'],
+                isMarried: calculation['isMarried'],
+              );
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultsScreen(
+                    calculation: calc,
+                    has13thSalary: calculation['has13thSalary'],
+                    isMarried: calculation['isMarried'],
+                    hasChurchTax: calculation['hasChurchTax'],
+                    numberOfChildren: calculation['numberOfChildren'],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
