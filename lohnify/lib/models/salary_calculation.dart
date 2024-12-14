@@ -14,7 +14,6 @@ class SalaryCalculation {
   final double yearlyNet;
   final int numberOfChildren;
   final bool isMarried;
-  final double? customTaxRate;
 
   SalaryCalculation({
     required this.grossSalary,
@@ -30,7 +29,6 @@ class SalaryCalculation {
     required this.yearlyNet,
     this.numberOfChildren = 0,
     required this.isMarried,
-    this.customTaxRate,
   });
 
   factory SalaryCalculation.calculate(
@@ -58,7 +56,7 @@ class SalaryCalculation {
     final pensionDeduction = baseAmount * (pensionRate / 100);
     // Apply tax rate from user input
     final taxAmount = baseAmount * ((customTaxRate ?? 22.0) / 100);
-    
+
     // Calculate church tax after tax deduction
     final churchTaxRate = hasChurchTax ? (isMarried ? 0.10 : 0.08) : 0.0;
     final churchTaxAmount = baseAmount * churchTaxRate;
@@ -109,7 +107,6 @@ class SalaryCalculation {
       yearlyGross: yearlyGross,
       yearlyNet: yearlyNet,
       isMarried: isMarried,
-      customTaxRate: customTaxRate,
     );
   }
 
@@ -124,12 +121,9 @@ class SalaryCalculation {
 
     // Add tax deduction
     final taxAmount = grossSalary * ((customTaxRate ?? 22.0) / 100);
-    items.add(DeductionItem(
-      'Steuern',
-      taxAmount,
-      isDeduction: true,
-      info: 'Steuersatz: ${(customTaxRate ?? 22.0).toStringAsFixed(1)}%'
-    ));
+    items.add(DeductionItem('Steuern', taxAmount,
+        isDeduction: true,
+        info: 'Steuersatz: ${(customTaxRate ?? 22.0).toStringAsFixed(1)}%'));
 
     if (additionalInsurance > 0) {
       items.add(DeductionItem('Zusatzversicherungen', additionalInsurance,
