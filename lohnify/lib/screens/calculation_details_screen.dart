@@ -45,6 +45,7 @@ class CalculationDetailsScreen extends StatelessWidget {
                 yearlyNet: calculation['yearlyNet'],
                 numberOfChildren: calculation['numberOfChildren'],
                 isMarried: calculation['isMarried'],
+                customTaxRate: calculation['customTaxRate'],
               );
 
               Navigator.push(
@@ -72,8 +73,9 @@ class CalculationDetailsScreen extends StatelessWidget {
               context,
               'basicInfo',
               [
-                _buildDetailRow(LanguageService.tr(context, 'grossSalary'),
-                    '${calculation['grossSalary'].toStringAsFixed(2)} CHF'),
+                _buildDetailRow(
+                    LanguageService.tr(context, 'grossSalary'),
+                    '${calculation['grossSalary'].toStringAsFixed(2)} CHF (${calculation['customTaxRate']?.toStringAsFixed(1) ?? '22.0'}%)'),
                 if (calculation['useCustomTaxRate'] == true)
                   _buildDetailRow(LanguageService.tr(context, 'customTaxRate'),
                       '${calculation['customTaxRate'].toStringAsFixed(1)}%'),
