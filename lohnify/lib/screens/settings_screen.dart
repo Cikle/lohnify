@@ -174,35 +174,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: Column(
               children: [
                 ListTile(
-                  leading: const Icon(Icons.location_city),
-                  title: Text(LanguageService.tr(context, 'defaultCanton')),
-                  subtitle: Text(_selectedCanton),
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => SimpleDialog(
-                        title:
-                            Text(LanguageService.tr(context, 'chooseCanton')),
-                        children: [
-                          ...ContributionRates.defaultCantons.entries
-                              .map(
-                                (canton) => SimpleDialogOption(
-                                  onPressed: () {
-                                    setState(
-                                        () => _selectedCanton = canton.key);
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text(
-                                      '${canton.value.name} (${canton.key})'),
-                                ),
-                              )
-                              .toList(),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-                ListTile(
                   leading: const Icon(Icons.percent),
                   title: Text(LanguageService.tr(context, 'useCustomTaxRate')),
                   subtitle: Text(_useCustomTaxRate

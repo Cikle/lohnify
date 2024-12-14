@@ -25,9 +25,8 @@ class ResultsScreen extends StatefulWidget {
 }
 
 class _ResultsScreenState extends State<ResultsScreen> {
-  bool _useCustomTaxRate = false;
-  final TextEditingController _customTaxRateController =
-      TextEditingController();
+  bool _useCustomTaxRate = true;  // Always use custom tax rate
+  final TextEditingController _customTaxRateController = TextEditingController(text: '22.0');  // Default to 22%
 
   @override
   Widget build(BuildContext context) {
