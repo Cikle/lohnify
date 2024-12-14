@@ -7,11 +7,17 @@ import 'dart:convert';
 class ResultsScreen extends StatefulWidget {
   final SalaryCalculation calculation;
   final bool has13thSalary;
+  final bool isMarried;
+  final bool hasChurchTax;
+  final int numberOfChildren;
 
   const ResultsScreen({
     super.key,
     required this.calculation,
     required this.has13thSalary,
+    required this.isMarried,
+    required this.hasChurchTax,
+    required this.numberOfChildren,
   });
 
   @override
@@ -41,9 +47,9 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 'isEmployerView': false,
                 'canton':
                     'ZH', // You may want to pass this from calculator screen
-                'isMarried': false, // Pass these from calculator screen
-                'hasChurchTax': false,
-                'numberOfChildren': widget.calculation.numberOfChildren,
+                'isMarried': widget.isMarried,
+                'hasChurchTax': widget.hasChurchTax,
+                'numberOfChildren': widget.numberOfChildren,
                 'has13thSalary': widget.has13thSalary,
                 'deductions': widget.calculation.deductionItems
                     .map((item) => {

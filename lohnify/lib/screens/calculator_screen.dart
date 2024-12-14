@@ -309,6 +309,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                               builder: (context) => ResultsScreen(
                                 calculation: _calculation!,
                                 has13thSalary: _has13thSalary,
+                                isMarried: _isMarried,
+                                hasChurchTax: _hasChurchTax,
+                                numberOfChildren: int.tryParse(_childrenController.text) ?? 0,
                               ),
                             ),
                           );

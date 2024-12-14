@@ -60,7 +60,9 @@ class SalaryCalculation {
         additionalInsurance +
         churchTaxAmount;
 
-    final netSalary = grossSalary - totalDeductions;
+    // Add children allowance (200 CHF per child is standard in most cantons)
+    final childrenAllowance = numberOfChildren * 200.0;
+    final netSalary = grossSalary - totalDeductions + childrenAllowance;
     final yearlyGross = has13thSalary ? grossSalary * 13 : grossSalary * 12;
     final yearlyNet = has13thSalary ? netSalary * 13 : netSalary * 12;
 
