@@ -166,7 +166,7 @@ class AppTranslations {
       'deleteCalculation': 'Delete Calculation',
       'calculationSaved': 'Calculation saved successfully',
       'calculationDeleted': 'Calculation deleted',
-      'calculationDetails': 'Berechnungsdetails',
+      'calculationDetails': 'Berechnung Details',
       'deductions': 'Deductions',
       'invalidInput': 'Invalid input - please enter numbers only',
       'enterValidNumber': 'Please enter a positive number',

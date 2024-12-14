@@ -72,7 +72,16 @@ class CalculationDetailsScreen extends StatelessWidget {
               'basicInfo',
               [
                 _buildDetailRow(LanguageService.tr(context, 'grossSalary'), '${calculation['grossSalary'].toStringAsFixed(2)} CHF'),
-                _buildDetailRow(LanguageService.tr(context, 'canton'), calculation['canton'] ?? 'N/A'),
+                if (!calculation['useCustomTaxRate'])
+                  _buildDetailRow(
+                    LanguageService.tr(context, 'canton'),
+                    '${calculation['canton'] ?? 'N/A'} - ${ContributionRates.defaultCantons[calculation['canton']]?.taxRate.toStringAsFixed(1)}%'
+                  ),
+                if (calculation['useCustomTaxRate'] && calculation['customTaxRate'] != null)
+                  _buildDetailRow(
+                    LanguageService.tr(context, 'customTaxRate'),
+                    '${calculation['customTaxRate'].toStringAsFixed(1)}%'
+                  ),
                 _buildDetailRow(LanguageService.tr(context, 'monthlyNet'), '${calculation['netSalary'].toStringAsFixed(2)} CHF'),
                 if (calculation['yearlyGross'] != null) ...[
                   if (calculation['has13thSalary'])
