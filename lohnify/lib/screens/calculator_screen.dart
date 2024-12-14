@@ -113,7 +113,16 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           }
                           if (double.tryParse(value) == null) {
                             return LanguageService.tr(
-                                context, 'pleaseEnterValidNumber');
+                                context, 'invalidInput');
+                          }
+                          final number = double.tryParse(value);
+                          if (number != null && number <= 0) {
+                            return LanguageService.tr(
+                                context, 'enterValidNumber');
+                          }
+                          if (number != null && number > 999999) {
+                            return LanguageService.tr(
+                                context, 'salaryTooHigh');
                           }
                           return null;
                         },
@@ -172,10 +181,14 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                               return LanguageService.tr(
                                   context, 'pleaseEnterTaxRate');
                             }
-                            final rate = double.tryParse(value);
-                            if (rate == null || rate < 0 || rate > 100) {
+                            if (double.tryParse(value) == null) {
                               return LanguageService.tr(
-                                  context, 'invalidTaxRate');
+                                  context, 'numbersOnlyTax');
+                            }
+                            final rate = double.tryParse(value);
+                            if (rate != null && (rate < 0 || rate > 100)) {
+                              return LanguageService.tr(
+                                  context, 'taxRateRange');
                             }
                             return null;
                           },
