@@ -131,8 +131,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       if (!_useCustomTaxRate)
                         ListTile(
                           title: Text(LanguageService.tr(context, 'canton')),
-                          subtitle: _useCustomTaxRate 
-                              ? Text(LanguageService.tr(context, 'customRatesActive'))
+                          subtitle: _useCustomTaxRate
+                              ? Text(LanguageService.tr(
+                                  context, 'customRatesActive'))
                               : Text(
                                   '${ContributionRates.defaultCantons[_selectedCanton]?.name ?? 'None'} ${_selectedCanton != '' ? '($_selectedCanton)' : ''} ${_selectedCanton != '' ? '- ${ContributionRates.defaultCantons[_selectedCanton]?.taxRate.toStringAsFixed(1)}%' : ''}'),
                           trailing: const Icon(Icons.arrow_forward_ios),

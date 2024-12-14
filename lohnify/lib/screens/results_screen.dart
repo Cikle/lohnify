@@ -25,6 +25,10 @@ class ResultsScreen extends StatefulWidget {
 }
 
 class _ResultsScreenState extends State<ResultsScreen> {
+  bool _useCustomTaxRate = false;
+  final TextEditingController _customTaxRateController =
+      TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,34 +133,40 @@ class _ResultsScreenState extends State<ResultsScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('${LanguageService.tr(context, 'baseAllowance')} (${LanguageService.tr(context, 'perChild')})'),
+                          Text(
+                              '${LanguageService.tr(context, 'baseAllowance')} (${LanguageService.tr(context, 'perChild')})'),
                           Text('200.00 CHF'),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('${LanguageService.tr(context, 'monthlyBenefit')}'),
-                          Text('${(widget.numberOfChildren * 200).toStringAsFixed(2)} CHF'),
+                          Text(
+                              '${LanguageService.tr(context, 'monthlyBenefit')}'),
+                          Text(
+                              '${(widget.numberOfChildren * 200).toStringAsFixed(2)} CHF'),
                         ],
                       ),
                       const Divider(height: 16),
                       ...List.generate(widget.numberOfChildren, (index) {
                         final percentage = 2.0 + (index * 0.5);
-                        final benefit = widget.calculation.grossSalary * (percentage / 100);
+                        final benefit =
+                            widget.calculation.grossSalary * (percentage / 100);
                         return Column(
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('${LanguageService.tr(context, 'childTaxReduction')} ${index + 1}'),
+                                Text(
+                                    '${LanguageService.tr(context, 'childTaxReduction')} ${index + 1}'),
                                 Text('${percentage.toStringAsFixed(1)}%'),
                               ],
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('${LanguageService.tr(context, 'monthlyBenefit')}'),
+                                Text(
+                                    '${LanguageService.tr(context, 'monthlyBenefit')}'),
                                 Text('${benefit.toStringAsFixed(2)} CHF'),
                               ],
                             ),
@@ -226,8 +236,9 @@ class _ResultsScreenState extends State<ResultsScreen> {
     bool isDeduction = false,
     TextStyle? style,
   }) {
-    final deductionItem = widget.calculation.deductionItems
-        .firstWhere((item) => item.label == label, orElse: () => DeductionItem(label, amount, isDeduction: isDeduction));
+    final deductionItem = widget.calculation.deductionItems.firstWhere(
+        (item) => item.label == label,
+        orElse: () => DeductionItem(label, amount, isDeduction: isDeduction));
 
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 4),

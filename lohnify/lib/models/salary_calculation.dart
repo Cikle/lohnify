@@ -69,21 +69,23 @@ class SalaryCalculation {
     // Children benefits calculation
     final childrenAllowance = numberOfChildren * 200.0; // Base allowance
     double childTaxBenefit = 0.0;
-    
+
     if (numberOfChildren > 0) {
       // Progressive tax benefit per child
       for (int i = 0; i < numberOfChildren; i++) {
-        childTaxBenefit += baseAmount * (0.02 + (i * 0.005)); // Increasing benefit per child
+        childTaxBenefit +=
+            baseAmount * (0.02 + (i * 0.005)); // Increasing benefit per child
       }
     }
 
     // Marriage tax benefit
     double marriageBenefit = isMarried ? baseAmount * 0.02 : 0.0;
 
-    final netSalary = monthlyGross - totalDeductions + 
-                      childrenAllowance + // Direct child allowance
-                      childTaxBenefit +   // Tax benefits for children
-                      marriageBenefit;    // Marriage benefits
+    final netSalary = monthlyGross -
+        totalDeductions +
+        childrenAllowance + // Direct child allowance
+        childTaxBenefit + // Tax benefits for children
+        marriageBenefit; // Marriage benefits
     final yearlyGross = has13thSalary ? monthlyGross * 13 : monthlyGross * 12;
     final yearlyNet = has13thSalary ? netSalary * 13 : netSalary * 12;
 
@@ -129,19 +131,19 @@ class SalaryCalculation {
           'Kinderzulage (${numberOfChildren} ${numberOfChildren == 1 ? 'Kind' : 'Kinder'})',
           baseAllowance,
           isDeduction: false,
-          info: 'Grundzulage: ${numberOfChildren} × 200 CHF = ${baseAllowance.toStringAsFixed(2)} CHF'));
+          info:
+              'Grundzulage: ${numberOfChildren} × 200 CHF = ${baseAllowance.toStringAsFixed(2)} CHF'));
 
       // Progressive tax benefits for children
-      double totalChildTaxBenefit = 0.0;
       for (int i = 0; i < numberOfChildren; i++) {
         final percentage = 2.0 + (i * 0.5);
         final benefit = grossSalary * (percentage / 100);
-        totalChildTaxBenefit += benefit;
         items.add(DeductionItem(
           'Steuerabzug Kind ${i + 1}',
           benefit,
           isDeduction: false,
-          info: 'Steuerermässigung: ${percentage.toStringAsFixed(1)}% vom Bruttolohn (${grossSalary.toStringAsFixed(2)} CHF × ${percentage.toStringAsFixed(1)}% = ${benefit.toStringAsFixed(2)} CHF)',
+          info:
+              'Steuerermässigung: ${percentage.toStringAsFixed(1)}% vom Bruttolohn (${grossSalary.toStringAsFixed(2)} CHF × ${percentage.toStringAsFixed(1)}% = ${benefit.toStringAsFixed(2)} CHF)',
         ));
       }
     }
