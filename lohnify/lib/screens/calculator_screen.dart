@@ -230,8 +230,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       ),
                       TextFormField(
                         controller: _childrenController,
-                        decoration: const InputDecoration(
-                          labelText: LanguageService.tr(context, 'numberOfChildren'),
+                        decoration: InputDecoration(
+                          labelText:
+                              LanguageService.tr(context, 'numberOfChildren'),
                         ),
                         keyboardType: TextInputType.number,
                         inputFormatters: [
