@@ -15,6 +15,8 @@ class SalaryCalculation {
   final int numberOfChildren;
   final bool isMarried;
   final double? customTaxRate;
+  final String? canton;
+  final bool useCustomTaxRate;
 
   SalaryCalculation({
     required this.grossSalary,
@@ -31,6 +33,8 @@ class SalaryCalculation {
     this.numberOfChildren = 0,
     required this.isMarried,
     this.customTaxRate,
+    this.canton,
+    this.useCustomTaxRate = false,
   });
 
   factory SalaryCalculation.calculate(
@@ -113,7 +117,9 @@ class SalaryCalculation {
       yearlyGross: yearlyGross,
       yearlyNet: yearlyNet,
       isMarried: isMarried,
-      customTaxRate: useCustomTaxRate ? customTaxRate : 22.0,
+      customTaxRate: customTaxRate,
+      canton: canton,
+      useCustomTaxRate: useCustomTaxRate,
     );
   }
 
@@ -127,11 +133,16 @@ class SalaryCalculation {
     ];
 
     // Add tax deduction
-    final effectiveTaxRate = customTaxRate ?? ContributionRates.defaultCantons['ZH']!.taxRate;
+    final canton = useCustomTaxRate ? null : (this.canton ?? 'ZH');
+    final effectiveTaxRate = useCustomTaxRate 
+        ? (customTaxRate ?? ContributionRates.defaultCantons['ZH']!.taxRate)
+        : ContributionRates.defaultCantons[canton]!.taxRate;
     final taxAmount = grossSalary * (effectiveTaxRate / 100);
     items.add(DeductionItem('Steuern', taxAmount,
         isDeduction: true,
-        info: 'Steuersatz: ${effectiveTaxRate.toStringAsFixed(1)}%'));
+        info: canton != null 
+            ? 'Steuersatz ${ContributionRates.defaultCantons[canton]!.name}: ${effectiveTaxRate.toStringAsFixed(1)}%'
+            : 'Benutzerdefinierter Steuersatz: ${effectiveTaxRate.toStringAsFixed(1)}%'));
 
     if (additionalInsurance > 0) {
       items.add(DeductionItem('Zusatzversicherungen', additionalInsurance,
