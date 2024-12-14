@@ -113,8 +113,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                 context, 'pleaseEnterSalary');
                           }
                           if (double.tryParse(value) == null) {
-                            return LanguageService.tr(
-                                context, 'invalidInput');
+                            return LanguageService.tr(context, 'invalidInput');
                           }
                           final number = double.tryParse(value);
                           if (number != null && number <= 0) {
@@ -122,8 +121,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                 context, 'enterValidNumber');
                           }
                           if (number != null && number > 999999) {
-                            return LanguageService.tr(
-                                context, 'salaryTooHigh');
+                            return LanguageService.tr(context, 'salaryTooHigh');
                           }
                           return null;
                         },
@@ -291,8 +289,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 children: [
                   Expanded(
                     child: SwitchListTile(
-                      title: Text(LanguageService.tr(context, 'yearlyCalculation')),
-                      subtitle: Text(_isYearlyCalculation 
+                      title: Text(
+                          LanguageService.tr(context, 'yearlyCalculation')),
+                      subtitle: Text(_isYearlyCalculation
                           ? LanguageService.tr(context, 'enterYearlySalary')
                           : LanguageService.tr(context, 'enterMonthlySalary')),
                       value: _isYearlyCalculation,
@@ -329,7 +328,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                 has13thSalary: _has13thSalary,
                                 isMarried: _isMarried,
                                 hasChurchTax: _hasChurchTax,
-                                numberOfChildren: int.tryParse(_childrenController.text) ?? 0,
+                                numberOfChildren:
+                                    int.tryParse(_childrenController.text) ?? 0,
                               ),
                             ),
                           );
