@@ -124,10 +124,11 @@ class SalaryCalculation {
     ];
 
     // Add tax deduction
-    final taxAmount = grossSalary * ((customTaxRate ?? 22.0) / 100);
+    final effectiveTaxRate = customTaxRate ?? 22.0;
+    final taxAmount = grossSalary * (effectiveTaxRate / 100);
     items.add(DeductionItem('Steuern', taxAmount,
         isDeduction: true,
-        info: 'Steuersatz: ${(customTaxRate ?? 22.0).toStringAsFixed(1)}%'));
+        info: 'Steuersatz: ${effectiveTaxRate.toStringAsFixed(1)}%'));
 
     if (additionalInsurance > 0) {
       items.add(DeductionItem('Zusatzversicherungen', additionalInsurance,
