@@ -41,6 +41,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           grossSalary,
           _rates,
           has13thSalary: _has13thSalary,
+          isYearlyCalculation: _isYearlyCalculation,
           pensionRate: double.tryParse(_pensionController.text) ??
               _rates.defaultPensionRate,
           additionalInsurance:
