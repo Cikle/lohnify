@@ -118,7 +118,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Kinderleistungen',
+                        LanguageService.tr(context, 'childBenefits'),
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -126,7 +126,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Grundzulage: ${widget.numberOfChildren} × 200 CHF = ${(widget.numberOfChildren * 200).toStringAsFixed(2)} CHF',
+                        '${LanguageService.tr(context, 'baseAllowance')}: ${widget.numberOfChildren} × 200 CHF = ${(widget.numberOfChildren * 200).toStringAsFixed(2)} CHF',
                       ),
                       const SizedBox(height: 4),
                       ...List.generate(widget.numberOfChildren, (index) {
@@ -135,13 +135,13 @@ class _ResultsScreenState extends State<ResultsScreen> {
                         return Padding(
                           padding: const EdgeInsets.only(top: 4),
                           child: Text(
-                            'Kind ${index + 1} Steuerermässigung: ${percentage.toStringAsFixed(1)}% = ${benefit.toStringAsFixed(2)} CHF',
+                            '${LanguageService.tr(context, 'childTaxReduction')} ${index + 1}: ${percentage.toStringAsFixed(1)}% = ${benefit.toStringAsFixed(2)} CHF',
                           ),
                         );
                       }),
                       const SizedBox(height: 8),
                       Text(
-                        'Gesamte Kinderleistungen: ${widget.calculation.deductionItems.where((item) => item.label.contains('Kind') && !item.isDeduction).fold(0.0, (sum, item) => sum + item.amount).toStringAsFixed(2)} CHF',
+                        '${LanguageService.tr(context, 'totalChildBenefits')}: ${(widget.numberOfChildren * 200 + List.generate(widget.numberOfChildren, (index) => widget.calculation.grossSalary * ((2.0 + (index * 0.5)) / 100)).reduce((a, b) => a + b)).toStringAsFixed(2)} CHF',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.green,
