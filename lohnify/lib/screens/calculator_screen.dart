@@ -35,7 +35,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     if (_formKey.currentState?.validate() ?? false) {
       final grossSalary = double.parse(_salaryController.text);
       final childrenCount = int.tryParse(_childrenController.text) ?? 0;
-      final customTaxRate = double.tryParse(_customTaxRateController.text);
+      final customTaxRate = _useCustomTaxRate 
+          ? double.tryParse(_customTaxRateController.text)
+          : null;
       setState(() {
         _calculation = SalaryCalculation.calculate(
           grossSalary,
@@ -50,6 +52,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           isMarried: _isMarried,
           numberOfChildren: childrenCount,
           customTaxRate: customTaxRate,
+          useCustomTaxRate: _useCustomTaxRate,
         );
       });
     }

@@ -49,7 +49,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 'yearlyGross': widget.calculation.yearlyGross,
                 'yearlyNet': widget.calculation.yearlyNet,
                 'isEmployerView': false,
-                'canton': 'ZH',
+                'canton': _useCustomTaxRate ? null : 'ZH',
                 'useCustomTaxRate': _useCustomTaxRate,
                 'customTaxRate': double.tryParse(_customTaxRateController.text),
                 'isMarried': widget.isMarried,

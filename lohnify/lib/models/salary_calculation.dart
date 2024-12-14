@@ -42,6 +42,7 @@ class SalaryCalculation {
     required bool isMarried,
     int numberOfChildren = 0,
     double? customTaxRate,
+    bool useCustomTaxRate = false,
   }) {
     // Convert yearly to monthly if needed
     final monthlyGross = isYearlyCalculation ? inputSalary / 12 : inputSalary;
@@ -53,7 +54,13 @@ class SalaryCalculation {
     final alvDeduction = baseAmount * (rates.alvEmployee / 100);
 
     final pensionDeduction = baseAmount * (pensionRate / 100);
-    // Adjust tax rates based on marriage status
+    // Apply tax rates
+    final taxRate = useCustomTaxRate && customTaxRate != null 
+        ? customTaxRate / 100  // Convert percentage to decimal
+        : 0.22; // Default rate if no custom rate
+    final taxAmount = baseAmount * taxRate;
+    
+    // Calculate church tax
     final churchTaxRate = hasChurchTax ? (isMarried ? 0.10 : 0.08) : 0.0;
     final churchTaxAmount = baseAmount * churchTaxRate;
 
