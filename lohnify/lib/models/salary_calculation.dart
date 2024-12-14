@@ -131,7 +131,7 @@ class SalaryCalculation {
       ));
     }
 
-    if (isMarried) {
+    if (this.isMarried) {
       items.add(DeductionItem(
         'Steuerabzug Verheiratet',
         grossSalary * 0.02,
