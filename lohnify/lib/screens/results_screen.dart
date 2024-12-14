@@ -109,6 +109,49 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 color: Colors.red,
               ),
             ),
+            if (widget.numberOfChildren > 0) ...[
+              const SizedBox(height: 16),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Kinderleistungen',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Grundzulage: ${widget.numberOfChildren} × 200 CHF = ${(widget.numberOfChildren * 200).toStringAsFixed(2)} CHF',
+                      ),
+                      const SizedBox(height: 4),
+                      ...List.generate(widget.numberOfChildren, (index) {
+                        final percentage = 2.0 + (index * 0.5);
+                        final benefit = widget.calculation.grossSalary * (percentage / 100);
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 4),
+                          child: Text(
+                            'Kind ${index + 1} Steuerermässigung: ${percentage.toStringAsFixed(1)}% = ${benefit.toStringAsFixed(2)} CHF',
+                          ),
+                        );
+                      }),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Gesamte Kinderleistungen: ${widget.calculation.deductionItems.where((item) => item.label.contains('Kind')).fold(0.0, (sum, item) => sum + item.amount).toStringAsFixed(2)} CHF',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
             const SizedBox(height: 16),
             _buildResultCard(
               LanguageService.tr(context, 'monthlyNet'),
