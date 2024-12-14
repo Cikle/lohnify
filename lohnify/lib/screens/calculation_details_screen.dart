@@ -73,17 +73,15 @@ class CalculationDetailsScreen extends StatelessWidget {
               context,
               'basicInfo',
               [
-                _buildDetailRow(
-                    LanguageService.tr(context, 'grossSalary'),
+                _buildDetailRow(LanguageService.tr(context, 'grossSalary'),
                     '${calculation['grossSalary'].toStringAsFixed(2)} CHF'),
                 _buildDetailRow(
-                  calculation['useCustomTaxRate'] == true
-                      ? LanguageService.tr(context, 'customTaxRate')
-                      : LanguageService.tr(context, 'canton'),
-                  calculation['useCustomTaxRate'] == true
-                      ? '${calculation['effectiveTaxRate'].toStringAsFixed(1)}%'
-                      : '${ContributionRates.defaultCantons[calculation['canton']]?.name ?? 'Zürich'} - ${calculation['effectiveTaxRate'].toStringAsFixed(1)}%'
-                ),
+                    calculation['useCustomTaxRate'] == true
+                        ? LanguageService.tr(context, 'customTaxRate')
+                        : LanguageService.tr(context, 'canton'),
+                    calculation['useCustomTaxRate'] == true
+                        ? '${calculation['effectiveTaxRate'].toStringAsFixed(1)}%'
+                        : '${ContributionRates.defaultCantons[calculation['canton']]?.name ?? 'Zürich'} - ${(calculation['effectiveTaxRate'] ?? 0.0).toStringAsFixed(1)}%'),
                 _buildDetailRow(LanguageService.tr(context, 'monthlyNet'),
                     '${calculation['netSalary'].toStringAsFixed(2)} CHF'),
                 if (calculation['yearlyGross'] != null) ...[
@@ -156,8 +154,7 @@ class CalculationDetailsScreen extends StatelessWidget {
                         ? LanguageService.tr(context, 'yes')
                         : LanguageService.tr(context, 'no')),
                 if (calculation['useCustomTaxRate'] == true)
-                  _buildDetailRow(
-                      LanguageService.tr(context, 'customTaxRate'),
+                  _buildDetailRow(LanguageService.tr(context, 'customTaxRate'),
                       '${calculation['customTaxRate'].toStringAsFixed(1)}%'),
               ],
             ),
