@@ -148,9 +148,9 @@ class CalculationDetailsScreen extends StatelessWidget {
                     calculation['useCustomTaxRate'] == true
                         ? LanguageService.tr(context, 'yes')
                         : LanguageService.tr(context, 'no')),
-                if (calculation['customTaxRate'] != null)
-                  _buildDetailRow(LanguageService.tr(context, 'customTaxRate'),
-                      '${calculation['customTaxRate'].toString()}%'),
+                _buildDetailRow(
+                    LanguageService.tr(context, 'customTaxRate'),
+                    '${(calculation['customTaxRate'] ?? 22.0).toStringAsFixed(1)}%'),
               ],
             ),
             if (calculation['deductions'] != null)

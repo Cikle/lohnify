@@ -57,7 +57,8 @@ class SalaryCalculation {
 
     final pensionDeduction = baseAmount * (pensionRate / 100);
     // Apply tax rate from user input
-    final taxAmount = baseAmount * ((customTaxRate ?? 22.0) / 100);
+    final effectiveTaxRate = useCustomTaxRate ? (customTaxRate ?? 22.0) : 22.0;
+    final taxAmount = baseAmount * (effectiveTaxRate / 100);
 
     // Calculate church tax after tax deduction
     final churchTaxRate = hasChurchTax ? (isMarried ? 0.10 : 0.08) : 0.0;
@@ -109,7 +110,7 @@ class SalaryCalculation {
       yearlyGross: yearlyGross,
       yearlyNet: yearlyNet,
       isMarried: isMarried,
-      customTaxRate: customTaxRate,
+      customTaxRate: useCustomTaxRate ? customTaxRate : 22.0,
     );
   }
 
