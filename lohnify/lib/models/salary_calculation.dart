@@ -119,6 +119,15 @@ class SalaryCalculation {
       DeductionItem('Pensionskasse', pensionDeduction, isDeduction: true),
     ];
 
+    // Add tax deduction
+    final taxAmount = grossSalary * ((customTaxRate ?? 22.0) / 100);
+    items.add(DeductionItem(
+      'Steuern',
+      taxAmount,
+      isDeduction: true,
+      info: 'Steuersatz: ${(customTaxRate ?? 22.0).toStringAsFixed(1)}%'
+    ));
+
     if (additionalInsurance > 0) {
       items.add(DeductionItem('Zusatzversicherungen', additionalInsurance,
           isDeduction: true));
