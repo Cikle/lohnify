@@ -13,6 +13,7 @@ class SalaryCalculation {
   final double yearlyGross;
   final double yearlyNet;
   final int numberOfChildren;
+  final bool isMarried;
 
   SalaryCalculation({
     required this.grossSalary,
@@ -27,6 +28,7 @@ class SalaryCalculation {
     required this.yearlyGross,
     required this.yearlyNet,
     this.numberOfChildren = 0,
+    required this.isMarried,
   });
 
   factory SalaryCalculation.calculate(
@@ -89,6 +91,7 @@ class SalaryCalculation {
       netSalary: netSalary,
       yearlyGross: yearlyGross,
       yearlyNet: yearlyNet,
+      isMarried: isMarried,
     );
   }
 
