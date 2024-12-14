@@ -21,7 +21,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   final _additionalInsuranceController = TextEditingController();
   final _customTaxRateController = TextEditingController();
   late SharedPreferences _prefs;
-  bool _useCustomTaxRate = true;  // Always use custom tax rate by default
+  bool _useCustomTaxRate = true; // Always use custom tax rate by default
   SalaryCalculation? _calculation;
   final _rates = ContributionRates();
 
@@ -35,7 +35,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     if (_formKey.currentState?.validate() ?? false) {
       final grossSalary = double.parse(_salaryController.text);
       final childrenCount = int.tryParse(_childrenController.text) ?? 0;
-      final customTaxRate = _useCustomTaxRate 
+      final customTaxRate = _useCustomTaxRate
           ? double.tryParse(_customTaxRateController.text)
           : null;
       setState(() {

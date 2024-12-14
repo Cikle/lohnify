@@ -62,7 +62,7 @@ class SalaryCalculation {
 
     final pensionDeduction = baseAmount * (pensionRate / 100);
     // Apply tax rate from user input or canton rate
-    final effectiveTaxRate = useCustomTaxRate 
+    final effectiveTaxRate = useCustomTaxRate
         ? (customTaxRate ?? 0.0)
         : ContributionRates.defaultCantons[canton ?? 'ZH']!.taxRate;
     final taxAmount = baseAmount * (effectiveTaxRate / 100);
@@ -134,13 +134,13 @@ class SalaryCalculation {
 
     // Add tax deduction
     final canton = useCustomTaxRate ? null : (this.canton ?? 'ZH');
-    final effectiveTaxRate = useCustomTaxRate 
+    final effectiveTaxRate = useCustomTaxRate
         ? (customTaxRate ?? ContributionRates.defaultCantons['ZH']!.taxRate)
         : ContributionRates.defaultCantons[canton]!.taxRate;
     final taxAmount = grossSalary * (effectiveTaxRate / 100);
     items.add(DeductionItem('Steuern', taxAmount,
         isDeduction: true,
-        info: canton != null 
+        info: canton != null
             ? 'Steuersatz ${ContributionRates.defaultCantons[canton]!.name}: ${effectiveTaxRate.toStringAsFixed(1)}%'
             : 'Benutzerdefinierter Steuersatz: ${effectiveTaxRate.toStringAsFixed(1)}%'));
 

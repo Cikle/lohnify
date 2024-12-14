@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/salary_calculation.dart';
 import '../services/language_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../models/contribution_rates.dart';
 import 'dart:convert';
 
 class ResultsScreen extends StatefulWidget {
@@ -26,7 +27,8 @@ class ResultsScreen extends StatefulWidget {
 
 class _ResultsScreenState extends State<ResultsScreen> {
   bool _useCustomTaxRate = false;
-  final TextEditingController _customTaxRateController = TextEditingController();
+  final TextEditingController _customTaxRateController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +53,11 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 'canton': widget.calculation.canton,
                 'useCustomTaxRate': widget.calculation.useCustomTaxRate,
                 'customTaxRate': widget.calculation.customTaxRate,
-                'effectiveTaxRate': widget.calculation.useCustomTaxRate 
-                    ? widget.calculation.customTaxRate 
-                    : ContributionRates.defaultCantons[widget.calculation.canton ?? 'ZH']?.taxRate,
+                'effectiveTaxRate': widget.calculation.useCustomTaxRate
+                    ? widget.calculation.customTaxRate
+                    : ContributionRates
+                        .defaultCantons[widget.calculation.canton ?? 'ZH']
+                        ?.taxRate,
                 'isMarried': widget.isMarried,
                 'hasChurchTax': widget.hasChurchTax,
                 'numberOfChildren': widget.numberOfChildren,

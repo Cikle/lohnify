@@ -81,6 +81,7 @@ class AppTranslations {
       'yearlyGross': 'Jährlicher Bruttolohn',
       'yearlyNet': 'Jährlicher Nettolohn',
       'totalDeductions': 'Gesamte Abzüge',
+      'calculationDetails': 'Berechnungs Details',
     },
     'en': {
       'appTitle': 'Lohnify',
@@ -166,7 +167,7 @@ class AppTranslations {
       'deleteCalculation': 'Delete Calculation',
       'calculationSaved': 'Calculation saved successfully',
       'calculationDeleted': 'Calculation deleted',
-      'calculationDetails': 'Berechnung Details',
+      'calculationDetails': 'Calculation details',
       'deductions': 'Deductions',
       'invalidInput': 'Invalid input - please enter numbers only',
       'enterValidNumber': 'Please enter a positive number',
