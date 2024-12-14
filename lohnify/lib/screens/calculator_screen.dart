@@ -5,7 +5,6 @@ import '../models/salary_calculation.dart';
 import '../services/language_service.dart'; // Import the LanguageService
 import 'results_screen.dart'; // Import the ResultsScreen
 import 'package:shared_preferences/shared_preferences.dart'; // Import SharedPreferences
-import 'dart:convert'; // Import dart:convert for json encoding
 
 class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({super.key});
@@ -30,7 +29,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   bool _hasChurchTax = false;
   String _selectedCanton = 'ZH';
   bool _has13thSalary = true;
-  bool _isEmployerView = false; // Define _isEmployerView
 
   void _calculateSalary() {
     if (_formKey.currentState?.validate() ?? false) {
@@ -339,7 +337,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
       ),
     );
   }
-
 
   @override
   void dispose() {
