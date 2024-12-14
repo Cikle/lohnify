@@ -125,18 +125,43 @@ class _ResultsScreenState extends State<ResultsScreen> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Text(
-                        '${LanguageService.tr(context, 'baseAllowance')}: ${widget.numberOfChildren} × 200 CHF = ${(widget.numberOfChildren * 200).toStringAsFixed(2)} CHF',
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('${LanguageService.tr(context, 'baseAllowance')} (${LanguageService.tr(context, 'perChild')})'),
+                          Text('200.00 CHF'),
+                        ],
                       ),
-                      const SizedBox(height: 4),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('${LanguageService.tr(context, 'monthlyBenefit')}'),
+                          Text('${(widget.numberOfChildren * 200).toStringAsFixed(2)} CHF'),
+                        ],
+                      ),
+                      const Divider(height: 16),
                       ...List.generate(widget.numberOfChildren, (index) {
                         final percentage = 2.0 + (index * 0.5);
                         final benefit = widget.calculation.grossSalary * (percentage / 100);
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 4),
-                          child: Text(
-                            '${LanguageService.tr(context, 'childTaxReduction')} ${index + 1}: ${percentage.toStringAsFixed(1)}% = ${benefit.toStringAsFixed(2)} CHF',
-                          ),
+                        return Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('${LanguageService.tr(context, 'childTaxReduction')} ${index + 1}'),
+                                Text('${percentage.toStringAsFixed(1)}%'),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('${LanguageService.tr(context, 'monthlyBenefit')}'),
+                                Text('${benefit.toStringAsFixed(2)} CHF'),
+                              ],
+                            ),
+                            if (index < widget.numberOfChildren - 1)
+                              const Divider(height: 16),
+                          ],
                         );
                       }),
                       const SizedBox(height: 8),
