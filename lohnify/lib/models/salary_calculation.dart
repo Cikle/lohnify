@@ -54,11 +54,10 @@ class SalaryCalculation {
     final alvDeduction = baseAmount * (rates.alvEmployee / 100);
 
     final pensionDeduction = baseAmount * (pensionRate / 100);
-    // Apply tax rate, ensuring we use the provided rate
-    final taxRate = (customTaxRate ?? 22.0) / 100;  // Convert percentage to decimal
-    final taxAmount = baseAmount * taxRate;
+    // Apply tax rate from user input
+    final taxAmount = baseAmount * ((customTaxRate ?? 22.0) / 100);
     
-    // Calculate church tax
+    // Calculate church tax after tax deduction
     final churchTaxRate = hasChurchTax ? (isMarried ? 0.10 : 0.08) : 0.0;
     final churchTaxAmount = baseAmount * churchTaxRate;
 
@@ -69,6 +68,7 @@ class SalaryCalculation {
         alvDeduction +
         pensionDeduction +
         additionalInsurance +
+        taxAmount +
         churchTaxAmount;
 
     // Children benefits calculation
