@@ -54,8 +54,10 @@ class SalaryCalculation {
     final alvDeduction = baseAmount * (rates.alvEmployee / 100);
 
     final pensionDeduction = baseAmount * (pensionRate / 100);
-    // Apply tax rate from user input
-    final taxRate = customTaxRate != null ? customTaxRate / 100 : 0.22;
+    // Apply tax rate from user input, ensuring we use the custom rate when provided
+    final taxRate = useCustomTaxRate && customTaxRate != null 
+        ? customTaxRate / 100 
+        : 0.22;
     final taxAmount = baseAmount * taxRate;
     
     // Calculate church tax
