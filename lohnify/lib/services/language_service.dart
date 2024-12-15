@@ -32,6 +32,9 @@ class LanguageService extends ChangeNotifier {
     WidgetsBinding.instance.performReassemble();
   }
 
-  String get currentLanguage =>
-      _currentLocale.languageCode == 'de' ? 'Deutsch' : 'English';
+  String get currentLanguage => _currentLocale.languageCode == 'de'
+      ? 'Deutsch'
+      : _currentLocale.languageCode == 'fr'
+          ? 'Français'
+          : 'English';
 }

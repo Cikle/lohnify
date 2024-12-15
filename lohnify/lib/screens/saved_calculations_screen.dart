@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../services/language_service.dart';
-import 'calculation_details_screen.dart'; // Add this import
+import 'calculation_details_screen.dart';
 
 class SavedCalculationsScreen extends StatefulWidget {
   const SavedCalculationsScreen({super.key});
