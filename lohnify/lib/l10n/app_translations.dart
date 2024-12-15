@@ -22,7 +22,7 @@ class AppTranslations {
       'noSavedCalculations': 'Noch keine Berechnungen gespeichert',
       'viewDifference': 'Ansichtsunterschied',
       'employerViewInfo':
-          'Arbeitgeber-Ansicht zeigt Gesamtkosten inklusive Arbeitgeberbeiträge',
+          'Arbeitgeber-Ansicht zeigt Gesamtkosten inklusive Arbeitgeberbeiträge. Arbeitnehmer-Ansicht zeigt Nettolohn nach Abzügen.',
       'employeeViewInfo': 'Arbeitnehmer-Ansicht zeigt Nettolohn nach Abzügen',
       'calculator': 'Lohnrechner',
       'calculatorSubtitle': 'Berechnen Sie Ihren Nettolohn',
@@ -57,7 +57,7 @@ class AppTranslations {
       'optional': 'Optional',
       'additionalInsuranceCHF': 'Zusatzversicherungen (CHF)',
       'thirteenthSalary': '13. Monatslohn',
-      'calculateOnYearlyBasis': 'Calculate on yearly basis',
+      'calculateOnYearlyBasis': 'Auf Jahresbasis berechnen',
       'socialInsurance': 'Sozialversicherungen',
       'socialInsuranceInfo':
           'AHV: Alters- und Hinterlassenenversicherung\nIV: Invalidenversicherung\nEO: Erwerbsersatzordnung\nALV: Arbeitslosenversicherung',
@@ -82,6 +82,26 @@ class AppTranslations {
       'yearlyNet': 'Jährlicher Nettolohn',
       'totalDeductions': 'Gesamte Abzüge',
       'calculationDetails': 'Berechnungs Details',
+      'saveCalculation': 'Berechnung speichern',
+      'deleteCalculation': 'Berechnung löschen',
+      'calculationSaved': 'Berechnung erfolgreich gespeichert',
+      'calculationDeleted': 'Berechnung gelöscht',
+      'deductions': 'Abzüge',
+      'invalidInput': 'Ungültige Eingabe - bitte nur Zahlen eingeben',
+      'enterValidNumber': 'Bitte geben Sie eine positive Zahl ein',
+      'salaryTooHigh': 'Gehaltsbetrag ist unrealistisch hoch',
+      'decimalAllowed': 'Dezimalzahlen sind erlaubt',
+      'resetCalculator': 'Rechner zurücksetzen',
+      'yearlyCalculation': 'Jahresberechnung',
+      'enterYearlySalary': 'Jahresgehalt eingeben',
+      'enterMonthlySalary': 'Monatsgehalt eingeben',
+      'yes': 'Ja',
+      'no': 'Nein',
+      'arbeitnehmer': 'Arbeitnehmer',
+      'arbeitgeber': 'Arbeitgeber',
+      'date': 'Datum',
+      'numbersOnlyTax': 'Bitte geben Sie nur Zahlen für den Steuersatz ein',
+      'taxRateRange': 'Steuersatz muss zwischen 0% und 100% liegen'
     },
     'en': {
       'appTitle': 'Lohnify',
@@ -160,9 +180,10 @@ class AppTranslations {
       'employeeView': 'Employee View',
       'savedCalculations': 'Saved Calculations',
       'noSavedCalculations': 'No saved calculations yet',
-      'viewDifference': 'Arbeitnehmer vs Arbeitgeber Ansicht',
+      'viewDifference': 'Employee vs Employer View',
       'employerViewInfo':
-          'Arbeitgeber-Ansicht zeigt Gesamtkosten inklusive Arbeitgeberbeiträge. Arbeitnehmer-Ansicht zeigt Nettolohn nach Abzügen.',
+          'Employer view shows total costs including employer contributions. Employee view shows net salary after deductions.',
+      'employeeViewInfo': 'Employee view shows net salary after deductions',
       'saveCalculation': 'Save Calculation',
       'deleteCalculation': 'Delete Calculation',
       'calculationSaved': 'Calculation saved successfully',
@@ -181,7 +202,7 @@ class AppTranslations {
       'no': 'No',
       'arbeitnehmer': 'Employee',
       'arbeitgeber': 'Employer',
-      'date': 'Date',
+      'date': 'Date'
     },
   };
 
