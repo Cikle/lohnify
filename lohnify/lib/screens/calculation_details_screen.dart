@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../services/view_type_provider.dart';
 import 'package:intl/intl.dart';
 import '../services/language_service.dart';
 import '../models/salary_calculation.dart';
