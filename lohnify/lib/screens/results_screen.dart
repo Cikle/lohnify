@@ -29,6 +29,11 @@ class ResultsScreen extends StatefulWidget {
 
 class _ResultsScreenState extends State<ResultsScreen> {
   String _getLabelKey(String label, BuildContext context) {
+    // First check if the label is already a key
+    if (label == 'AHV' || label == 'IV' || label == 'EO' || label == 'ALV') {
+      return label;
+    }
+
     // Map of translated texts to their keys
     final labelToKey = {
       LanguageService.tr(context, 'pensionFund'): 'pensionFund',
@@ -39,6 +44,14 @@ class _ResultsScreenState extends State<ResultsScreen> {
       LanguageService.tr(context, 'alvEmployer'): 'alvEmployer',
       LanguageService.tr(context, 'employerNPAIU'): 'employerNPAIU',
       LanguageService.tr(context, 'employerPensionFund'): 'employerPensionFund',
+      'AHV (Employer)': 'ahvEmployer',
+      'IV (Employer)': 'ivEmployer',
+      'EO (Employer)': 'eoEmployer',
+      'ALV (Employer)': 'alvEmployer',
+      'AVS (Employeur)': 'ahvEmployer',
+      'AI (Employeur)': 'ivEmployer',
+      'APG (Employeur)': 'eoEmployer',
+      'AC (Employeur)': 'alvEmployer',
     };
     
     return labelToKey[label] ?? label;
