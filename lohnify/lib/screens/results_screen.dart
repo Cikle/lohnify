@@ -28,9 +28,13 @@ class ResultsScreen extends StatefulWidget {
 class _ResultsScreenState extends State<ResultsScreen> {
   @override
   Widget build(BuildContext context) {
+    final isEmployerView = Provider.of<ViewTypeProvider>(context).isEmployerView;
+    
     return Scaffold(
       appBar: AppBar(
-        title: Text(LanguageService.tr(context, 'results')),
+        title: Text(isEmployerView 
+          ? LanguageService.tr(context, 'employerResults')
+          : LanguageService.tr(context, 'results')),
         actions: [
           IconButton(
             icon: const Icon(Icons.save),

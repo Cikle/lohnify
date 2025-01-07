@@ -38,6 +38,9 @@ class LohnifyAppState extends State<LohnifyApp> {
       providers: [
         ChangeNotifierProvider.value(value: languageService),
         ChangeNotifierProvider.value(value: themeService),
+        ChangeNotifierProvider(
+          create: (_) => ViewTypeProvider(widget.prefs),
+        ),
       ],
       child: Consumer<ThemeService>(
         builder: (context, themeService, _) => MaterialApp(

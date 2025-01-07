@@ -17,6 +17,15 @@ class SalaryCalculation {
   final double? customTaxRate;
   final String? canton;
   final bool useCustomTaxRate;
+  
+  // Arbeitgeber-spezifische Felder
+  final double ahvEmployerContribution;
+  final double ivEmployerContribution;
+  final double eoEmployerContribution;
+  final double alvEmployerContribution;
+  final double nbuContribution;
+  final double pensionEmployerContribution;
+  final double totalEmployerCosts;
 
   SalaryCalculation({
     required this.grossSalary,
@@ -35,6 +44,13 @@ class SalaryCalculation {
     this.customTaxRate,
     this.canton,
     this.useCustomTaxRate = false,
+    required this.ahvEmployerContribution,
+    required this.ivEmployerContribution,
+    required this.eoEmployerContribution,
+    required this.alvEmployerContribution,
+    required this.nbuContribution,
+    required this.pensionEmployerContribution,
+    required this.totalEmployerCosts,
   });
 
   factory SalaryCalculation.calculate(
@@ -96,11 +112,28 @@ class SalaryCalculation {
     // Marriage tax benefit
     double marriageBenefit = isMarried ? baseAmount * 0.02 : 0.0;
 
+    // Arbeitgeber-Beiträge berechnen
+    final ahvEmployerContribution = baseAmount * (rates.ahvEmployer / 100);
+    final ivEmployerContribution = baseAmount * (rates.ivEmployer / 100);
+    final eoEmployerContribution = baseAmount * (rates.eoEmployer / 100);
+    final alvEmployerContribution = baseAmount * (rates.alvEmployer / 100);
+    final nbuContribution = baseAmount * (rates.nbuRate / 100);
+    final pensionEmployerContribution = baseAmount * (pensionRate / 100);
+
+    // Gesamtkosten für Arbeitgeber
+    final totalEmployerCosts = monthlyGross +
+        ahvEmployerContribution +
+        ivEmployerContribution +
+        eoEmployerContribution +
+        alvEmployerContribution +
+        nbuContribution +
+        pensionEmployerContribution;
+
     final netSalary = monthlyGross -
         totalDeductions +
-        childrenAllowance + // Direct child allowance
-        childTaxBenefit + // Tax benefits for children
-        marriageBenefit; // Marriage benefits
+        childrenAllowance +
+        childTaxBenefit +
+        marriageBenefit;
     final yearlyGross = has13thSalary ? monthlyGross * 13 : monthlyGross * 12;
     final yearlyNet = has13thSalary ? netSalary * 13 : netSalary * 12;
 
@@ -120,6 +153,13 @@ class SalaryCalculation {
       customTaxRate: customTaxRate,
       canton: canton,
       useCustomTaxRate: useCustomTaxRate,
+      ahvEmployerContribution: ahvEmployerContribution,
+      ivEmployerContribution: ivEmployerContribution,
+      eoEmployerContribution: eoEmployerContribution,
+      alvEmployerContribution: alvEmployerContribution,
+      nbuContribution: nbuContribution,
+      pensionEmployerContribution: pensionEmployerContribution,
+      totalEmployerCosts: totalEmployerCosts,
     );
   }
 
@@ -183,6 +223,50 @@ class SalaryCalculation {
           isDeduction: false, info: 'Steuerermässigung für Verheiratete: 2%'));
     }
 
+    // Arbeitgeber-Beiträge
+    items.add(DeductionItem(
+      'AHV (Arbeitgeber)',
+      ahvEmployerContribution,
+      isDeduction: true,
+      info: 'Arbeitgeberanteil AHV: ${ContributionRates().ahvEmployer}%',
+      isEmployerContribution: true,
+    ));
+    items.add(DeductionItem(
+      'IV (Arbeitgeber)',
+      ivEmployerContribution,
+      isDeduction: true,
+      info: 'Arbeitgeberanteil IV: ${ContributionRates().ivEmployer}%',
+      isEmployerContribution: true,
+    ));
+    items.add(DeductionItem(
+      'EO (Arbeitgeber)',
+      eoEmployerContribution,
+      isDeduction: true,
+      info: 'Arbeitgeberanteil EO: ${ContributionRates().eoEmployer}%',
+      isEmployerContribution: true,
+    ));
+    items.add(DeductionItem(
+      'ALV (Arbeitgeber)',
+      alvEmployerContribution,
+      isDeduction: true,
+      info: 'Arbeitgeberanteil ALV: ${ContributionRates().alvEmployer}%',
+      isEmployerContribution: true,
+    ));
+    items.add(DeductionItem(
+      'NBU',
+      nbuContribution,
+      isDeduction: true,
+      info: 'Nichtberufsunfallversicherung: ${ContributionRates().nbuRate}%',
+      isEmployerContribution: true,
+    ));
+    items.add(DeductionItem(
+      'Pensionskasse (Arbeitgeber)',
+      pensionEmployerContribution,
+      isDeduction: true,
+      info: 'Arbeitgeberanteil Pensionskasse',
+      isEmployerContribution: true,
+    ));
+
     return items;
   }
 }
@@ -192,11 +276,13 @@ class DeductionItem {
   final double amount;
   final bool isDeduction;
   final String? info;
+  final bool isEmployerContribution;
 
   DeductionItem(
     this.label,
     this.amount, {
     this.isDeduction = true,
     this.info,
+    this.isEmployerContribution = false,
   });
 }
