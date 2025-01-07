@@ -41,7 +41,7 @@ class CalculationDetailsScreen extends StatelessWidget {
                 await prefs.setStringList('saved_calculations', calculations);
 
                 if (!context.mounted) return;
-                Navigator.pop(context); // Return to previous screen
+                Navigator.pop(context, true); // Return with refresh trigger
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content:

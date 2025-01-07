@@ -95,7 +95,11 @@ class _SavedCalculationsScreenState extends State<SavedCalculationsScreen> {
                                   calculation: calculation,
                                 ),
                               ),
-                            );
+                            ).then((needsRefresh) {
+                              if (needsRefresh == true) {
+                                _loadSavedCalculations();
+                              }
+                            });
                           },
                         ),
                         IconButton(
