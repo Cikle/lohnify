@@ -13,36 +13,48 @@ class CantonRatesService {
   CantonRatesService(this._prefs);
 
   Future<Map<String, CantonData>> fetchCantonRates() async {
-    final lastUpdate = DateTime.fromMillisecondsSinceEpoch(
-      _prefs.getInt('${_cacheKey}_timestamp') ?? 0
-    );
-    
-    if (DateTime.now().difference(lastUpdate) < _updateInterval) {
-      final cached = _prefs.getString(_cacheKey);
-      if (cached != null) {
-        return Map<String, CantonData>.from(
-          json.decode(cached).map((key, value) => 
-            MapEntry(key, CantonData.fromJson(value))
-          )
-        );
-      }
-    }
-
     try {
-      final response = await http.get(Uri.parse(_baseUrl));
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        await _cacheRates(data);
-        return Map<String, CantonData>.from(
-          data.map((key, value) => 
-            MapEntry(key, CantonData.fromJson(value))
-          )
-        );
+      final lastUpdate = DateTime.fromMillisecondsSinceEpoch(
+        _prefs.getInt('${_cacheKey}_timestamp') ?? 0
+      );
+      
+      if (DateTime.now().difference(lastUpdate) < _updateInterval) {
+        final cached = _prefs.getString(_cacheKey);
+        if (cached != null) {
+          try {
+            return Map<String, CantonData>.from(
+              json.decode(cached).map((key, value) => 
+                MapEntry(key, CantonData.fromJson(value))
+              )
+            );
+          } catch (e) {
+            debugPrint('Failed to parse cached canton rates: $e');
+            // If cache is corrupted, continue to fetch new data
+          }
+        }
+      }
+
+      try {
+        final response = await http.get(Uri.parse(_baseUrl));
+        if (response.statusCode == 200) {
+          final data = json.decode(response.body);
+          await _cacheRates(data);
+          return Map<String, CantonData>.from(
+            data.map((key, value) => 
+              MapEntry(key, CantonData.fromJson(value))
+            )
+          );
+        } else {
+          debugPrint('Failed to fetch canton rates: HTTP ${response.statusCode}');
+        }
+      } catch (e) {
+        debugPrint('Network error while fetching canton rates: $e');
       }
     } catch (e) {
-      print('Failed to fetch canton rates: $e');
+      debugPrint('Error in fetchCantonRates: $e');
     }
 
+    // Fallback to default rates if anything fails
     return ContributionRates.defaultCantons;
   }
 

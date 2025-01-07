@@ -11,14 +11,44 @@ import 'services/view_type_provider.dart'; // Add this line to import ViewTypePr
 void main() async {
   await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
+    
     FlutterError.onError = (FlutterErrorDetails details) {
       FlutterError.presentError(details);
+      debugPrint('Flutter Error: ${details.exception}');
+      debugPrint('Stack trace: ${details.stack}');
+    };
+
+    ErrorWidget.builder = (FlutterErrorDetails details) {
+      return Material(
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.error_outline, color: Colors.red, size: 60),
+              const SizedBox(height: 16),
+              Text('An error occurred: ${details.exception}'),
+              TextButton(
+                onPressed: () => Navigator.of(details.context!).pop(),
+                child: const Text('Go Back'),
+              ),
+            ],
+          ),
+        ),
+      );
     };
     
-    final prefs = await SharedPreferences.getInstance();
+    SharedPreferences prefs;
+    try {
+      prefs = await SharedPreferences.getInstance();
+    } catch (e) {
+      debugPrint('Failed to initialize SharedPreferences: $e');
+      prefs = await SharedPreferences.getInstance();
+    }
+    
     runApp(LohnifyApp(prefs: prefs));
   }, (error, stack) {
-    debugPrint('Caught error: $error');
+    debugPrint('Uncaught error: $error');
     debugPrint('Stack trace: $stack');
   });
 }
