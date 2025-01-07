@@ -1,4 +1,5 @@
 import 'contribution_rates.dart';
+import '../services/language_service.dart';
 
 class SalaryCalculation {
   final double grossSalary;
@@ -112,7 +113,8 @@ class SalaryCalculation {
         nbuContribution +
         pensionEmployerContribution;
 
-    final totalDeductions = employeeDeductions + (useCustomTaxRate ? 0 : employerContributions);
+    final totalDeductions =
+        employeeDeductions + (useCustomTaxRate ? 0 : employerContributions);
 
     // Children benefits calculation
     final childrenAllowance = numberOfChildren * 200.0; // Base allowance
@@ -237,28 +239,32 @@ class SalaryCalculation {
       LanguageService.tr(context, 'ahvEmployer'),
       ahvEmployerContribution,
       isDeduction: true,
-      info: '${LanguageService.tr(context, 'employerContribution')} AHV: ${ContributionRates().ahvEmployer}%',
+      info:
+          '${LanguageService.tr(context, 'employerContribution')} AHV: ${ContributionRates().ahvEmployer}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
       LanguageService.tr(context, 'ivEmployer'),
       ivEmployerContribution,
       isDeduction: true,
-      info: '${LanguageService.tr(context, 'employerContribution')} IV: ${ContributionRates().ivEmployer}%',
+      info:
+          '${LanguageService.tr(context, 'employerContribution')} IV: ${ContributionRates().ivEmployer}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
       LanguageService.tr(context, 'eoEmployer'),
       eoEmployerContribution,
       isDeduction: true,
-      info: '${LanguageService.tr(context, 'employerContribution')} EO: ${ContributionRates().eoEmployer}%',
+      info:
+          '${LanguageService.tr(context, 'employerContribution')} EO: ${ContributionRates().eoEmployer}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
       LanguageService.tr(context, 'alvEmployer'),
       alvEmployerContribution,
       isDeduction: true,
-      info: '${LanguageService.tr(context, 'employerContribution')} ALV: ${ContributionRates().alvEmployer}%',
+      info:
+          '${LanguageService.tr(context, 'employerContribution')} ALV: ${ContributionRates().alvEmployer}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
