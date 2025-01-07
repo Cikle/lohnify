@@ -28,6 +28,21 @@ class ResultsScreen extends StatefulWidget {
 }
 
 class _ResultsScreenState extends State<ResultsScreen> {
+  String _getLabelKey(String label, BuildContext context) {
+    // Map of translated texts to their keys
+    final labelToKey = {
+      LanguageService.tr(context, 'pensionFund'): 'pensionFund',
+      LanguageService.tr(context, 'taxes'): 'taxes',
+      LanguageService.tr(context, 'ahvEmployer'): 'ahvEmployer',
+      LanguageService.tr(context, 'ivEmployer'): 'ivEmployer',
+      LanguageService.tr(context, 'eoEmployer'): 'eoEmployer',
+      LanguageService.tr(context, 'alvEmployer'): 'alvEmployer',
+      LanguageService.tr(context, 'employerNPAIU'): 'employerNPAIU',
+      LanguageService.tr(context, 'employerPensionFund'): 'employerPensionFund',
+    };
+    
+    return labelToKey[label] ?? label;
+  }
   @override
   Widget build(BuildContext context) {
     final isEmployerView =
@@ -68,7 +83,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 'deductions': widget.calculation
                     .getDeductionItems(context)
                     .map((item) => {
-                          'label': item.label,
+                          'label': _getLabelKey(item.label, context),
                           'amount': item.amount,
                           'isDeduction': item.isDeduction,
                           'info': item.info,
