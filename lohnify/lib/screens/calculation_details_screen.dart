@@ -104,7 +104,7 @@ class CalculationDetailsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      Provider.of<ViewTypeProvider>(context, listen: false).isEmployerView
+                      calculation['isEmployerView'] == true
                           ? LanguageService.tr(context, 'totalEmployerCosts')
                           : LanguageService.tr(context, 'monthlyGross'),
                       style: const TextStyle(
@@ -114,7 +114,7 @@ class CalculationDetailsScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      Provider.of<ViewTypeProvider>(context, listen: false).isEmployerView
+                      calculation['isEmployerView'] == true
                           ? '${(calculation['totalEmployerCosts'] ?? 0.0).toStringAsFixed(2)} CHF'
                           : '${(calculation['grossSalary'] ?? 0.0).toStringAsFixed(2)} CHF',
                       style: const TextStyle(
