@@ -169,6 +169,7 @@ class AppTranslations {
       'pleaseEnterTaxRate': 'Please enter a tax rate',
       'numbersOnlyTax': 'Please enter numbers only for tax rate',
       'taxRateRange': 'Tax rate must be between 0% and 100%',
+      'taxRate': 'Tax rate',
       'results': 'Calculation Results',
       'monthlyGross': 'Monthly Gross Salary',
       'monthlyNet': 'Monthly Net Salary',
@@ -310,6 +311,7 @@ class AppTranslations {
       'numbersOnlyTax':
           'Veuillez entrer uniquement des chiffres pour le taux d\'imposition',
       'taxRateRange': 'Le taux d\'imposition doit être entre 0% et 100%',
+      'taxRate': 'Taux d\'imposition',
       'results': 'Résultats du calcul',
       'monthlyGross': 'Salaire brut mensuel',
       'monthlyNet': 'Salaire net mensuel',
