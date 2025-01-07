@@ -96,7 +96,7 @@ class SalaryCalculation {
     final nbuContribution = baseAmount * (rates.nbuRate / 100);
     final pensionEmployerContribution = baseAmount * (pensionRate / 100);
 
-    final totalDeductions = ahvDeduction +
+    final employeeDeductions = ahvDeduction +
         ivDeduction +
         eoDeduction +
         alvDeduction +
@@ -104,6 +104,15 @@ class SalaryCalculation {
         additionalInsurance +
         taxAmount +
         churchTaxAmount;
+
+    final employerContributions = ahvEmployerContribution +
+        ivEmployerContribution +
+        eoEmployerContribution +
+        alvEmployerContribution +
+        nbuContribution +
+        pensionEmployerContribution;
+
+    final totalDeductions = employeeDeductions + (!useCustomTaxRate ? employerContributions : 0);
 
     // Children benefits calculation
     final childrenAllowance = numberOfChildren * 200.0; // Base allowance
