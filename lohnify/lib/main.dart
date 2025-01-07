@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/home_screen.dart';
@@ -8,9 +9,18 @@ import 'package:provider/provider.dart';
 import 'services/view_type_provider.dart'; // Add this line to import ViewTypeProvider
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final prefs = await SharedPreferences.getInstance();
-  runApp(LohnifyApp(prefs: prefs));
+  await runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    FlutterError.onError = (FlutterErrorDetails details) {
+      FlutterError.presentError(details);
+    };
+    
+    final prefs = await SharedPreferences.getInstance();
+    runApp(LohnifyApp(prefs: prefs));
+  }, (error, stack) {
+    debugPrint('Caught error: $error');
+    debugPrint('Stack trace: $stack');
+  });
 }
 
 class LohnifyApp extends StatefulWidget {
