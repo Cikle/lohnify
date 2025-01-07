@@ -6,12 +6,12 @@ import 'screens/home_screen.dart';
 import 'services/language_service.dart';
 import 'services/theme_service.dart';
 import 'package:provider/provider.dart';
-import 'services/view_type_provider.dart'; // Add this line to import ViewTypeProvider
+import 'services/view_type_provider.dart';
 
 void main() async {
   await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
-    
+
     FlutterError.onError = (FlutterErrorDetails details) {
       FlutterError.presentError(details);
       debugPrint('Flutter Error: ${details.exception}');
@@ -29,7 +29,7 @@ void main() async {
               const SizedBox(height: 16),
               Text('An error occurred: ${details.exception}'),
               TextButton(
-                onPressed: () => Navigator.of(details.context!).pop(),
+                onPressed: () {},
                 child: const Text('Go Back'),
               ),
             ],
@@ -37,7 +37,7 @@ void main() async {
         ),
       );
     };
-    
+
     SharedPreferences prefs;
     try {
       prefs = await SharedPreferences.getInstance();
@@ -45,7 +45,7 @@ void main() async {
       debugPrint('Failed to initialize SharedPreferences: $e');
       prefs = await SharedPreferences.getInstance();
     }
-    
+
     runApp(LohnifyApp(prefs: prefs));
   }, (error, stack) {
     debugPrint('Uncaught error: $error');
