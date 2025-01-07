@@ -118,11 +118,53 @@ class CalculationDetailsScreen extends StatelessWidget {
                 totalEmployerCosts: calculation['totalEmployerCosts'],
               );
 
+              // Create a new calculation instance with the current data
+              final currentCalc = SalaryCalculation(
+                grossSalary: calculation['grossSalary'],
+                ahvDeduction: (calculation['deductions'] as List)
+                    .firstWhere((d) => d['label'] == 'AHV')['amount'],
+                ivDeduction: (calculation['deductions'] as List)
+                    .firstWhere((d) => d['label'] == 'IV')['amount'],
+                eoDeduction: (calculation['deductions'] as List)
+                    .firstWhere((d) => d['label'] == 'EO')['amount'],
+                alvDeduction: (calculation['deductions'] as List)
+                    .firstWhere((d) => d['label'] == 'ALV')['amount'],
+                pensionDeduction: (calculation['deductions'] as List)
+                    .firstWhere((d) => d['label'] == 'Pensionskasse')['amount'],
+                additionalInsurance: (calculation['deductions'] as List)
+                    .firstWhere((d) => d['label'] == 'Zusatzversicherungen',
+                        orElse: () => {'amount': 0.0})['amount'],
+                churchTax: (calculation['deductions'] as List)
+                    .firstWhere((d) => d['label'] == 'Kirchensteuer',
+                        orElse: () => {'amount': 0.0})['amount'],
+                netSalary: calculation['netSalary'],
+                yearlyGross: calculation['yearlyGross'],
+                yearlyNet: calculation['yearlyNet'],
+                numberOfChildren: calculation['numberOfChildren'] ?? 0,
+                isMarried: calculation['isMarried'] ?? false,
+                customTaxRate: calculation['customTaxRate'],
+                canton: calculation['canton'],
+                useCustomTaxRate: calculation['useCustomTaxRate'] ?? false,
+                ahvEmployerContribution: (calculation['deductions'] as List)
+                    .firstWhere((d) => d['label'] == 'AHV (Arbeitgeber)')['amount'],
+                ivEmployerContribution: (calculation['deductions'] as List)
+                    .firstWhere((d) => d['label'] == 'IV (Arbeitgeber)')['amount'],
+                eoEmployerContribution: (calculation['deductions'] as List)
+                    .firstWhere((d) => d['label'] == 'EO (Arbeitgeber)')['amount'],
+                alvEmployerContribution: (calculation['deductions'] as List)
+                    .firstWhere((d) => d['label'] == 'ALV (Arbeitgeber)')['amount'],
+                nbuContribution: (calculation['deductions'] as List)
+                    .firstWhere((d) => d['label'] == 'NBU')['amount'],
+                pensionEmployerContribution: (calculation['deductions'] as List)
+                    .firstWhere((d) => d['label'] == 'Pensionskasse (Arbeitgeber)')['amount'],
+                totalEmployerCosts: calculation['totalEmployerCosts'],
+              );
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => ResultsScreen(
-                    calculation: originalCalc,
+                    calculation: currentCalc,
                     has13thSalary: calculation['has13thSalary'] ?? false,
                     isMarried: calculation['isMarried'] ?? false,
                     hasChurchTax: calculation['hasChurchTax'] ?? false,
