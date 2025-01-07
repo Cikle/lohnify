@@ -112,7 +112,7 @@ class SalaryCalculation {
         nbuContribution +
         pensionEmployerContribution;
 
-    final totalDeductions = employeeDeductions + (!useCustomTaxRate ? employerContributions : 0);
+    final totalDeductions = employeeDeductions + (useCustomTaxRate ? 0 : employerContributions);
 
     // Children benefits calculation
     final childrenAllowance = numberOfChildren * 200.0; // Base allowance
