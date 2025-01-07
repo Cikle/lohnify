@@ -87,7 +87,7 @@ class CalculationDetailsScreen extends StatelessWidget {
           children: [
             _buildSection(
               context,
-              'basicInfo',
+              calculation['isEmployerView'] == true ? 'employerBasicInfo' : 'basicInfo',
               [
                 _buildDetailRow(LanguageService.tr(context, 'grossSalary'),
                     '${calculation['grossSalary'].toStringAsFixed(2)} CHF'),
