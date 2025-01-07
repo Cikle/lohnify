@@ -15,7 +15,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool _isEmployerView = false;
+  late bool _isEmployerView;
+  
+  @override
+  void initState() {
+    super.initState();
+    _isEmployerView = Provider.of<ViewTypeProvider>(context, listen: false).isEmployerView;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onSelectionChanged: (Set<bool> newSelection) {
                       setState(() {
                         _isEmployerView = newSelection.first;
+                        Provider.of<ViewTypeProvider>(context, listen: false).toggleView();
                       });
                     },
                   ),

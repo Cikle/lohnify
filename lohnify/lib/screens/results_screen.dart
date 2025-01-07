@@ -31,7 +31,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
   @override
   Widget build(BuildContext context) {
     final isEmployerView =
-        Provider.of<ViewTypeProvider>(context).isEmployerView;
+        Provider.of<ViewTypeProvider>(context, listen: false).isEmployerView;
 
     return Scaffold(
       appBar: AppBar(
