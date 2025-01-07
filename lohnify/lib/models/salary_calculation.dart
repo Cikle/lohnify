@@ -189,11 +189,11 @@ class SalaryCalculation {
         ? (customTaxRate ?? ContributionRates.defaultCantons['ZH']!.taxRate)
         : ContributionRates.defaultCantons[canton]!.taxRate;
     final taxAmount = grossSalary * (effectiveTaxRate / 100);
-    items.add(DeductionItem('Steuern', taxAmount,
+    items.add(DeductionItem('Taxes', taxAmount,
         isDeduction: true,
         info: canton != null
-            ? 'Steuersatz ${ContributionRates.defaultCantons[canton]!.name}: ${effectiveTaxRate.toStringAsFixed(1)}%'
-            : 'Benutzerdefinierter Steuersatz: ${effectiveTaxRate.toStringAsFixed(1)}%'));
+            ? 'Tax rate ${ContributionRates.defaultCantons[canton]!.name}: ${effectiveTaxRate.toStringAsFixed(1)}%'
+            : 'Custom tax rate: ${effectiveTaxRate.toStringAsFixed(1)}%'));
 
     if (additionalInsurance > 0) {
       items.add(DeductionItem('Zusatzversicherungen', additionalInsurance,
