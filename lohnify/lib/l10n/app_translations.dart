@@ -90,7 +90,7 @@ class AppTranslations {
       'pleaseEnterTaxRate': 'Bitte geben Sie einen Steuersatz ein',
       'invalidTaxRate':
           'Bitte geben Sie einen gültigen Steuersatz zwischen 0 und 100 ein',
-      'results': 'Berechnungs Ergebnis',
+      'results': 'Berechnungsergebnis',
       'monthlyGross': 'Monatlicher Bruttolohn',
       'monthlyNet': 'Monatlicher Nettolohn',
       'yearlyGross': 'Jährlicher Bruttolohn',
