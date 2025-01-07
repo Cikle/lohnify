@@ -52,7 +52,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 'netSalary': widget.calculation.netSalary,
                 'yearlyGross': widget.calculation.yearlyGross,
                 'yearlyNet': widget.calculation.yearlyNet,
-                'isEmployerView': false,
+                'isEmployerView': isEmployerView,
                 'canton': widget.calculation.canton,
                 'useCustomTaxRate': widget.calculation.useCustomTaxRate,
                 'customTaxRate': widget.calculation.customTaxRate,
