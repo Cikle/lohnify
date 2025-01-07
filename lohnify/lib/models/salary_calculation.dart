@@ -236,45 +236,45 @@ class SalaryCalculation {
 
     // Arbeitgeber-Beiträge
     items.add(DeductionItem(
-      'AHV (Arbeitgeber)',
+      'AHV (Employer)',
       ahvEmployerContribution,
       isDeduction: true,
-      info: 'Arbeitgeberanteil AHV: ${ContributionRates().ahvEmployer}%',
+      info: 'Employer contribution AHV: ${ContributionRates().ahvEmployer}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
-      'IV (Arbeitgeber)',
+      'IV (Employer)',
       ivEmployerContribution,
       isDeduction: true,
-      info: 'Arbeitgeberanteil IV: ${ContributionRates().ivEmployer}%',
+      info: 'Employer contribution IV: ${ContributionRates().ivEmployer}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
-      'EO (Arbeitgeber)',
+      'EO (Employer)',
       eoEmployerContribution,
       isDeduction: true,
-      info: 'Arbeitgeberanteil EO: ${ContributionRates().eoEmployer}%',
+      info: 'Employer contribution EO: ${ContributionRates().eoEmployer}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
-      'ALV (Arbeitgeber)',
+      'ALV (Employer)',
       alvEmployerContribution,
       isDeduction: true,
-      info: 'Arbeitgeberanteil ALV: ${ContributionRates().alvEmployer}%',
+      info: 'Employer contribution ALV: ${ContributionRates().alvEmployer}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
-      'NBU',
+      'NPAIU',
       nbuContribution,
       isDeduction: true,
-      info: 'Nichtberufsunfallversicherung: ${ContributionRates().nbuRate}%',
+      info: 'Non-Professional Accident Insurance: ${ContributionRates().nbuRate}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
-      'Pensionskasse (Arbeitgeber)',
+      'Pension Fund (Employer)',
       pensionEmployerContribution,
       isDeduction: true,
-      info: 'Arbeitgeberanteil Pensionskasse',
+      info: 'Employer contribution pension fund',
       isEmployerContribution: true,
     ));
 
