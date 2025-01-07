@@ -218,7 +218,9 @@ class AppTranslations {
       'ivEmployer': 'IV (Employer)',
       'eoEmployer': 'EO (Employer)',
       'alvEmployer': 'ALV (Employer)',
-      'employerContribution': 'Employer contribution'
+      'employerContribution': 'Employer contribution',
+      'employerPensionFund': 'Pension Fund (Employer)',
+      'employerNPAIU': 'Non-Professional Accident Insurance'
     },
     'fr': {
       'ahvEmployer': 'AVS (Employeur)',
