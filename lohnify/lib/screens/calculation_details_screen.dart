@@ -83,13 +83,42 @@ class CalculationDetailsScreen extends StatelessWidget {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      calculation['isEmployerView'] == true
+                          ? LanguageService.tr(context, 'totalEmployerCosts')
+                          : LanguageService.tr(context, 'monthlyGross'),
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      calculation['isEmployerView'] == true
+                          ? '${(calculation['totalEmployerCosts'] ?? 0.0).toStringAsFixed(2)} CHF'
+                          : '${(calculation['grossSalary'] ?? 0.0).toStringAsFixed(2)} CHF',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                        color: Colors.green,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
             _buildSection(
               context,
-              calculation['isEmployerView'] == true
-                  ? 'employerBasicInfo'
-                  : 'basicInfo',
+              'basicInfo',
               [
                 _buildDetailRow(
                     calculation['isEmployerView'] == true
