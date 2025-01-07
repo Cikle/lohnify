@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/view_type_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import '../services/language_service.dart';
 import '../models/salary_calculation.dart';
 import 'results_screen.dart';
 import '../models/contribution_rates.dart';
+import 'dart:convert';
 
 class CalculationDetailsScreen extends StatelessWidget {
   final Map<String, dynamic> calculation;
@@ -25,23 +27,25 @@ class CalculationDetailsScreen extends StatelessWidget {
             icon: const Icon(Icons.delete),
             onPressed: () async {
               final prefs = await SharedPreferences.getInstance();
-              final calculations = prefs.getStringList('saved_calculations') ?? [];
-              
+              final calculations =
+                  prefs.getStringList('saved_calculations') ?? [];
+
               // Find and remove the current calculation
               final index = calculations.indexWhere((calc) {
                 final decodedCalc = json.decode(calc);
                 return decodedCalc['date'] == calculation['date'];
               });
-              
+
               if (index != -1) {
                 calculations.removeAt(index);
                 await prefs.setStringList('saved_calculations', calculations);
-                
+
                 if (!context.mounted) return;
                 Navigator.pop(context); // Return to previous screen
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(LanguageService.tr(context, 'calculationDeleted')),
+                    content:
+                        Text(LanguageService.tr(context, 'calculationDeleted')),
                   ),
                 );
               }
