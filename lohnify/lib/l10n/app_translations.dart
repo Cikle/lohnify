@@ -206,7 +206,12 @@ class AppTranslations {
       'arbeitgeber': 'Employer',
       'date': 'Date',
       'totalEmployerCosts': 'Total Employer Costs',
-      'employerResults': 'Employer Costs'
+      'employerResults': 'Employer Costs',
+      'ahvEmployer': 'AHV (Employer)',
+      'ivEmployer': 'IV (Employer)',
+      'eoEmployer': 'EO (Employer)',
+      'alvEmployer': 'ALV (Employer)',
+      'employerContribution': 'Employer contribution'
     },
     'fr': {
       'appTitle': 'Lohnify',
@@ -312,7 +317,12 @@ class AppTranslations {
       'arbeitgeber': 'Employeur',
       'date': 'Date',
       'totalEmployerCosts': 'Coûts totaux employeur',
-      'employerResults': 'Coûts employeur'
+      'employerResults': 'Coûts employeur',
+      'ahvEmployer': 'AVS (Employeur)',
+      'ivEmployer': 'AI (Employeur)',
+      'eoEmployer': 'APG (Employeur)',
+      'alvEmployer': 'AC (Employeur)',
+      'employerContribution': 'Contribution employeur'
     },
   };
 
