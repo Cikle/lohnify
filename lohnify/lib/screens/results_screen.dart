@@ -53,9 +53,10 @@ class _ResultsScreenState extends State<ResultsScreen> {
       'APG (Employeur)': 'eoEmployer',
       'AC (Employeur)': 'alvEmployer',
     };
-    
+
     return labelToKey[label] ?? label;
   }
+
   @override
   Widget build(BuildContext context) {
     final isEmployerView =
@@ -317,7 +318,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 ),
               ],
             ),
-            if (deductionItem != null && deductionItem.info != null) ...[
+            if (deductionItem.info != null) ...[
               const SizedBox(height: 4),
               Text(
                 deductionItem.info!,
