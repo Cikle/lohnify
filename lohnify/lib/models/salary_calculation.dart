@@ -181,7 +181,7 @@ class SalaryCalculation {
       DeductionItem('IV', ivDeduction, isDeduction: true),
       DeductionItem('EO', eoDeduction, isDeduction: true),
       DeductionItem('ALV', alvDeduction, isDeduction: true),
-      DeductionItem('Pension Fund', pensionDeduction, isDeduction: true),
+      DeductionItem(LanguageService.tr(context, 'pensionFund'), pensionDeduction, isDeduction: true),
     ];
 
     // Add tax deduction
@@ -190,7 +190,7 @@ class SalaryCalculation {
         ? (customTaxRate ?? ContributionRates.defaultCantons['ZH']!.taxRate)
         : ContributionRates.defaultCantons[canton]!.taxRate;
     final taxAmount = grossSalary * (effectiveTaxRate / 100);
-    items.add(DeductionItem('Taxes', taxAmount,
+    items.add(DeductionItem(LanguageService.tr(context, 'taxes'), taxAmount,
         isDeduction: true,
         info: canton != null
             ? 'Tax rate ${ContributionRates.defaultCantons[canton]!.name}: ${effectiveTaxRate.toStringAsFixed(1)}%'

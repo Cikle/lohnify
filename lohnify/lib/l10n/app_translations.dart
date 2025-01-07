@@ -68,6 +68,7 @@ class AppTranslations {
       'socialInsurance': 'Sozialversicherungen',
       'socialInsuranceInfo':
           'AHV: Alters- und Hinterlassenenversicherung\nIV: Invalidenversicherung\nEO: Erwerbsersatzordnung\nALV: Arbeitslosenversicherung',
+      'taxes': 'Steuern',
       'child': 'Kind',
       'children': 'Kinder',
       'childBenefits': 'Kinderleistungen',
@@ -144,7 +145,7 @@ class AppTranslations {
       'churchTax': 'Church Tax',
       'numberOfChildren': 'Number of Children',
       'additionalInsurance': 'Additional Insurance',
-      'pensionFund': 'Pension Fund (%)',
+      'pensionFund': 'Pensionskasse (%)',
       'optional': 'Optional',
       'additionalInsuranceCHF': 'Additional Insurance (CHF)',
       'thirteenthSalary': '13th Month Salary',
@@ -152,6 +153,7 @@ class AppTranslations {
       'socialInsurance': 'Social Insurance',
       'socialInsuranceInfo':
           'AHV: Old Age and Survivors Insurance\nIV: Disability Insurance\nEO: Loss of Earnings Insurance\nALV: Unemployment Insurance',
+      'taxes': 'Taxes',
       'child': 'child',
       'children': 'children',
       'childBenefits': 'Child Benefits',
@@ -283,7 +285,7 @@ class AppTranslations {
       'churchTax': 'Impôt ecclésiastique',
       'numberOfChildren': 'Nombre d\'enfants',
       'additionalInsurance': 'Assurance supplémentaire',
-      'pensionFund': 'Fonds de pension (%)',
+      'pensionFund': 'Caisse de pension (%)',
       'optional': 'Optionnel',
       'additionalInsuranceCHF': 'Assurance supplémentaire (CHF)',
       'thirteenthSalary': 'Salaire du 13ème mois',
@@ -291,6 +293,7 @@ class AppTranslations {
       'socialInsurance': 'Assurances sociales',
       'socialInsuranceInfo':
           'AVS : Assurance-vieillesse et survivants\nAI : Assurance-invalidité\nAPG : Allocation pour perte de gain\nAC : Assurance-chômage',
+      'taxes': 'Impôts',
       'child': 'enfant',
       'children': 'enfants',
       'childBenefits': 'Prestations familiales',
