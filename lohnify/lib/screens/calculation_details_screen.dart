@@ -64,6 +64,57 @@ class CalculationDetailsScreen extends StatelessWidget {
                 totalEmployerCosts: calculation['totalEmployerCosts'],
               );
 
+              // Arbeitgeberbeiträge extrahieren
+              final employerContributions = (calculation['deductions'] as List)
+                  .where((d) => d['isEmployerContribution'] == true)
+                  .toList();
+
+              // Arbeitnehmerbeiträge extrahieren
+              final employeeDeductions = (calculation['deductions'] as List)
+                  .where((d) => d['isEmployerContribution'] != true)
+                  .toList();
+
+              final calc = SalaryCalculation(
+                grossSalary: calculation['grossSalary'],
+                ahvDeduction: employeeDeductions
+                    .firstWhere((d) => d['label'] == 'AHV')['amount'],
+                ivDeduction: employeeDeductions
+                    .firstWhere((d) => d['label'] == 'IV')['amount'],
+                eoDeduction: employeeDeductions
+                    .firstWhere((d) => d['label'] == 'EO')['amount'],
+                alvDeduction: employeeDeductions
+                    .firstWhere((d) => d['label'] == 'ALV')['amount'],
+                pensionDeduction: employeeDeductions
+                    .firstWhere((d) => d['label'] == 'Pensionskasse')['amount'],
+                additionalInsurance: employeeDeductions.firstWhere(
+                    (d) => d['label'] == 'Zusatzversicherungen',
+                    orElse: () => {'amount': 0.0})['amount'],
+                churchTax: employeeDeductions.firstWhere(
+                    (d) => d['label'] == 'Kirchensteuer',
+                    orElse: () => {'amount': 0.0})['amount'],
+                netSalary: calculation['netSalary'],
+                yearlyGross: calculation['yearlyGross'],
+                yearlyNet: calculation['yearlyNet'],
+                numberOfChildren: calculation['numberOfChildren'] ?? 0,
+                isMarried: calculation['isMarried'] ?? false,
+                customTaxRate: calculation['customTaxRate'],
+                canton: calculation['canton'],
+                useCustomTaxRate: calculation['useCustomTaxRate'] ?? false,
+                ahvEmployerContribution: employerContributions
+                    .firstWhere((d) => d['label'] == 'AHV (Arbeitgeber)')['amount'],
+                ivEmployerContribution: employerContributions
+                    .firstWhere((d) => d['label'] == 'IV (Arbeitgeber)')['amount'],
+                eoEmployerContribution: employerContributions
+                    .firstWhere((d) => d['label'] == 'EO (Arbeitgeber)')['amount'],
+                alvEmployerContribution: employerContributions
+                    .firstWhere((d) => d['label'] == 'ALV (Arbeitgeber)')['amount'],
+                nbuContribution: employerContributions
+                    .firstWhere((d) => d['label'] == 'NBU')['amount'],
+                pensionEmployerContribution: employerContributions.firstWhere(
+                    (d) => d['label'] == 'Pensionskasse (Arbeitgeber)')['amount'],
+                totalEmployerCosts: calculation['totalEmployerCosts'],
+              );
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
