@@ -22,48 +22,6 @@ class CalculationDetailsScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.assessment),
             onPressed: () {
-              final calc = SalaryCalculation(
-                grossSalary: calculation['grossSalary'],
-                ahvDeduction: calculation['deductions']
-                    .firstWhere((d) => d['label'] == 'AHV')['amount'],
-                ivDeduction: calculation['deductions']
-                    .firstWhere((d) => d['label'] == 'IV')['amount'],
-                eoDeduction: calculation['deductions']
-                    .firstWhere((d) => d['label'] == 'EO')['amount'],
-                alvDeduction: calculation['deductions']
-                    .firstWhere((d) => d['label'] == 'ALV')['amount'],
-                pensionDeduction: calculation['deductions']
-                    .firstWhere((d) => d['label'] == 'Pensionskasse')['amount'],
-                additionalInsurance: calculation['deductions'].firstWhere(
-                    (d) => d['label'] == 'Zusatzversicherungen',
-                    orElse: () => {'amount': 0.0})['amount'],
-                churchTax: calculation['deductions'].firstWhere(
-                    (d) => d['label'] == 'Kirchensteuer',
-                    orElse: () => {'amount': 0.0})['amount'],
-                netSalary: calculation['netSalary'],
-                yearlyGross: calculation['yearlyGross'],
-                yearlyNet: calculation['yearlyNet'],
-                numberOfChildren: calculation['numberOfChildren'],
-                isMarried: calculation['isMarried'],
-                customTaxRate: calculation['effectiveTaxRate'],
-                canton: calculation['canton'],
-                useCustomTaxRate: calculation['useCustomTaxRate'],
-                ahvEmployerContribution: calculation['employerContributions']
-                    .firstWhere((d) => d['label'] == 'AHV')['amount'],
-                ivEmployerContribution: calculation['employerContributions']
-                    .firstWhere((d) => d['label'] == 'IV')['amount'],
-                eoEmployerContribution: calculation['employerContributions']
-                    .firstWhere((d) => d['label'] == 'EO')['amount'],
-                alvEmployerContribution: calculation['employerContributions']
-                    .firstWhere((d) => d['label'] == 'ALV')['amount'],
-                nbuContribution: calculation['employerContributions']
-                    .firstWhere((d) => d['label'] == 'NBU')['amount'],
-                pensionEmployerContribution:
-                    calculation['employerContributions'].firstWhere(
-                        (d) => d['label'] == 'Pensionskasse')['amount'],
-                totalEmployerCosts: calculation['totalEmployerCosts'],
-              );
-
               // Arbeitgeberbeiträge extrahieren
               final employerContributions = (calculation['deductions'] as List)
                   .where((d) => d['isEmployerContribution'] == true)
@@ -100,18 +58,19 @@ class CalculationDetailsScreen extends StatelessWidget {
                 customTaxRate: calculation['customTaxRate'],
                 canton: calculation['canton'],
                 useCustomTaxRate: calculation['useCustomTaxRate'] ?? false,
-                ahvEmployerContribution: employerContributions
-                    .firstWhere((d) => d['label'] == 'AHV (Arbeitgeber)')['amount'],
-                ivEmployerContribution: employerContributions
-                    .firstWhere((d) => d['label'] == 'IV (Arbeitgeber)')['amount'],
-                eoEmployerContribution: employerContributions
-                    .firstWhere((d) => d['label'] == 'EO (Arbeitgeber)')['amount'],
-                alvEmployerContribution: employerContributions
-                    .firstWhere((d) => d['label'] == 'ALV (Arbeitgeber)')['amount'],
+                ahvEmployerContribution: employerContributions.firstWhere(
+                    (d) => d['label'] == 'AHV (Arbeitgeber)')['amount'],
+                ivEmployerContribution: employerContributions.firstWhere(
+                    (d) => d['label'] == 'IV (Arbeitgeber)')['amount'],
+                eoEmployerContribution: employerContributions.firstWhere(
+                    (d) => d['label'] == 'EO (Arbeitgeber)')['amount'],
+                alvEmployerContribution: employerContributions.firstWhere(
+                    (d) => d['label'] == 'ALV (Arbeitgeber)')['amount'],
                 nbuContribution: employerContributions
                     .firstWhere((d) => d['label'] == 'NBU')['amount'],
                 pensionEmployerContribution: employerContributions.firstWhere(
-                    (d) => d['label'] == 'Pensionskasse (Arbeitgeber)')['amount'],
+                    (d) =>
+                        d['label'] == 'Pensionskasse (Arbeitgeber)')['amount'],
                 totalEmployerCosts: calculation['totalEmployerCosts'],
               );
 
