@@ -22,156 +22,29 @@ class CalculationDetailsScreen extends StatelessWidget {
         title: Text(LanguageService.tr(context, 'calculationDetails')),
         actions: [
           IconButton(
-            icon: const Icon(Icons.assessment),
-            onPressed: () {
-              // Arbeitgeberbeiträge extrahieren
-              final employerContributions = (calculation['deductions'] as List)
-                  .where((d) => d['isEmployerContribution'] == true)
-                  .toList();
-
-              // Arbeitnehmerbeiträge extrahieren
-              final employeeDeductions = (calculation['deductions'] as List)
-                  .where((d) => d['isEmployerContribution'] != true)
-                  .toList();
-
-              final calc = SalaryCalculation(
-                grossSalary: calculation['grossSalary'],
-                ahvDeduction: employeeDeductions
-                    .firstWhere((d) => d['label'] == 'AHV')['amount'],
-                ivDeduction: employeeDeductions
-                    .firstWhere((d) => d['label'] == 'IV')['amount'],
-                eoDeduction: employeeDeductions
-                    .firstWhere((d) => d['label'] == 'EO')['amount'],
-                alvDeduction: employeeDeductions
-                    .firstWhere((d) => d['label'] == 'ALV')['amount'],
-                pensionDeduction: employeeDeductions
-                    .firstWhere((d) => d['label'] == 'Pensionskasse')['amount'],
-                additionalInsurance: employeeDeductions.firstWhere(
-                    (d) => d['label'] == 'Zusatzversicherungen',
-                    orElse: () => {'amount': 0.0})['amount'],
-                churchTax: employeeDeductions.firstWhere(
-                    (d) => d['label'] == 'Kirchensteuer',
-                    orElse: () => {'amount': 0.0})['amount'],
-                netSalary: calculation['netSalary'],
-                yearlyGross: calculation['yearlyGross'],
-                yearlyNet: calculation['yearlyNet'],
-                numberOfChildren: calculation['numberOfChildren'] ?? 0,
-                isMarried: calculation['isMarried'] ?? false,
-                customTaxRate: calculation['customTaxRate'],
-                canton: calculation['canton'],
-                useCustomTaxRate: calculation['useCustomTaxRate'] ?? false,
-                ahvEmployerContribution: employerContributions.firstWhere(
-                    (d) => d['label'] == 'AHV (Arbeitgeber)')['amount'],
-                ivEmployerContribution: employerContributions.firstWhere(
-                    (d) => d['label'] == 'IV (Arbeitgeber)')['amount'],
-                eoEmployerContribution: employerContributions.firstWhere(
-                    (d) => d['label'] == 'EO (Arbeitgeber)')['amount'],
-                alvEmployerContribution: employerContributions.firstWhere(
-                    (d) => d['label'] == 'ALV (Arbeitgeber)')['amount'],
-                nbuContribution: employerContributions
-                    .firstWhere((d) => d['label'] == 'NBU')['amount'],
-                pensionEmployerContribution: employerContributions.firstWhere(
-                    (d) =>
-                        d['label'] == 'Pensionskasse (Arbeitgeber)')['amount'],
-                totalEmployerCosts: calculation['totalEmployerCosts'],
-              );
-
-              // Create a copy of the original calculation
-              final originalCalc = SalaryCalculation(
-                grossSalary: calculation['grossSalary'],
-                ahvDeduction: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'AHV')['amount'],
-                ivDeduction: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'IV')['amount'],
-                eoDeduction: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'EO')['amount'],
-                alvDeduction: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'ALV')['amount'],
-                pensionDeduction: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'Pensionskasse')['amount'],
-                additionalInsurance: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'Zusatzversicherungen',
-                        orElse: () => {'amount': 0.0})['amount'],
-                churchTax: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'Kirchensteuer',
-                        orElse: () => {'amount': 0.0})['amount'],
-                netSalary: calculation['netSalary'],
-                yearlyGross: calculation['yearlyGross'],
-                yearlyNet: calculation['yearlyNet'],
-                numberOfChildren: calculation['numberOfChildren'] ?? 0,
-                isMarried: calculation['isMarried'] ?? false,
-                customTaxRate: calculation['customTaxRate'],
-                canton: calculation['canton'],
-                useCustomTaxRate: calculation['useCustomTaxRate'] ?? false,
-                ahvEmployerContribution: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'AHV (Arbeitgeber)')['amount'],
-                ivEmployerContribution: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'IV (Arbeitgeber)')['amount'],
-                eoEmployerContribution: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'EO (Arbeitgeber)')['amount'],
-                alvEmployerContribution: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'ALV (Arbeitgeber)')['amount'],
-                nbuContribution: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'NBU')['amount'],
-                pensionEmployerContribution: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'Pensionskasse (Arbeitgeber)')['amount'],
-                totalEmployerCosts: calculation['totalEmployerCosts'],
-              );
-
-              // Create a new calculation instance with the current data
-              final currentCalc = SalaryCalculation(
-                grossSalary: calculation['grossSalary'],
-                ahvDeduction: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'AHV')['amount'],
-                ivDeduction: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'IV')['amount'],
-                eoDeduction: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'EO')['amount'],
-                alvDeduction: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'ALV')['amount'],
-                pensionDeduction: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'Pensionskasse')['amount'],
-                additionalInsurance: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'Zusatzversicherungen',
-                        orElse: () => {'amount': 0.0})['amount'],
-                churchTax: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'Kirchensteuer',
-                        orElse: () => {'amount': 0.0})['amount'],
-                netSalary: calculation['netSalary'],
-                yearlyGross: calculation['yearlyGross'],
-                yearlyNet: calculation['yearlyNet'],
-                numberOfChildren: calculation['numberOfChildren'] ?? 0,
-                isMarried: calculation['isMarried'] ?? false,
-                customTaxRate: calculation['customTaxRate'],
-                canton: calculation['canton'],
-                useCustomTaxRate: calculation['useCustomTaxRate'] ?? false,
-                ahvEmployerContribution: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'AHV (Arbeitgeber)')['amount'],
-                ivEmployerContribution: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'IV (Arbeitgeber)')['amount'],
-                eoEmployerContribution: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'EO (Arbeitgeber)')['amount'],
-                alvEmployerContribution: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'ALV (Arbeitgeber)')['amount'],
-                nbuContribution: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'NBU')['amount'],
-                pensionEmployerContribution: (calculation['deductions'] as List)
-                    .firstWhere((d) => d['label'] == 'Pensionskasse (Arbeitgeber)')['amount'],
-                totalEmployerCosts: calculation['totalEmployerCosts'],
-              );
-
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ResultsScreen(
-                    calculation: currentCalc,
-                    has13thSalary: calculation['has13thSalary'] ?? false,
-                    isMarried: calculation['isMarried'] ?? false,
-                    hasChurchTax: calculation['hasChurchTax'] ?? false,
-                    numberOfChildren: calculation['numberOfChildren'] ?? 0,
+            icon: const Icon(Icons.delete),
+            onPressed: () async {
+              final prefs = await SharedPreferences.getInstance();
+              final calculations = prefs.getStringList('saved_calculations') ?? [];
+              
+              // Find and remove the current calculation
+              final index = calculations.indexWhere((calc) {
+                final decodedCalc = json.decode(calc);
+                return decodedCalc['date'] == calculation['date'];
+              });
+              
+              if (index != -1) {
+                calculations.removeAt(index);
+                await prefs.setStringList('saved_calculations', calculations);
+                
+                if (!context.mounted) return;
+                Navigator.pop(context); // Return to previous screen
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(LanguageService.tr(context, 'calculationDeleted')),
                   ),
-                ),
-              );
+                );
+              }
             },
           ),
         ],
