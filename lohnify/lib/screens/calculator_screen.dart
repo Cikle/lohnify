@@ -265,7 +265,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Zusätzliche Versicherungen',
+                        LanguageService.tr(context, 'additionalInsurance'),
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
