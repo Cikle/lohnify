@@ -264,9 +264,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         LanguageService.tr(context, 'additionalInsurance'),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -298,7 +298,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               const SizedBox(height: 16),
               SwitchListTile(
                 title: Text(LanguageService.tr(context, 'thirteenthSalary')),
-                subtitle: Text(LanguageService.tr(context, 'calculateOnYearlyBasis')),
+                subtitle:
+                    Text(LanguageService.tr(context, 'calculateOnYearlyBasis')),
                 value: _has13thSalary,
                 onChanged: (value) {
                   setState(() => _has13thSalary = value);
@@ -313,7 +314,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       onPressed: () {
                         _calculateSalary();
                         if (_calculation != null) {
-
                           Navigator.push(
                             context,
                             MaterialPageRoute(
