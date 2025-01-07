@@ -64,7 +64,6 @@ class CalculationDetailsScreen extends StatelessWidget {
                 totalEmployerCosts: calculation['totalEmployerCosts'],
               );
 
-              if (!mounted) return;
               Navigator.push(
                 context,
                 MaterialPageRoute(
