@@ -17,7 +17,7 @@ class SalaryCalculation {
   final double? customTaxRate;
   final String? canton;
   final bool useCustomTaxRate;
-  
+
   // Arbeitgeber-spezifische Felder
   final double ahvEmployerContribution;
   final double ivEmployerContribution;
@@ -89,6 +89,13 @@ class SalaryCalculation {
 
     // Calculate base deductions
 
+    final ahvEmployerContribution = baseAmount * (rates.ahvEmployer / 100);
+    final ivEmployerContribution = baseAmount * (rates.ivEmployer / 100);
+    final eoEmployerContribution = baseAmount * (rates.eoEmployer / 100);
+    final alvEmployerContribution = baseAmount * (rates.alvEmployer / 100);
+    final nbuContribution = baseAmount * (rates.nbuRate / 100);
+    final pensionEmployerContribution = baseAmount * (pensionRate / 100);
+
     final totalDeductions = ahvDeduction +
         ivDeduction +
         eoDeduction +
@@ -96,13 +103,7 @@ class SalaryCalculation {
         pensionDeduction +
         additionalInsurance +
         taxAmount +
-        churchTaxAmount +
-        ahvEmployerContribution +
-        ivEmployerContribution +
-        eoEmployerContribution +
-        alvEmployerContribution +
-        nbuContribution +
-        pensionEmployerContribution;
+        churchTaxAmount;
 
     // Children benefits calculation
     final childrenAllowance = numberOfChildren * 200.0; // Base allowance
@@ -118,14 +119,6 @@ class SalaryCalculation {
 
     // Marriage tax benefit
     double marriageBenefit = isMarried ? baseAmount * 0.02 : 0.0;
-
-    // Arbeitgeber-Beiträge berechnen
-    final ahvEmployerContribution = baseAmount * (rates.ahvEmployer / 100);
-    final ivEmployerContribution = baseAmount * (rates.ivEmployer / 100);
-    final eoEmployerContribution = baseAmount * (rates.eoEmployer / 100);
-    final alvEmployerContribution = baseAmount * (rates.alvEmployer / 100);
-    final nbuContribution = baseAmount * (rates.nbuRate / 100);
-    final pensionEmployerContribution = baseAmount * (pensionRate / 100);
 
     // Gesamtkosten für Arbeitgeber
     final totalEmployerCosts = monthlyGross +
