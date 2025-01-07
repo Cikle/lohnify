@@ -87,10 +87,7 @@ class CalculationDetailsScreen extends StatelessWidget {
                     numberOfChildren: calculation['numberOfChildren'] ?? 0,
                   ),
                 ),
-              ).then((_) {
-                // Force rebuild of this screen when returning
-                setState(() {});
-              });
+              );
             },
           ),
         ],

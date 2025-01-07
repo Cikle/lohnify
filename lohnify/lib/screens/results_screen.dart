@@ -97,12 +97,12 @@ class _ResultsScreenState extends State<ResultsScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _buildResultCard(
-              isEmployerView 
-                ? LanguageService.tr(context, 'totalEmployerCosts')
-                : LanguageService.tr(context, 'monthlyGross'),
-              isEmployerView 
-                ? widget.calculation.totalEmployerCosts
-                : widget.calculation.grossSalary,
+              isEmployerView
+                  ? LanguageService.tr(context, 'totalEmployerCosts')
+                  : LanguageService.tr(context, 'monthlyGross'),
+              isEmployerView
+                  ? widget.calculation.totalEmployerCosts
+                  : widget.calculation.grossSalary,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
@@ -113,12 +113,12 @@ class _ResultsScreenState extends State<ResultsScreen> {
             ...widget.calculation.deductionItems
                 .where((item) => !item.isEmployerContribution || isEmployerView)
                 .map(
-              (item) => _buildResultCard(
-                item.label,
-                item.amount,
-                isDeduction: item.isDeduction,
-              ),
-            ),
+                  (item) => _buildResultCard(
+                    item.label,
+                    item.amount,
+                    isDeduction: item.isDeduction,
+                  ),
+                ),
             const Divider(thickness: 2),
             _buildResultCard(
               LanguageService.tr(context, 'totalDeductions'),
@@ -254,14 +254,15 @@ class _ResultsScreenState extends State<ResultsScreen> {
     bool isDeduction = false,
     TextStyle? style,
   }) {
-    final deductionItem = calculation['deductions']
-        ?.firstWhere((item) => item['label'] == label,
-            orElse: () => {
-                  'label': label,
-                  'amount': amount,
-                  'isDeduction': isDeduction,
-                  'info': null
-                });
+    final deductionItem = widget.calculation.deductionItems
+        .firstWhere((item) => item.label == label,
+            orElse: () => DeductionItem(
+                  label,
+                  amount,
+                  isDeduction: isDeduction,
+                  info: null,
+                  isEmployerContribution: false,
+                ));
 
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 4),
@@ -284,10 +285,10 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 ),
               ],
             ),
-            if (deductionItem != null && deductionItem['info'] != null) ...[
+            if (deductionItem != null && deductionItem.info != null) ...[
               const SizedBox(height: 4),
               Text(
-                deductionItem['info'],
+                deductionItem.info!,
                 style: TextStyle(
                   fontSize: 12,
                   color: Theme.of(context).textTheme.bodySmall?.color,
