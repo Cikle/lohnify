@@ -180,7 +180,7 @@ class SalaryCalculation {
       DeductionItem('IV', ivDeduction, isDeduction: true),
       DeductionItem('EO', eoDeduction, isDeduction: true),
       DeductionItem('ALV', alvDeduction, isDeduction: true),
-      DeductionItem('Pensionskasse', pensionDeduction, isDeduction: true),
+      DeductionItem('Pension Fund', pensionDeduction, isDeduction: true),
     ];
 
     // Add tax deduction

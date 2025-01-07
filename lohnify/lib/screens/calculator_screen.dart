@@ -297,8 +297,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               ),
               const SizedBox(height: 16),
               SwitchListTile(
-                title: const Text('13. Monatslohn'),
-                subtitle: const Text('Auf Jahresbasis berechnen'),
+                title: Text(LanguageService.tr(context, 'thirteenthSalary')),
+                subtitle: Text(LanguageService.tr(context, 'calculateOnYearlyBasis')),
                 value: _has13thSalary,
                 onChanged: (value) {
                   setState(() => _has13thSalary = value);
