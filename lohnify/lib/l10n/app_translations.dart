@@ -340,11 +340,6 @@ class AppTranslations {
       'date': 'Date',
       'totalEmployerCosts': 'Coûts totaux employeur',
       'employerResults': 'Coûts employeur',
-      'ahvEmployer': 'AVS (Employeur)',
-      'ivEmployer': 'AI (Employeur)',
-      'eoEmployer': 'APG (Employeur)',
-      'alvEmployer': 'AC (Employeur)',
-      'employerContribution': 'Contribution employeur'
     },
   };
 
