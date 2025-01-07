@@ -81,6 +81,7 @@ class AppTranslations {
       'additionalInsurance': 'Zusatzversicherung',
       'churchTax': 'Kirchensteuer',
       'marriageTaxDeduction': 'Steuerabzug für Verheiratete',
+      'marriageTaxBenefitInfo': 'Steuerermäßigung für Verheiratete: 2%',
       'useCustomTaxRate': 'Benutzerdefinierten Steuersatz verwenden',
       'customRatesActive': 'Benutzerdefinierte Sätze aktiv',
       'pleaseEnterTaxRate': 'Bitte geben Sie einen Steuersatz ein',

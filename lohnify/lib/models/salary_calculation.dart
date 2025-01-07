@@ -231,8 +231,8 @@ class SalaryCalculation {
     }
 
     if (isMarried) {
-      items.add(DeductionItem('Marriage Tax Deduction', grossSalary * 0.02,
-          isDeduction: false, info: 'Tax reduction for married persons: 2%'));
+      items.add(DeductionItem(LanguageService.tr(context, 'marriageTaxDeduction'), grossSalary * 0.02,
+          isDeduction: false, info: LanguageService.tr(context, 'marriageTaxBenefitInfo')));
     }
 
     // Arbeitgeber-Beiträge
