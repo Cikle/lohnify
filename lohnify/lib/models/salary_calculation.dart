@@ -88,6 +88,7 @@ class SalaryCalculation {
     final churchTaxAmount = baseAmount * churchTaxRate;
 
     // Calculate base deductions
+
     final totalDeductions = ahvDeduction +
         ivDeduction +
         eoDeduction +
@@ -95,7 +96,13 @@ class SalaryCalculation {
         pensionDeduction +
         additionalInsurance +
         taxAmount +
-        churchTaxAmount;
+        churchTaxAmount +
+        ahvEmployerContribution +
+        ivEmployerContribution +
+        eoEmployerContribution +
+        alvEmployerContribution +
+        nbuContribution +
+        pensionEmployerContribution;
 
     // Children benefits calculation
     final childrenAllowance = numberOfChildren * 200.0; // Base allowance
