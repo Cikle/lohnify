@@ -5,6 +5,8 @@ import '../models/salary_calculation.dart';
 import '../services/language_service.dart'; // Import the LanguageService
 import 'results_screen.dart'; // Import the ResultsScreen
 import 'package:shared_preferences/shared_preferences.dart'; // Import SharedPreferences
+import 'package:provider/provider.dart'; // Import Provider
+import '../services/view_type_provider.dart'; // Import ViewTypeProvider
 
 class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({super.key});
@@ -311,9 +313,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       onPressed: () {
                         _calculateSalary();
                         if (_calculation != null) {
-                          final isEmployerView = 
-                              Provider.of<ViewTypeProvider>(context, listen: false).isEmployerView;
-                          
+                          final isEmployerView = Provider.of<ViewTypeProvider>(
+                                  context,
+                                  listen: false)
+                              .isEmployerView;
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(
