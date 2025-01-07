@@ -1,5 +1,6 @@
 import 'contribution_rates.dart';
 import '../services/language_service.dart';
+import 'package:flutter/widgets.dart';
 
 class SalaryCalculation {
   final double grossSalary;
@@ -239,35 +240,40 @@ class SalaryCalculation {
       LanguageService.tr(context, 'ahvEmployer'),
       ahvEmployerContribution,
       isDeduction: true,
-      info: '${LanguageService.tr(context, 'employerContribution')} AHV: ${ContributionRates().ahvEmployer}%',
+      info:
+          '${LanguageService.tr(context, 'employerContribution')} AHV: ${ContributionRates().ahvEmployer}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
       LanguageService.tr(context, 'ivEmployer'),
       ivEmployerContribution,
       isDeduction: true,
-      info: '${LanguageService.tr(context, 'employerContribution')} IV: ${ContributionRates().ivEmployer}%',
+      info:
+          '${LanguageService.tr(context, 'employerContribution')} IV: ${ContributionRates().ivEmployer}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
       LanguageService.tr(context, 'eoEmployer'),
       eoEmployerContribution,
       isDeduction: true,
-      info: '${LanguageService.tr(context, 'employerContribution')} EO: ${ContributionRates().eoEmployer}%',
+      info:
+          '${LanguageService.tr(context, 'employerContribution')} EO: ${ContributionRates().eoEmployer}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
       LanguageService.tr(context, 'alvEmployer'),
       alvEmployerContribution,
       isDeduction: true,
-      info: '${LanguageService.tr(context, 'employerContribution')} ALV: ${ContributionRates().alvEmployer}%',
+      info:
+          '${LanguageService.tr(context, 'employerContribution')} ALV: ${ContributionRates().alvEmployer}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
       LanguageService.tr(context, 'employerNPAIU'),
       nbuContribution,
       isDeduction: true,
-      info: '${LanguageService.tr(context, 'employerNPAIU')}: ${ContributionRates().nbuRate}%',
+      info:
+          '${LanguageService.tr(context, 'employerNPAIU')}: ${ContributionRates().nbuRate}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
