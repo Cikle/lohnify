@@ -111,7 +111,8 @@ class AppTranslations {
       'totalEmployerCosts': 'Gesamtkosten Arbeitgeber',
       'employerResults': 'Arbeitgeberkosten',
       'numbersOnlyTax': 'Bitte geben Sie nur Zahlen für den Steuersatz ein',
-      'taxRateRange': 'Steuersatz muss zwischen 0% und 100% liegen'
+      'taxRateRange': 'Steuersatz muss zwischen 0% und 100% liegen',
+      'taxRate': 'Steuersatz'
     },
     'en': {
       'appTitle': 'Lohnify',

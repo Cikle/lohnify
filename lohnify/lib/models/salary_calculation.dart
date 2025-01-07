@@ -193,7 +193,7 @@ class SalaryCalculation {
     items.add(DeductionItem(LanguageService.tr(context, 'taxes'), taxAmount,
         isDeduction: true,
         info: canton != null
-            ? 'Tax rate ${ContributionRates.defaultCantons[canton]!.name}: ${effectiveTaxRate.toStringAsFixed(1)}%'
+            ? '${LanguageService.tr(context, 'taxRate')} ${ContributionRates.defaultCantons[canton]!.name}: ${effectiveTaxRate.toStringAsFixed(1)}%'
             : 'Custom tax rate: ${effectiveTaxRate.toStringAsFixed(1)}%'));
 
     if (additionalInsurance > 0) {
