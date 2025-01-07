@@ -65,7 +65,8 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 'hasChurchTax': widget.hasChurchTax,
                 'numberOfChildren': widget.numberOfChildren,
                 'has13thSalary': widget.has13thSalary,
-                'deductions': widget.calculation.getDeductionItems(context)
+                'deductions': widget.calculation
+                    .getDeductionItems(context)
                     .map((item) => {
                           'label': item.label,
                           'amount': item.amount,
@@ -110,7 +111,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
               ),
             ),
             const Divider(thickness: 1.5),
-            ...widget.calculation.deductionItems
+            ...widget.calculation
                 .getDeductionItems(context)
                 .where((item) => !item.isEmployerContribution || isEmployerView)
                 .map(
@@ -123,7 +124,8 @@ class _ResultsScreenState extends State<ResultsScreen> {
             const Divider(thickness: 2),
             _buildResultCard(
               LanguageService.tr(context, 'totalDeductions'),
-              widget.calculation.deductionItems
+              widget.calculation
+                  .getDeductionItems(context)
                   .where((item) => item.isDeduction)
                   .fold(0.0, (sum, item) => sum + item.amount),
               isDeduction: true,
@@ -255,7 +257,8 @@ class _ResultsScreenState extends State<ResultsScreen> {
     bool isDeduction = false,
     TextStyle? style,
   }) {
-    final deductionItem = widget.calculation.deductionItems
+    final deductionItem = widget.calculation
+        .getDeductionItems(context)
         .firstWhere((item) => item.label == label,
             orElse: () => DeductionItem(
                   label,
