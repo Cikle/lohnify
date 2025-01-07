@@ -236,45 +236,45 @@ class SalaryCalculation {
 
     // Arbeitgeber-Beiträge
     items.add(DeductionItem(
-      'AHV (Employer)',
+      LanguageService.tr(context, 'ahvEmployer'),
       ahvEmployerContribution,
       isDeduction: true,
-      info: 'Employer contribution AHV: ${ContributionRates().ahvEmployer}%',
+      info: '${LanguageService.tr(context, 'employerContribution')} AHV: ${ContributionRates().ahvEmployer}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
-      'IV (Employer)',
+      LanguageService.tr(context, 'ivEmployer'),
       ivEmployerContribution,
       isDeduction: true,
-      info: 'Employer contribution IV: ${ContributionRates().ivEmployer}%',
+      info: '${LanguageService.tr(context, 'employerContribution')} IV: ${ContributionRates().ivEmployer}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
-      'EO (Employer)',
+      LanguageService.tr(context, 'eoEmployer'),
       eoEmployerContribution,
       isDeduction: true,
-      info: 'Employer contribution EO: ${ContributionRates().eoEmployer}%',
+      info: '${LanguageService.tr(context, 'employerContribution')} EO: ${ContributionRates().eoEmployer}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
-      'ALV (Employer)',
+      LanguageService.tr(context, 'alvEmployer'),
       alvEmployerContribution,
       isDeduction: true,
-      info: 'Employer contribution ALV: ${ContributionRates().alvEmployer}%',
+      info: '${LanguageService.tr(context, 'employerContribution')} ALV: ${ContributionRates().alvEmployer}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
-      'NPAIU',
+      LanguageService.tr(context, 'employerNPAIU'),
       nbuContribution,
       isDeduction: true,
-      info: 'Non-Professional Accident Insurance: ${ContributionRates().nbuRate}%',
+      info: '${LanguageService.tr(context, 'employerNPAIU')}: ${ContributionRates().nbuRate}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
-      'Pension Fund (Employer)',
+      LanguageService.tr(context, 'employerPensionFund'),
       pensionEmployerContribution,
       isDeduction: true,
-      info: 'Employer contribution pension fund',
+      info: LanguageService.tr(context, 'employerContribution'),
       isEmployerContribution: true,
     ));
 

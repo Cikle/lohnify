@@ -1,6 +1,13 @@
 class AppTranslations {
   static final Map<String, Map<String, String>> _translations = {
     'de': {
+      'ahvEmployer': 'AHV (Arbeitgeber)',
+      'ivEmployer': 'IV (Arbeitgeber)',
+      'eoEmployer': 'EO (Arbeitgeber)',
+      'alvEmployer': 'ALV (Arbeitgeber)',
+      'employerContribution': 'Arbeitgeberanteil',
+      'employerPensionFund': 'Pensionskasse (Arbeitgeber)',
+      'employerNPAIU': 'Nichtberufsunfallversicherung',
       'appTitle': 'Lohnify',
       'settings': 'Einstellungen',
       'helpAndSupport': 'Hilfe & Support',
@@ -214,6 +221,13 @@ class AppTranslations {
       'employerContribution': 'Employer contribution'
     },
     'fr': {
+      'ahvEmployer': 'AVS (Employeur)',
+      'ivEmployer': 'AI (Employeur)',
+      'eoEmployer': 'APG (Employeur)',
+      'alvEmployer': 'AC (Employeur)',
+      'employerContribution': 'Contribution employeur',
+      'employerPensionFund': 'Caisse de pension (Employeur)',
+      'employerNPAIU': 'Assurance accidents non professionnels',
       'appTitle': 'Lohnify',
       'settings': 'Paramètres',
       'helpAndSupport': 'Aide & Support',
