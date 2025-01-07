@@ -230,7 +230,7 @@ class CalculationDetailsScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(LanguageService.tr(context, labelKey) != labelKey 
+          Text(LanguageService.tr(context, labelKey) != labelKey
               ? LanguageService.tr(context, labelKey)
               : labelKey),
           Text(
