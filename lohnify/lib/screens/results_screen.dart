@@ -70,6 +70,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                           'label': item.label,
                           'amount': item.amount,
                           'isDeduction': item.isDeduction,
+                          'info': item.info,
                           'isEmployerContribution': item.isEmployerContribution,
                         })
                     .toList(),
@@ -253,9 +254,14 @@ class _ResultsScreenState extends State<ResultsScreen> {
     bool isDeduction = false,
     TextStyle? style,
   }) {
-    final deductionItem = widget.calculation.deductionItems.firstWhere(
-        (item) => item.label == label,
-        orElse: () => DeductionItem(label, amount, isDeduction: isDeduction));
+    final deductionItem = calculation['deductions']
+        ?.firstWhere((item) => item['label'] == label,
+            orElse: () => {
+                  'label': label,
+                  'amount': amount,
+                  'isDeduction': isDeduction,
+                  'info': null
+                });
 
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 4),
@@ -278,10 +284,10 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 ),
               ],
             ),
-            if (deductionItem.info != null) ...[
+            if (deductionItem != null && deductionItem['info'] != null) ...[
               const SizedBox(height: 4),
               Text(
-                deductionItem.info!,
+                deductionItem['info'],
                 style: TextStyle(
                   fontSize: 12,
                   color: Theme.of(context).textTheme.bodySmall?.color,
