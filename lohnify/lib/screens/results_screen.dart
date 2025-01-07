@@ -65,7 +65,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 'hasChurchTax': widget.hasChurchTax,
                 'numberOfChildren': widget.numberOfChildren,
                 'has13thSalary': widget.has13thSalary,
-                'deductions': widget.calculation.deductionItems
+                'deductions': widget.calculation.getDeductionItems(context)
                     .map((item) => {
                           'label': item.label,
                           'amount': item.amount,
@@ -111,6 +111,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
             ),
             const Divider(thickness: 1.5),
             ...widget.calculation.deductionItems
+                .getDeductionItems(context)
                 .where((item) => !item.isEmployerContribution || isEmployerView)
                 .map(
                   (item) => _buildResultCard(

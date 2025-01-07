@@ -174,7 +174,7 @@ class SalaryCalculation {
     );
   }
 
-  List<DeductionItem> get deductionItems {
+  List<DeductionItem> getDeductionItems(BuildContext context) {
     final items = [
       DeductionItem('AHV', ahvDeduction, isDeduction: true),
       DeductionItem('IV', ivDeduction, isDeduction: true),
