@@ -274,9 +274,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       const SizedBox(height: 16),
                       TextFormField(
                         controller: _pensionController,
-                        decoration: const InputDecoration(
-                          labelText: 'Pensionskasse (%)',
-                          hintText: 'Optional',
+                        decoration: InputDecoration(
+                          labelText: LanguageService.tr(context, 'pensionFund'),
+                          hintText: LanguageService.tr(context, 'optional'),
                         ),
                         keyboardType: const TextInputType.numberWithOptions(
                             decimal: true),
@@ -284,9 +284,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       const SizedBox(height: 16),
                       TextFormField(
                         controller: _additionalInsuranceController,
-                        decoration: const InputDecoration(
-                          labelText: 'Zusatzversicherungen (CHF)',
-                          hintText: 'Optional',
+                        decoration: InputDecoration(
+                          labelText: LanguageService.tr(context, 'additionalInsuranceCHF'),
+                          hintText: LanguageService.tr(context, 'optional'),
                         ),
                         keyboardType: const TextInputType.numberWithOptions(
                             decimal: true),

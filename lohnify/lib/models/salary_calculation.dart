@@ -196,12 +196,12 @@ class SalaryCalculation {
             : 'Custom tax rate: ${effectiveTaxRate.toStringAsFixed(1)}%'));
 
     if (additionalInsurance > 0) {
-      items.add(DeductionItem('Zusatzversicherungen', additionalInsurance,
+      items.add(DeductionItem('Additional Insurance', additionalInsurance,
           isDeduction: true));
     }
 
     if (churchTax > 0) {
-      items.add(DeductionItem('Kirchensteuer', churchTax, isDeduction: true));
+      items.add(DeductionItem('Church Tax', churchTax, isDeduction: true));
     }
 
     // Add benefits
@@ -209,7 +209,7 @@ class SalaryCalculation {
       // Base children's allowance
       final baseAllowance = numberOfChildren * 200.0;
       items.add(DeductionItem(
-          'Kinderzulage (${numberOfChildren} ${numberOfChildren == 1 ? 'Kind' : 'Kinder'})',
+          'Child Allowance (${numberOfChildren} ${numberOfChildren == 1 ? 'child' : 'children'})',
           baseAllowance,
           isDeduction: false,
           info:
@@ -220,18 +220,18 @@ class SalaryCalculation {
         final percentage = 2.0 + (i * 0.5);
         final benefit = grossSalary * (percentage / 100);
         items.add(DeductionItem(
-          'Steuerabzug Kind ${i + 1}',
+          'Tax Deduction Child ${i + 1}',
           benefit,
           isDeduction: false,
           info:
-              'Steuerermässigung: ${percentage.toStringAsFixed(1)}% vom Bruttolohn (${grossSalary.toStringAsFixed(2)} CHF × ${percentage.toStringAsFixed(1)}% = ${benefit.toStringAsFixed(2)} CHF)',
+              'Tax reduction: ${percentage.toStringAsFixed(1)}% of gross salary (${grossSalary.toStringAsFixed(2)} CHF × ${percentage.toStringAsFixed(1)}% = ${benefit.toStringAsFixed(2)} CHF)',
         ));
       }
     }
 
     if (isMarried) {
-      items.add(DeductionItem('Steuerabzug Verheiratet', grossSalary * 0.02,
-          isDeduction: false, info: 'Steuerermässigung für Verheiratete: 2%'));
+      items.add(DeductionItem('Marriage Tax Deduction', grossSalary * 0.02,
+          isDeduction: false, info: 'Tax reduction for married persons: 2%'));
     }
 
     // Arbeitgeber-Beiträge
