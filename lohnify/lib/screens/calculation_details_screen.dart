@@ -91,8 +91,13 @@ class CalculationDetailsScreen extends StatelessWidget {
                   ? 'employerBasicInfo'
                   : 'basicInfo',
               [
-                _buildDetailRow(LanguageService.tr(context, 'grossSalary'),
-                    '${calculation['grossSalary'].toStringAsFixed(2)} CHF'),
+                _buildDetailRow(
+                    calculation['isEmployerView'] == true
+                        ? LanguageService.tr(context, 'totalEmployerCosts')
+                        : LanguageService.tr(context, 'grossSalary'),
+                    calculation['isEmployerView'] == true
+                        ? '${calculation['totalEmployerCosts'].toStringAsFixed(2)} CHF'
+                        : '${calculation['grossSalary'].toStringAsFixed(2)} CHF'),
                 _buildDetailRow(
                     calculation['useCustomTaxRate'] == true
                         ? LanguageService.tr(context, 'customTaxRate')
