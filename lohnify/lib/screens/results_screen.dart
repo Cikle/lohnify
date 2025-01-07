@@ -4,6 +4,8 @@ import '../services/language_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/contribution_rates.dart';
 import 'dart:convert';
+import 'package:provider/provider.dart';
+import '../services/view_type_provider.dart';
 
 class ResultsScreen extends StatefulWidget {
   final SalaryCalculation calculation;
@@ -28,13 +30,14 @@ class ResultsScreen extends StatefulWidget {
 class _ResultsScreenState extends State<ResultsScreen> {
   @override
   Widget build(BuildContext context) {
-    final isEmployerView = Provider.of<ViewTypeProvider>(context).isEmployerView;
-    
+    final isEmployerView =
+        Provider.of<ViewTypeProvider>(context).isEmployerView;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(isEmployerView 
-          ? LanguageService.tr(context, 'employerResults')
-          : LanguageService.tr(context, 'results')),
+        title: Text(isEmployerView
+            ? LanguageService.tr(context, 'employerResults')
+            : LanguageService.tr(context, 'results')),
         actions: [
           IconButton(
             icon: const Icon(Icons.save),
