@@ -103,7 +103,9 @@ class _ResultsScreenState extends State<ResultsScreen> {
               ),
             ),
             const Divider(thickness: 1.5),
-            ...widget.calculation.deductionItems.map(
+            ...widget.calculation.deductionItems
+                .where((item) => !item.isEmployerContribution || isEmployerView)
+                .map(
               (item) => _buildResultCard(
                 item.label,
                 item.amount,

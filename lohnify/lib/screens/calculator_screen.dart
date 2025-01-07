@@ -311,6 +311,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       onPressed: () {
                         _calculateSalary();
                         if (_calculation != null) {
+                          final isEmployerView = 
+                              Provider.of<ViewTypeProvider>(context, listen: false).isEmployerView;
+                          
                           Navigator.push(
                             context,
                             MaterialPageRoute(
