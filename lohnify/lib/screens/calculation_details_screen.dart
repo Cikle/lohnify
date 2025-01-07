@@ -115,21 +115,30 @@ class CalculationDetailsScreen extends StatelessWidget {
                     '${calculation['netSalary'].toStringAsFixed(2)} CHF'),
                 if (calculation['yearlyGross'] != null) ...[
                   if (calculation['has13thSalary'])
-                    _buildDetailRow(LanguageService.tr(context, 'yearlyGross'),
+                    _buildDetailRow(
+                        context,
+                        LanguageService.tr(context, 'yearlyGross'),
                         '${calculation['yearlyGross'].toStringAsFixed(2)} CHF (inkl. 13.)'),
                   if (!calculation['has13thSalary'])
-                    _buildDetailRow(LanguageService.tr(context, 'yearlyGross'),
+                    _buildDetailRow(
+                        context,
+                        LanguageService.tr(context, 'yearlyGross'),
                         '${calculation['yearlyGross'].toStringAsFixed(2)} CHF'),
                 ],
                 if (calculation['yearlyNet'] != null) ...[
                   if (calculation['has13thSalary'])
-                    _buildDetailRow(LanguageService.tr(context, 'yearlyNet'),
+                    _buildDetailRow(
+                        context,
+                        LanguageService.tr(context, 'yearlyNet'),
                         '${calculation['yearlyNet'].toStringAsFixed(2)} CHF (inkl. 13.)'),
                   if (!calculation['has13thSalary'])
-                    _buildDetailRow(LanguageService.tr(context, 'yearlyNet'),
+                    _buildDetailRow(
+                        context,
+                        LanguageService.tr(context, 'yearlyNet'),
                         '${calculation['yearlyNet'].toStringAsFixed(2)} CHF'),
                 ],
                 _buildDetailRow(
+                    context,
                     LanguageService.tr(context, 'date'),
                     DateFormat('dd.MM.yyyy HH:mm')
                         .format(DateTime.parse(calculation['date']).toLocal())),
@@ -163,10 +172,13 @@ class CalculationDetailsScreen extends StatelessWidget {
               'additionalInsurance',
               [
                 if (calculation['pensionRate'] != null)
-                  _buildDetailRow(LanguageService.tr(context, 'pensionFund'),
+                  _buildDetailRow(
+                      context,
+                      LanguageService.tr(context, 'pensionFund'),
                       '${calculation['pensionRate'].toString()}%'),
                 if (calculation['additionalInsurance'] != null)
                   _buildDetailRow(
+                      context,
                       LanguageService.tr(context, 'additionalInsuranceCHF'),
                       '${calculation['additionalInsurance'].toStringAsFixed(2)} CHF'),
               ],
@@ -176,17 +188,21 @@ class CalculationDetailsScreen extends StatelessWidget {
               'calculationSettings',
               [
                 _buildDetailRow(
+                    context,
                     LanguageService.tr(context, 'thirteenthSalary'),
                     calculation['has13thSalary'] == true
                         ? LanguageService.tr(context, 'yes')
                         : LanguageService.tr(context, 'no')),
                 _buildDetailRow(
+                    context,
                     LanguageService.tr(context, 'useCustomTaxRate'),
                     calculation['useCustomTaxRate'] == true
                         ? LanguageService.tr(context, 'yes')
                         : LanguageService.tr(context, 'no')),
                 if (calculation['useCustomTaxRate'] == true)
-                  _buildDetailRow(LanguageService.tr(context, 'customTaxRate'),
+                  _buildDetailRow(
+                      context,
+                      LanguageService.tr(context, 'customTaxRate'),
                       '${calculation['customTaxRate'].toStringAsFixed(1)}%'),
               ],
             ),
@@ -196,6 +212,7 @@ class CalculationDetailsScreen extends StatelessWidget {
                 'deductions',
                 (calculation['deductions'] as List).map((deduction) {
                   return _buildDetailRow(
+                    context,
                     deduction['label'],
                     '${deduction['isDeduction'] ? '-' : ''}${deduction['amount'].toStringAsFixed(2)} CHF',
                   );
