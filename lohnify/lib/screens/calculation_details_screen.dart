@@ -94,6 +94,7 @@ class CalculationDetailsScreen extends StatelessWidget {
               'basicInfo',
               [
                 _buildDetailRow(
+                    context,
                     calculation['isEmployerView'] == true
                         ? LanguageService.tr(context, 'totalEmployerCosts')
                         : LanguageService.tr(context, 'grossSalary'),
@@ -101,13 +102,16 @@ class CalculationDetailsScreen extends StatelessWidget {
                         ? '${(calculation['totalEmployerCosts'] ?? 0.0).toStringAsFixed(2)} CHF'
                         : '${(calculation['grossSalary'] ?? 0.0).toStringAsFixed(2)} CHF'),
                 _buildDetailRow(
+                    context,
                     calculation['useCustomTaxRate'] == true
                         ? LanguageService.tr(context, 'customTaxRate')
                         : LanguageService.tr(context, 'canton'),
                     calculation['useCustomTaxRate'] == true
                         ? '${calculation['effectiveTaxRate'].toStringAsFixed(1)}%'
                         : '${ContributionRates.defaultCantons[calculation['canton']]?.name} - ${calculation['effectiveTaxRate'].toStringAsFixed(1)}%'),
-                _buildDetailRow(LanguageService.tr(context, 'monthlyNet'),
+                _buildDetailRow(
+                    context,
+                    LanguageService.tr(context, 'monthlyNet'),
                     '${calculation['netSalary'].toStringAsFixed(2)} CHF'),
                 if (calculation['yearlyGross'] != null) ...[
                   if (calculation['has13thSalary'])
@@ -136,17 +140,20 @@ class CalculationDetailsScreen extends StatelessWidget {
               'personalInfo',
               [
                 _buildDetailRow(
+                    context,
                     LanguageService.tr(context, 'married'),
                     calculation['isMarried'] == true
                         ? LanguageService.tr(context, 'yes')
                         : LanguageService.tr(context, 'no')),
                 _buildDetailRow(
+                    context,
                     LanguageService.tr(context, 'churchTax'),
                     calculation['hasChurchTax'] == true
                         ? LanguageService.tr(context, 'yes')
                         : LanguageService.tr(context, 'no')),
                 if (calculation['numberOfChildren'] != null)
                   _buildDetailRow(
+                      context,
                       LanguageService.tr(context, 'numberOfChildren'),
                       calculation['numberOfChildren'].toString()),
               ],
@@ -224,7 +231,7 @@ class CalculationDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDetailRow(String labelKey, String value) {
+  Widget _buildDetailRow(BuildContext context, String labelKey, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
