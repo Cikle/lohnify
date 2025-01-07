@@ -236,35 +236,31 @@ class SalaryCalculation {
 
     // Arbeitgeber-Beiträge
     items.add(DeductionItem(
-      LanguageService.tr(context, 'ahvEmployer'),
+      'AHV (Arbeitgeber)',
       ahvEmployerContribution,
       isDeduction: true,
-      info:
-          '${LanguageService.tr(context, 'employerContribution')} AHV: ${ContributionRates().ahvEmployer}%',
+      info: 'Arbeitgeberanteil AHV: ${ContributionRates().ahvEmployer}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
-      LanguageService.tr(context, 'ivEmployer'),
+      'IV (Arbeitgeber)',
       ivEmployerContribution,
       isDeduction: true,
-      info:
-          '${LanguageService.tr(context, 'employerContribution')} IV: ${ContributionRates().ivEmployer}%',
+      info: 'Arbeitgeberanteil IV: ${ContributionRates().ivEmployer}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
-      LanguageService.tr(context, 'eoEmployer'),
+      'EO (Arbeitgeber)',
       eoEmployerContribution,
       isDeduction: true,
-      info:
-          '${LanguageService.tr(context, 'employerContribution')} EO: ${ContributionRates().eoEmployer}%',
+      info: 'Arbeitgeberanteil EO: ${ContributionRates().eoEmployer}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
-      LanguageService.tr(context, 'alvEmployer'),
+      'ALV (Arbeitgeber)',
       alvEmployerContribution,
       isDeduction: true,
-      info:
-          '${LanguageService.tr(context, 'employerContribution')} ALV: ${ContributionRates().alvEmployer}%',
+      info: 'Arbeitgeberanteil ALV: ${ContributionRates().alvEmployer}%',
       isEmployerContribution: true,
     ));
     items.add(DeductionItem(
