@@ -100,6 +100,8 @@ class AppTranslations {
       'arbeitnehmer': 'Arbeitnehmer',
       'arbeitgeber': 'Arbeitgeber',
       'date': 'Datum',
+      'totalEmployerCosts': 'Gesamtkosten Arbeitgeber',
+      'employerResults': 'Arbeitgeberkosten',
       'numbersOnlyTax': 'Bitte geben Sie nur Zahlen für den Steuersatz ein',
       'taxRateRange': 'Steuersatz muss zwischen 0% und 100% liegen'
     },
@@ -202,7 +204,9 @@ class AppTranslations {
       'no': 'No',
       'arbeitnehmer': 'Employee',
       'arbeitgeber': 'Employer',
-      'date': 'Date'
+      'date': 'Date',
+      'totalEmployerCosts': 'Total Employer Costs',
+      'employerResults': 'Employer Costs'
     },
     'fr': {
       'appTitle': 'Lohnify',
@@ -306,7 +310,9 @@ class AppTranslations {
       'no': 'Non',
       'arbeitnehmer': 'Employé',
       'arbeitgeber': 'Employeur',
-      'date': 'Date'
+      'date': 'Date',
+      'totalEmployerCosts': 'Coûts totaux employeur',
+      'employerResults': 'Coûts employeur'
     },
   };
 

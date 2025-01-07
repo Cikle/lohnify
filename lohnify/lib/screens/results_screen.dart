@@ -94,8 +94,12 @@ class _ResultsScreenState extends State<ResultsScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _buildResultCard(
-              LanguageService.tr(context, 'monthlyGross'),
-              widget.calculation.grossSalary,
+              isEmployerView 
+                ? LanguageService.tr(context, 'totalEmployerCosts')
+                : LanguageService.tr(context, 'monthlyGross'),
+              isEmployerView 
+                ? widget.calculation.totalEmployerCosts
+                : widget.calculation.grossSalary,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
