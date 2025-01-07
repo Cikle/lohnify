@@ -5,6 +5,7 @@ import 'screens/home_screen.dart';
 import 'services/language_service.dart';
 import 'services/theme_service.dart';
 import 'package:provider/provider.dart';
+import 'services/view_type_provider.dart'; // Add this line to import ViewTypeProvider
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

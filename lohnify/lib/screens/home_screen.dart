@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../services/navigation_service.dart';
 import '../services/language_service.dart';
+import '../services/view_type_provider.dart';
 import 'calculator_screen.dart';
 import 'settings_screen.dart';
 import 'info_screen.dart';
@@ -16,11 +18,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late bool _isEmployerView;
-  
+
   @override
   void initState() {
     super.initState();
-    _isEmployerView = Provider.of<ViewTypeProvider>(context, listen: false).isEmployerView;
+    _isEmployerView =
+        Provider.of<ViewTypeProvider>(context, listen: false).isEmployerView;
   }
 
   @override
@@ -55,15 +58,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       ButtonSegment<bool>(
                         value: true,
-                        label:
-                            Text(LanguageService.tr(context, 'arbeitgeber')),
+                        label: Text(LanguageService.tr(context, 'arbeitgeber')),
                       ),
                     ],
                     selected: {_isEmployerView},
                     onSelectionChanged: (Set<bool> newSelection) {
                       setState(() {
                         _isEmployerView = newSelection.first;
-                        Provider.of<ViewTypeProvider>(context, listen: false).toggleView();
+                        Provider.of<ViewTypeProvider>(context, listen: false)
+                            .toggleView();
                       });
                     },
                   ),

@@ -48,6 +48,20 @@ class CalculationDetailsScreen extends StatelessWidget {
                 customTaxRate: calculation['effectiveTaxRate'],
                 canton: calculation['canton'],
                 useCustomTaxRate: calculation['useCustomTaxRate'],
+                ahvEmployerContribution: calculation['employerContributions']
+                    .firstWhere((d) => d['label'] == 'AHV')['amount'],
+                ivEmployerContribution: calculation['employerContributions']
+                    .firstWhere((d) => d['label'] == 'IV')['amount'],
+                eoEmployerContribution: calculation['employerContributions']
+                    .firstWhere((d) => d['label'] == 'EO')['amount'],
+                alvEmployerContribution: calculation['employerContributions']
+                    .firstWhere((d) => d['label'] == 'ALV')['amount'],
+                nbuContribution: calculation['employerContributions']
+                    .firstWhere((d) => d['label'] == 'NBU')['amount'],
+                pensionEmployerContribution:
+                    calculation['employerContributions'].firstWhere(
+                        (d) => d['label'] == 'Pensionskasse')['amount'],
+                totalEmployerCosts: calculation['totalEmployerCosts'],
               );
 
               Navigator.push(
