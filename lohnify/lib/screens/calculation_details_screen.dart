@@ -64,15 +64,16 @@ class CalculationDetailsScreen extends StatelessWidget {
                 totalEmployerCosts: calculation['totalEmployerCosts'],
               );
 
+              if (!mounted) return;
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => ResultsScreen(
                     calculation: calc,
-                    has13thSalary: calculation['has13thSalary'],
-                    isMarried: calculation['isMarried'],
-                    hasChurchTax: calculation['hasChurchTax'],
-                    numberOfChildren: calculation['numberOfChildren'],
+                    has13thSalary: calculation['has13thSalary'] ?? false,
+                    isMarried: calculation['isMarried'] ?? false,
+                    hasChurchTax: calculation['hasChurchTax'] ?? false,
+                    numberOfChildren: calculation['numberOfChildren'] ?? 0,
                   ),
                 ),
               );

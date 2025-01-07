@@ -70,8 +70,10 @@ class _ResultsScreenState extends State<ResultsScreen> {
                           'label': item.label,
                           'amount': item.amount,
                           'isDeduction': item.isDeduction,
+                          'isEmployerContribution': item.isEmployerContribution,
                         })
                     .toList(),
+                'totalEmployerCosts': widget.calculation.totalEmployerCosts,
               };
 
               calculations.add(json.encode(calculationData));
