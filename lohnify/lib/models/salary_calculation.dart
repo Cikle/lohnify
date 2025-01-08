@@ -181,7 +181,9 @@ class SalaryCalculation {
       DeductionItem('IV', ivDeduction, isDeduction: true),
       DeductionItem('EO', eoDeduction, isDeduction: true),
       DeductionItem('ALV', alvDeduction, isDeduction: true),
-      DeductionItem(LanguageService.tr(context, 'pensionFund'), pensionDeduction, isDeduction: true),
+      DeductionItem(
+          LanguageService.tr(context, 'pensionFund'), pensionDeduction,
+          isDeduction: true),
     ];
 
     // Add tax deduction
@@ -231,8 +233,11 @@ class SalaryCalculation {
     }
 
     if (isMarried) {
-      items.add(DeductionItem(LanguageService.tr(context, 'marriageTaxDeduction'), grossSalary * 0.02,
-          isDeduction: false, info: LanguageService.tr(context, 'marriageTaxBenefitInfo')));
+      items.add(DeductionItem(
+          LanguageService.tr(context, 'marriageTaxDeduction'),
+          grossSalary * 0.02,
+          isDeduction: false,
+          info: LanguageService.tr(context, 'marriageTaxBenefitInfo')));
     }
 
     // Arbeitgeber-Beiträge
