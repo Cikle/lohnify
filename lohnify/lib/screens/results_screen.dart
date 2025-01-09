@@ -144,11 +144,15 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 .getDeductionItems(context)
                 .where((item) {
                   if (!isEmployerView) {
-                    // In employee view, exclude all employer contributions
+                    // In employee view, exclude ALL employer-related items
                     if (item.isEmployerContribution || 
                         item.label.contains('(Employer)') ||
                         item.label.contains('(Arbeitgeber)') ||
-                        item.label.contains('(Employeur)')) {
+                        item.label.contains('(Employeur)') ||
+                        item.label.contains('Employer') ||
+                        item.label.contains('employer') ||
+                        item.label.contains('Arbeitgeber') ||
+                        item.label.contains('Employeur')) {
                       return false;
                     }
                   }

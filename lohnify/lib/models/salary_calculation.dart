@@ -135,16 +135,19 @@ class SalaryCalculation {
     // Calculate child benefits
     final childrenAllowance = numberOfChildren * 200.0; // Base monthly allowance per child
     
-    // Calculate total deductions based on view type
-    final totalDeductions = socialSecurityDeductions +
+    // Calculate employee-only deductions
+    final totalDeductions = (baseAmount * (rates.ahvEmployee / 100)) + // AHV employee only
+        (baseAmount * (rates.ivEmployee / 100)) + // IV employee only
+        (baseAmount * (rates.eoEmployee / 100)) + // EO employee only
+        (baseAmount * (rates.alvEmployee / 100)) + // ALV employee only
         insuranceDeductions +
         taxAmount +
         churchTaxAmount;
 
-    // Total employer costs (separate from employee deductions)
+    // Total employer costs (completely separate calculation)
     final totalEmployerCosts = monthlyGross + employerContributions;
 
-    // Calculate final net salary (only using employee deductions)
+    // Calculate final net salary (using only employee deductions)
     final netSalary = monthlyGross - totalDeductions + childrenAllowance;
     final yearlyGross = has13thSalary ? monthlyGross * 13 : monthlyGross * 12;
     final yearlyNet = has13thSalary ? netSalary * 13 : netSalary * 12;
