@@ -341,6 +341,14 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       onPressed: () {
                         setState(() {
                           _formKey.currentState?.reset();
+                          _salaryController.clear();
+                          _childrenController.clear();
+                          _pensionController.clear();
+                          _additionalInsuranceController.clear();
+                          _customTaxRateController.clear();
+                          _isMarried = false;
+                          _hasChurchTax = false;
+                          _has13thSalary = true;
                           _calculation = null;
                         });
                         ScaffoldMessenger.of(context).showSnackBar(
