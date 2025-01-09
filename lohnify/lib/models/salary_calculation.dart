@@ -86,17 +86,37 @@ class SalaryCalculation {
         ? (customTaxRate ?? 0.0)
         : ContributionRates.defaultCantons[canton ?? 'ZH']!.taxRate;
     
-    // Calculate taxable amount after deductions
-    final taxableAmount = baseAmount - 
-        (ahvDeduction + ivDeduction + eoDeduction + alvDeduction + pensionDeduction);
+    // Calculate social security deductions first
+    final socialSecurityDeductions = ahvDeduction + ivDeduction + eoDeduction + alvDeduction;
     
-    final taxAmount = taxableAmount * (effectiveTaxRate / 100);
+    // Calculate pension and insurance deductions
+    final insuranceDeductions = pensionDeduction + additionalInsurance;
     
-    // Church tax is calculated on the tax amount
+    // Calculate taxable base after mandatory deductions
+    final taxableBase = baseAmount - socialSecurityDeductions - insuranceDeductions;
+    
+    // Apply family status adjustments to taxable base
+    double adjustedTaxableBase = taxableBase;
+    if (isMarried) {
+        adjustedTaxableBase *= 0.98; // 2% reduction for married status
+    }
+    
+    // Apply child deductions to taxable base
+    if (numberOfChildren > 0) {
+        for (int i = 0; i < numberOfChildren; i++) {
+            final childDeductionRate = 0.02 + (i * 0.005); // Progressive rate per child
+            adjustedTaxableBase *= (1 - childDeductionRate);
+        }
+    }
+    
+    // Calculate income tax on adjusted base
+    final taxAmount = adjustedTaxableBase * (effectiveTaxRate / 100);
+    
+    // Calculate church tax if applicable
     final churchTaxRate = hasChurchTax ? (isMarried ? 0.10 : 0.08) : 0.0;
     final churchTaxAmount = taxAmount * churchTaxRate;
 
-    // Employer contributions
+    // Calculate employer contributions
     final ahvEmployerContribution = baseAmount * (rates.ahvEmployer / 100);
     final ivEmployerContribution = baseAmount * (rates.ivEmployer / 100);
     final eoEmployerContribution = baseAmount * (rates.eoEmployer / 100);
@@ -104,17 +124,7 @@ class SalaryCalculation {
     final nbuContribution = baseAmount * (rates.nbuRate / 100);
     final pensionEmployerContribution = baseAmount * (pensionRate / 100);
 
-    // Total deductions for employee
-    final employeeDeductions = ahvDeduction +
-        ivDeduction +
-        eoDeduction +
-        alvDeduction +
-        pensionDeduction +
-        additionalInsurance +
-        taxAmount +
-        churchTaxAmount;
-
-    // Total employer contributions
+    // Calculate total employer contributions
     final employerContributions = ahvEmployerContribution +
         ivEmployerContribution +
         eoEmployerContribution +
@@ -122,31 +132,20 @@ class SalaryCalculation {
         nbuContribution +
         pensionEmployerContribution;
 
-    // Benefits calculations
-    final childrenAllowance = numberOfChildren * 200.0; // Base child allowance
+    // Calculate child benefits
+    final childrenAllowance = numberOfChildren * 200.0; // Base monthly allowance per child
     
-    // Progressive tax benefits for children
-    double childTaxBenefit = 0.0;
-    if (numberOfChildren > 0) {
-        for (int i = 0; i < numberOfChildren; i++) {
-            // Each child reduces taxable amount by increasing percentage
-            final childBenefitRate = 0.02 + (i * 0.005);
-            childTaxBenefit += taxableAmount * childBenefitRate;
-        }
-    }
-
-    // Marriage benefit reduces taxable amount
-    final marriageBenefit = isMarried ? taxableAmount * 0.02 : 0.0;
+    // Calculate total deductions
+    final totalDeductions = socialSecurityDeductions +
+        insuranceDeductions +
+        taxAmount +
+        churchTaxAmount;
 
     // Total employer costs
     final totalEmployerCosts = monthlyGross + employerContributions;
 
-    // Net salary calculation
-    final netSalary = monthlyGross - 
-        employeeDeductions + 
-        childrenAllowance +
-        childTaxBenefit +
-        marriageBenefit;
+    // Calculate final net salary
+    final netSalary = monthlyGross - totalDeductions + childrenAllowance;
     final yearlyGross = has13thSalary ? monthlyGross * 13 : monthlyGross * 12;
     final yearlyNet = has13thSalary ? netSalary * 13 : netSalary * 12;
 
