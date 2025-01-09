@@ -5,6 +5,8 @@ import '../models/salary_calculation.dart';
 import '../services/language_service.dart'; // Import the LanguageService
 import 'results_screen.dart'; // Import the ResultsScreen
 import 'package:shared_preferences/shared_preferences.dart'; // Import SharedPreferences
+import 'package:provider/provider.dart'; // Import Provider
+import '../services/view_type_provider.dart'; // Import ViewTypeProvider
 
 class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({super.key});
@@ -54,6 +56,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           customTaxRate: customTaxRate,
           useCustomTaxRate: _useCustomTaxRate,
           canton: _selectedCanton,
+          isEmployerView: false, // Add this line
         );
       });
     }
@@ -313,7 +316,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       onPressed: () {
                         _calculateSalary();
                         if (_calculation != null) {
-                          final isEmployerView = Provider.of<ViewTypeProvider>(context, listen: false).isEmployerView;
+                          final isEmployerView = Provider.of<ViewTypeProvider>(
+                                  context,
+                                  listen: false)
+                              .isEmployerView;
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -323,12 +329,22 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                   _rates,
                                   has13thSalary: _has13thSalary,
                                   isYearlyCalculation: _isYearlyCalculation,
-                                  pensionRate: double.tryParse(_pensionController.text) ?? _rates.defaultPensionRate,
-                                  additionalInsurance: double.tryParse(_additionalInsuranceController.text) ?? 0.0,
+                                  pensionRate: double.tryParse(
+                                          _pensionController.text) ??
+                                      _rates.defaultPensionRate,
+                                  additionalInsurance: double.tryParse(
+                                          _additionalInsuranceController
+                                              .text) ??
+                                      0.0,
                                   hasChurchTax: _hasChurchTax,
                                   isMarried: _isMarried,
-                                  numberOfChildren: int.tryParse(_childrenController.text) ?? 0,
-                                  customTaxRate: _useCustomTaxRate ? double.tryParse(_customTaxRateController.text) : null,
+                                  numberOfChildren:
+                                      int.tryParse(_childrenController.text) ??
+                                          0,
+                                  customTaxRate: _useCustomTaxRate
+                                      ? double.tryParse(
+                                          _customTaxRateController.text)
+                                      : null,
                                   useCustomTaxRate: _useCustomTaxRate,
                                   canton: _selectedCanton,
                                   isEmployerView: isEmployerView,
@@ -336,7 +352,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                                 has13thSalary: _has13thSalary,
                                 isMarried: _isMarried,
                                 hasChurchTax: _hasChurchTax,
-                                numberOfChildren: int.tryParse(_childrenController.text) ?? 0,
+                                numberOfChildren:
+                                    int.tryParse(_childrenController.text) ?? 0,
                               ),
                             ),
                           );
