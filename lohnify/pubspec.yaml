@@ -25,6 +25,19 @@ dev_dependencies:
   json_serializable: ^6.9.0
   mockito: ^5.4.4
   test: ^1.24.9
+  flutter_launcher_icons: ^0.10.0
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon.png"
+  background_color: "#1E1E1E"
+  remove_alpha: true
+  remove_alpha_ios: true
+  remove_alpha_android: true
+  color: "#1E1E1E"
+
+
 
 flutter:
   uses-material-design: true
