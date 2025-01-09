@@ -120,7 +120,7 @@ class SalaryCalculation {
     final churchTaxRate = hasChurchTax ? (isMarried ? 0.10 : 0.08) : 0.0;
     final churchTaxAmount = taxAmount * churchTaxRate;
 
-    // Calculate employer contributions (only if in employer view)
+    // Calculate employer contributions
     final ahvEmployerContribution = baseAmount * (rates.ahvEmployer / 100);
     final ivEmployerContribution = baseAmount * (rates.ivEmployer / 100);
     final eoEmployerContribution = baseAmount * (rates.eoEmployer / 100);
@@ -140,42 +140,17 @@ class SalaryCalculation {
     final childrenAllowance =
         numberOfChildren * 200.0; // Base monthly allowance per child
 
-    // Calculate total deductions based on view type
-    double totalDeductions;
-    if (isEmployerView) {
-      // For employer view, include all deductions
-      totalDeductions = (baseAmount *
-              (rates.ahvEmployee + rates.ahvEmployer) /
-              100) + // Total AHV
-          (baseAmount *
-              (rates.ivEmployee + rates.ivEmployer) /
-              100) + // Total IV
-          (baseAmount *
-              (rates.eoEmployee + rates.eoEmployer) /
-              100) + // Total EO
-          (baseAmount *
-              (rates.alvEmployee + rates.alvEmployer) /
-              100) + // Total ALV
-          insuranceDeductions +
-          taxAmount +
-          churchTaxAmount;
-    } else {
-      // For employee view, only include employee portion
-      totalDeductions =
-          (baseAmount * rates.ahvEmployee / 100) + // AHV employee only
-              (baseAmount * rates.ivEmployee / 100) + // IV employee only
-              (baseAmount * rates.eoEmployee / 100) + // EO employee only
-              (baseAmount * rates.alvEmployee / 100) + // ALV employee only
-              insuranceDeductions +
-              taxAmount +
-              churchTaxAmount;
-    }
+    // Calculate total deductions (employee portion only)
+    final totalDeductions = socialSecurityDeductions +
+        insuranceDeductions +
+        taxAmount +
+        churchTaxAmount;
 
-    // Total employer costs (completely separate calculation)
-    final totalEmployerCosts = monthlyGross + employerContributions;
-
-    // Calculate final net salary (using appropriate deductions)
+    // Calculate final net salary (always using employee deductions only)
     final netSalary = monthlyGross - totalDeductions + childrenAllowance;
+
+    // Total employer costs
+    final totalEmployerCosts = monthlyGross + employerContributions;
     final yearlyGross = has13thSalary ? monthlyGross * 13 : monthlyGross * 12;
     final yearlyNet = has13thSalary ? netSalary * 13 : netSalary * 12;
 
