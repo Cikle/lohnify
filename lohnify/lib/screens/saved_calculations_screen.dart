@@ -74,7 +74,7 @@ class _SavedCalculationsScreenState extends State<SavedCalculationsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${LanguageService.tr(context, isEmployerView ? 'employerView' : 'employeeView')}',
+                          LanguageService.tr(context, isEmployerView ? 'employerView' : 'employeeView'),
                         ),
                         Text('${date.day}.${date.month}.${date.year}'),
                         Text(

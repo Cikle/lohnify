@@ -212,11 +212,11 @@ class SalaryCalculation {
       // Base children's allowance
       final baseAllowance = numberOfChildren * 200.0;
       items.add(DeductionItem(
-          'Child Allowance (${numberOfChildren} ${numberOfChildren == 1 ? 'child' : 'children'})',
+          'Child Allowance ($numberOfChildren ${numberOfChildren == 1 ? 'child' : 'children'})',
           baseAllowance,
           isDeduction: false,
           info:
-              'Grundzulage: ${numberOfChildren} × 200 CHF = ${baseAllowance.toStringAsFixed(2)} CHF'));
+              'Grundzulage: $numberOfChildren × 200 CHF = ${baseAllowance.toStringAsFixed(2)} CHF'));
 
       // Progressive tax benefits for children
       for (int i = 0; i < numberOfChildren; i++) {

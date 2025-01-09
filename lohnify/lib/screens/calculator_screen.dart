@@ -29,7 +29,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   bool _hasChurchTax = false;
   String _selectedCanton = 'ZH';
   bool _has13thSalary = true;
-  bool _isYearlyCalculation = false;
+  final bool _isYearlyCalculation = false;
 
   void _calculateSalary() {
     if (_formKey.currentState?.validate() ?? false) {

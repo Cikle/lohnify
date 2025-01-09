@@ -192,7 +192,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                              '${LanguageService.tr(context, 'monthlyBenefit')}'),
+                              LanguageService.tr(context, 'monthlyBenefit')),
                           Text(
                               '${(widget.numberOfChildren * 200).toStringAsFixed(2)} CHF'),
                         ],
@@ -216,7 +216,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                    '${LanguageService.tr(context, 'monthlyBenefit')}'),
+                                    LanguageService.tr(context, 'monthlyBenefit')),
                                 Text('${benefit.toStringAsFixed(2)} CHF'),
                               ],
                             ),
