@@ -143,8 +143,8 @@ class _ResultsScreenState extends State<ResultsScreen> {
             ...widget.calculation
                 .getDeductionItems(context)
                 .where((item) {
-                  // Only show employer contributions in employer view
-                  if (item.isEmployerContribution && !isEmployerView) {
+                  // Filter out employer contributions in employee view
+                  if (!isEmployerView && item.isEmployerContribution) {
                     return false;
                   }
                   return true;
