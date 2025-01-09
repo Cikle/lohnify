@@ -313,16 +313,30 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       onPressed: () {
                         _calculateSalary();
                         if (_calculation != null) {
+                          final isEmployerView = Provider.of<ViewTypeProvider>(context, listen: false).isEmployerView;
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => ResultsScreen(
-                                calculation: _calculation!,
+                                calculation: SalaryCalculation.calculate(
+                                  double.parse(_salaryController.text),
+                                  _rates,
+                                  has13thSalary: _has13thSalary,
+                                  isYearlyCalculation: _isYearlyCalculation,
+                                  pensionRate: double.tryParse(_pensionController.text) ?? _rates.defaultPensionRate,
+                                  additionalInsurance: double.tryParse(_additionalInsuranceController.text) ?? 0.0,
+                                  hasChurchTax: _hasChurchTax,
+                                  isMarried: _isMarried,
+                                  numberOfChildren: int.tryParse(_childrenController.text) ?? 0,
+                                  customTaxRate: _useCustomTaxRate ? double.tryParse(_customTaxRateController.text) : null,
+                                  useCustomTaxRate: _useCustomTaxRate,
+                                  canton: _selectedCanton,
+                                  isEmployerView: isEmployerView,
+                                ),
                                 has13thSalary: _has13thSalary,
                                 isMarried: _isMarried,
                                 hasChurchTax: _hasChurchTax,
-                                numberOfChildren:
-                                    int.tryParse(_childrenController.text) ?? 0,
+                                numberOfChildren: int.tryParse(_childrenController.text) ?? 0,
                               ),
                             ),
                           );

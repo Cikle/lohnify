@@ -68,6 +68,7 @@ class SalaryCalculation {
     double? customTaxRate,
     bool useCustomTaxRate = false,
     String? canton,
+    required bool isEmployerView,
   }) {
     // Convert yearly to monthly if needed
     final monthlyGross = isYearlyCalculation ? inputSalary / 12 : inputSalary;
