@@ -90,12 +90,15 @@ class _ResultsScreenState extends State<ResultsScreen> {
                     : ContributionRates
                         .defaultCantons[widget.calculation.canton ?? 'ZH']
                         ?.taxRate,
-                'isMarried': widget.isMarried,
                 'hasChurchTax': widget.hasChurchTax,
                 'numberOfChildren': widget.numberOfChildren,
                 'has13thSalary': widget.has13thSalary,
+                'isMarried': widget.isMarried,
                 'deductions': widget.calculation
                     .getDeductionItems(context)
+                    .where((item) =>
+                        item.label !=
+                        LanguageService.tr(context, 'marriageTaxDeduction'))
                     .map((item) => {
                           'label': _getLabelKey(item.label, context),
                           'amount': item.amount,
@@ -140,37 +143,37 @@ class _ResultsScreenState extends State<ResultsScreen> {
               ),
             ),
             const Divider(thickness: 1.5),
-            ...widget.calculation
-                .getDeductionItems(context)
-                .where((item) {
-                  if (!isEmployerView) {
-                    // In employee view, exclude ALL employer-related items
-                    if (item.isEmployerContribution || 
-                        item.label.contains('(Employer)') ||
-                        item.label.contains('(Arbeitgeber)') ||
-                        item.label.contains('(Employeur)') ||
-                        item.label.contains('Employer') ||
-                        item.label.contains('employer') ||
-                        item.label.contains('Arbeitgeber') ||
-                        item.label.contains('Employeur')) {
-                      return false;
-                    }
-                  }
-                  return true;
-                })
-                .map(
-                  (item) => _buildResultCard(
-                    item.label,
-                    item.amount,
-                    isDeduction: item.isDeduction,
-                  ),
-                ),
+            ...widget.calculation.getDeductionItems(context).where((item) {
+              if (!isEmployerView) {
+                // In employee view, exclude ALL employer-related items
+                if (item.isEmployerContribution ||
+                    item.label.contains('(Employer)') ||
+                    item.label.contains('(Arbeitgeber)') ||
+                    item.label.contains('(Employeur)') ||
+                    item.label.contains('Employer') ||
+                    item.label.contains('employer') ||
+                    item.label.contains('Arbeitgeber') ||
+                    item.label.contains('Employeur')) {
+                  return false;
+                }
+              }
+              return item.label !=
+                  LanguageService.tr(context, 'marriageTaxDeduction');
+            }).map(
+              (item) => _buildResultCard(
+                item.label,
+                item.amount,
+                isDeduction: item.isDeduction,
+              ),
+            ),
             const Divider(thickness: 2),
             _buildResultCard(
               LanguageService.tr(context, 'totalDeductions'),
               widget.calculation
                   .getDeductionItems(context)
-                  .where((item) => item.isDeduction && (!item.isEmployerContribution || isEmployerView))
+                  .where((item) =>
+                      item.isDeduction &&
+                      (!item.isEmployerContribution || isEmployerView))
                   .fold(0.0, (sum, item) => sum + item.amount),
               isDeduction: true,
               style: const TextStyle(
@@ -179,6 +182,47 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 color: Colors.red,
               ),
             ),
+            if (widget.isMarried) ...[
+              const SizedBox(height: 16),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        LanguageService.tr(context, 'marriageTaxDeduction'),
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        LanguageService.tr(context, 'marriageTaxBenefitInfo'),
+                        style: TextStyle(
+                          color: Theme.of(context).textTheme.bodySmall?.color,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(LanguageService.tr(context, 'monthlyBenefit')),
+                          Text(
+                            '${(widget.calculation.grossSalary * 0.02).toStringAsFixed(2)} CHF',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
             if (widget.numberOfChildren > 0) ...[
               const SizedBox(height: 16),
               Card(
@@ -206,8 +250,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                              LanguageService.tr(context, 'monthlyBenefit')),
+                          Text(LanguageService.tr(context, 'monthlyBenefit')),
                           Text(
                               '${(widget.numberOfChildren * 200).toStringAsFixed(2)} CHF'),
                         ],
@@ -230,8 +273,8 @@ class _ResultsScreenState extends State<ResultsScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                    LanguageService.tr(context, 'monthlyBenefit')),
+                                Text(LanguageService.tr(
+                                    context, 'monthlyBenefit')),
                                 Text('${benefit.toStringAsFixed(2)} CHF'),
                               ],
                             ),
