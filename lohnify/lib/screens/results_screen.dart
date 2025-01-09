@@ -170,7 +170,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
               LanguageService.tr(context, 'totalDeductions'),
               widget.calculation
                   .getDeductionItems(context)
-                  .where((item) => item.isDeduction)
+                  .where((item) => item.isDeduction && (!item.isEmployerContribution || isEmployerView))
                   .fold(0.0, (sum, item) => sum + item.amount),
               isDeduction: true,
               style: const TextStyle(

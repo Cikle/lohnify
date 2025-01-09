@@ -135,19 +135,32 @@ class SalaryCalculation {
     // Calculate child benefits
     final childrenAllowance = numberOfChildren * 200.0; // Base monthly allowance per child
     
-    // Calculate employee-only deductions
-    final totalDeductions = (baseAmount * (rates.ahvEmployee / 100)) + // AHV employee only
-        (baseAmount * (rates.ivEmployee / 100)) + // IV employee only
-        (baseAmount * (rates.eoEmployee / 100)) + // EO employee only
-        (baseAmount * (rates.alvEmployee / 100)) + // ALV employee only
-        insuranceDeductions +
-        taxAmount +
-        churchTaxAmount;
+    // Calculate total deductions based on view type
+    double totalDeductions;
+    if (isEmployerView) {
+        // For employer view, include all deductions
+        totalDeductions = (baseAmount * (rates.ahvEmployee + rates.ahvEmployer) / 100) + // Total AHV
+            (baseAmount * (rates.ivEmployee + rates.ivEmployer) / 100) + // Total IV
+            (baseAmount * (rates.eoEmployee + rates.eoEmployer) / 100) + // Total EO
+            (baseAmount * (rates.alvEmployee + rates.alvEmployer) / 100) + // Total ALV
+            insuranceDeductions +
+            taxAmount +
+            churchTaxAmount;
+    } else {
+        // For employee view, only include employee portion
+        totalDeductions = (baseAmount * rates.ahvEmployee / 100) + // AHV employee only
+            (baseAmount * rates.ivEmployee / 100) + // IV employee only
+            (baseAmount * rates.eoEmployee / 100) + // EO employee only
+            (baseAmount * rates.alvEmployee / 100) + // ALV employee only
+            insuranceDeductions +
+            taxAmount +
+            churchTaxAmount;
+    }
 
     // Total employer costs (completely separate calculation)
     final totalEmployerCosts = monthlyGross + employerContributions;
 
-    // Calculate final net salary (using only employee deductions)
+    // Calculate final net salary (using appropriate deductions)
     final netSalary = monthlyGross - totalDeductions + childrenAllowance;
     final yearlyGross = has13thSalary ? monthlyGross * 13 : monthlyGross * 12;
     final yearlyNet = has13thSalary ? netSalary * 13 : netSalary * 12;
