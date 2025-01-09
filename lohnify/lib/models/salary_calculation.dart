@@ -71,26 +71,32 @@ class SalaryCalculation {
   }) {
     // Convert yearly to monthly if needed
     final monthlyGross = isYearlyCalculation ? inputSalary / 12 : inputSalary;
+    // Base salary calculations
     final baseAmount = monthlyGross.clamp(0, rates.maxContributionBase);
-
+    
+    // Employee social security deductions
     final ahvDeduction = baseAmount * (rates.ahvEmployee / 100);
     final ivDeduction = baseAmount * (rates.ivEmployee / 100);
     final eoDeduction = baseAmount * (rates.eoEmployee / 100);
     final alvDeduction = baseAmount * (rates.alvEmployee / 100);
-
     final pensionDeduction = baseAmount * (pensionRate / 100);
-    // Apply tax rate from user input or canton rate
+
+    // Tax calculations
     final effectiveTaxRate = useCustomTaxRate
         ? (customTaxRate ?? 0.0)
         : ContributionRates.defaultCantons[canton ?? 'ZH']!.taxRate;
-    final taxAmount = baseAmount * (effectiveTaxRate / 100);
-
-    // Calculate church tax after tax deduction
+    
+    // Calculate taxable amount after deductions
+    final taxableAmount = baseAmount - 
+        (ahvDeduction + ivDeduction + eoDeduction + alvDeduction + pensionDeduction);
+    
+    final taxAmount = taxableAmount * (effectiveTaxRate / 100);
+    
+    // Church tax is calculated on the tax amount
     final churchTaxRate = hasChurchTax ? (isMarried ? 0.10 : 0.08) : 0.0;
-    final churchTaxAmount = baseAmount * churchTaxRate;
+    final churchTaxAmount = taxAmount * churchTaxRate;
 
-    // Calculate base deductions
-
+    // Employer contributions
     final ahvEmployerContribution = baseAmount * (rates.ahvEmployer / 100);
     final ivEmployerContribution = baseAmount * (rates.ivEmployer / 100);
     final eoEmployerContribution = baseAmount * (rates.eoEmployer / 100);
@@ -98,6 +104,7 @@ class SalaryCalculation {
     final nbuContribution = baseAmount * (rates.nbuRate / 100);
     final pensionEmployerContribution = baseAmount * (pensionRate / 100);
 
+    // Total deductions for employee
     final employeeDeductions = ahvDeduction +
         ivDeduction +
         eoDeduction +
@@ -107,6 +114,7 @@ class SalaryCalculation {
         taxAmount +
         churchTaxAmount;
 
+    // Total employer contributions
     final employerContributions = ahvEmployerContribution +
         ivEmployerContribution +
         eoEmployerContribution +
@@ -114,35 +122,28 @@ class SalaryCalculation {
         nbuContribution +
         pensionEmployerContribution;
 
-    final totalDeductions =
-        employeeDeductions + (useCustomTaxRate ? 0 : employerContributions);
-
-    // Children benefits calculation
-    final childrenAllowance = numberOfChildren * 200.0; // Base allowance
+    // Benefits calculations
+    final childrenAllowance = numberOfChildren * 200.0; // Base child allowance
+    
+    // Progressive tax benefits for children
     double childTaxBenefit = 0.0;
-
     if (numberOfChildren > 0) {
-      // Progressive tax benefit per child
-      for (int i = 0; i < numberOfChildren; i++) {
-        childTaxBenefit +=
-            baseAmount * (0.02 + (i * 0.005)); // Increasing benefit per child
-      }
+        for (int i = 0; i < numberOfChildren; i++) {
+            // Each child reduces taxable amount by increasing percentage
+            final childBenefitRate = 0.02 + (i * 0.005);
+            childTaxBenefit += taxableAmount * childBenefitRate;
+        }
     }
 
-    // Marriage tax benefit
-    double marriageBenefit = isMarried ? baseAmount * 0.02 : 0.0;
+    // Marriage benefit reduces taxable amount
+    final marriageBenefit = isMarried ? taxableAmount * 0.02 : 0.0;
 
-    // Gesamtkosten für Arbeitgeber
-    final totalEmployerCosts = monthlyGross +
-        ahvEmployerContribution +
-        ivEmployerContribution +
-        eoEmployerContribution +
-        alvEmployerContribution +
-        nbuContribution +
-        pensionEmployerContribution;
+    // Total employer costs
+    final totalEmployerCosts = monthlyGross + employerContributions;
 
-    final netSalary = monthlyGross -
-        totalDeductions +
+    // Net salary calculation
+    final netSalary = monthlyGross - 
+        employeeDeductions + 
         childrenAllowance +
         childTaxBenefit +
         marriageBenefit;
