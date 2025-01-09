@@ -73,7 +73,7 @@ class SalaryCalculation {
     final monthlyGross = isYearlyCalculation ? inputSalary / 12 : inputSalary;
     // Base salary calculations
     final baseAmount = monthlyGross.clamp(0, rates.maxContributionBase);
-    
+
     // Employee social security deductions
     final ahvDeduction = baseAmount * (rates.ahvEmployee / 100);
     final ivDeduction = baseAmount * (rates.ivEmployee / 100);
@@ -85,33 +85,36 @@ class SalaryCalculation {
     final effectiveTaxRate = useCustomTaxRate
         ? (customTaxRate ?? 0.0)
         : ContributionRates.defaultCantons[canton ?? 'ZH']!.taxRate;
-    
+
     // Calculate social security deductions first
-    final socialSecurityDeductions = ahvDeduction + ivDeduction + eoDeduction + alvDeduction;
-    
+    final socialSecurityDeductions =
+        ahvDeduction + ivDeduction + eoDeduction + alvDeduction;
+
     // Calculate pension and insurance deductions
     final insuranceDeductions = pensionDeduction + additionalInsurance;
-    
+
     // Calculate taxable base after mandatory deductions
-    final taxableBase = baseAmount - socialSecurityDeductions - insuranceDeductions;
-    
+    final taxableBase =
+        baseAmount - socialSecurityDeductions - insuranceDeductions;
+
     // Apply family status adjustments to taxable base
     double adjustedTaxableBase = taxableBase;
     if (isMarried) {
-        adjustedTaxableBase *= 0.98; // 2% reduction for married status
+      adjustedTaxableBase *= 0.98; // 2% reduction for married status
     }
-    
+
     // Apply child deductions to taxable base
     if (numberOfChildren > 0) {
-        for (int i = 0; i < numberOfChildren; i++) {
-            final childDeductionRate = 0.02 + (i * 0.005); // Progressive rate per child
-            adjustedTaxableBase *= (1 - childDeductionRate);
-        }
+      for (int i = 0; i < numberOfChildren; i++) {
+        final childDeductionRate =
+            0.02 + (i * 0.005); // Progressive rate per child
+        adjustedTaxableBase *= (1 - childDeductionRate);
+      }
     }
-    
+
     // Calculate income tax on adjusted base
     final taxAmount = adjustedTaxableBase * (effectiveTaxRate / 100);
-    
+
     // Calculate church tax if applicable
     final churchTaxRate = hasChurchTax ? (isMarried ? 0.10 : 0.08) : 0.0;
     final churchTaxAmount = taxAmount * churchTaxRate;
@@ -133,28 +136,38 @@ class SalaryCalculation {
         pensionEmployerContribution;
 
     // Calculate child benefits
-    final childrenAllowance = numberOfChildren * 200.0; // Base monthly allowance per child
-    
+    final childrenAllowance =
+        numberOfChildren * 200.0; // Base monthly allowance per child
+
     // Calculate total deductions based on view type
     double totalDeductions;
     if (isEmployerView) {
-        // For employer view, include all deductions
-        totalDeductions = (baseAmount * (rates.ahvEmployee + rates.ahvEmployer) / 100) + // Total AHV
-            (baseAmount * (rates.ivEmployee + rates.ivEmployer) / 100) + // Total IV
-            (baseAmount * (rates.eoEmployee + rates.eoEmployer) / 100) + // Total EO
-            (baseAmount * (rates.alvEmployee + rates.alvEmployer) / 100) + // Total ALV
-            insuranceDeductions +
-            taxAmount +
-            churchTaxAmount;
+      // For employer view, include all deductions
+      totalDeductions = (baseAmount *
+              (rates.ahvEmployee + rates.ahvEmployer) /
+              100) + // Total AHV
+          (baseAmount *
+              (rates.ivEmployee + rates.ivEmployer) /
+              100) + // Total IV
+          (baseAmount *
+              (rates.eoEmployee + rates.eoEmployer) /
+              100) + // Total EO
+          (baseAmount *
+              (rates.alvEmployee + rates.alvEmployer) /
+              100) + // Total ALV
+          insuranceDeductions +
+          taxAmount +
+          churchTaxAmount;
     } else {
-        // For employee view, only include employee portion
-        totalDeductions = (baseAmount * rates.ahvEmployee / 100) + // AHV employee only
-            (baseAmount * rates.ivEmployee / 100) + // IV employee only
-            (baseAmount * rates.eoEmployee / 100) + // EO employee only
-            (baseAmount * rates.alvEmployee / 100) + // ALV employee only
-            insuranceDeductions +
-            taxAmount +
-            churchTaxAmount;
+      // For employee view, only include employee portion
+      totalDeductions =
+          (baseAmount * rates.ahvEmployee / 100) + // AHV employee only
+              (baseAmount * rates.ivEmployee / 100) + // IV employee only
+              (baseAmount * rates.eoEmployee / 100) + // EO employee only
+              (baseAmount * rates.alvEmployee / 100) + // ALV employee only
+              insuranceDeductions +
+              taxAmount +
+              churchTaxAmount;
     }
 
     // Total employer costs (completely separate calculation)
