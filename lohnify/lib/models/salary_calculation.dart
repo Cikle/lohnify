@@ -135,16 +135,16 @@ class SalaryCalculation {
     // Calculate child benefits
     final childrenAllowance = numberOfChildren * 200.0; // Base monthly allowance per child
     
-    // Calculate total deductions
+    // Calculate employee-only deductions
     final totalDeductions = socialSecurityDeductions +
         insuranceDeductions +
         taxAmount +
         churchTaxAmount;
 
-    // Total employer costs
+    // Total employer costs (separate from employee deductions)
     final totalEmployerCosts = monthlyGross + employerContributions;
 
-    // Calculate final net salary
+    // Calculate final net salary (only using employee deductions)
     final netSalary = monthlyGross - totalDeductions + childrenAllowance;
     final yearlyGross = has13thSalary ? monthlyGross * 13 : monthlyGross * 12;
     final yearlyNet = has13thSalary ? netSalary * 13 : netSalary * 12;
