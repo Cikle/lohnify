@@ -116,7 +116,7 @@ class SalaryCalculation {
     final churchTaxRate = hasChurchTax ? (isMarried ? 0.10 : 0.08) : 0.0;
     final churchTaxAmount = taxAmount * churchTaxRate;
 
-    // Calculate employer contributions
+    // Calculate employer contributions (only if in employer view)
     final ahvEmployerContribution = baseAmount * (rates.ahvEmployer / 100);
     final ivEmployerContribution = baseAmount * (rates.ivEmployer / 100);
     final eoEmployerContribution = baseAmount * (rates.eoEmployer / 100);
@@ -135,7 +135,7 @@ class SalaryCalculation {
     // Calculate child benefits
     final childrenAllowance = numberOfChildren * 200.0; // Base monthly allowance per child
     
-    // Calculate employee-only deductions
+    // Calculate total deductions (employee-only)
     final totalDeductions = socialSecurityDeductions +
         insuranceDeductions +
         taxAmount +
