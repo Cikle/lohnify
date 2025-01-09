@@ -142,7 +142,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
             const Divider(thickness: 1.5),
             ...widget.calculation
                 .getDeductionItems(context)
-                .where((item) => !item.isEmployerContribution || isEmployerView)
+                .where((item) => isEmployerView || !item.isEmployerContribution)
                 .map(
                   (item) => _buildResultCard(
                     item.label,
