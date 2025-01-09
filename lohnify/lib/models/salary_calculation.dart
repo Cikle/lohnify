@@ -135,7 +135,7 @@ class SalaryCalculation {
     // Calculate child benefits
     final childrenAllowance = numberOfChildren * 200.0; // Base monthly allowance per child
     
-    // Calculate total deductions (employee-only)
+    // Calculate total deductions based on view type
     final totalDeductions = socialSecurityDeductions +
         insuranceDeductions +
         taxAmount +
