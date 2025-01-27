@@ -27,6 +27,10 @@ Die Berechnung erfolgt in Echtzeit und zeigt Ihnen detailliert alle Abzüge und 
 ### Speicherfunktion
 "Jede Berechnung kann mit einem Klick gespeichert werden. In der Übersicht Ihrer gespeicherten Berechnungen können Sie verschiedene Szenarien vergleichen und die Entwicklung Ihrer Lohnberechnungen nachverfolgen."
 
+### Lohnrechner (Code-Demo, 20–30 Sekunden)
+
+"Herzstück der App ist unser Lohnrechner. Lassen Sie mich Ihnen kurz zeigen, wie dieser funktioniert:"
+
 ## Interaktion & Design (20 Sekunden)
 "Die Benutzeroberfläche wurde für maximale Benutzerfreundlichkeit optimiert:
 - Klare, übersichtliche Menüführung
